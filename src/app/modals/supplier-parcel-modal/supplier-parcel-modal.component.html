@@ -1,0 +1,34 @@
+<div class="modal fade" #supplierParcelModal id="supplierParcel" tabindex="-1" aria-labelledby="supplierParcelLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="supplierParcelLabel">Add Parcal</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div [formGroup]="suppliesParcelForm">
+
+          <div class="mb-3">
+            <label for="name" class="form-label">Tracking Number: </label>
+            <input id="name" type="text" formControlName="trackingNumber" class="form-control" >
+          </div>
+          <div class="mb-3">
+            <label for="phone" class="form-label">Post Code: </label>
+            <input id="phone" type="text" formControlName="postCode" class="form-control" >
+          </div>
+          <div class="mb-3">
+            <label for="supplier" class="form-label">Supplier: </label>
+            <ngx-select-dropdown [config]="config" [options]="suppliers" (change)="supplierChanged($event)"></ngx-select-dropdown>
+          </div>
+          <div class="mb-3">
+            <label for="receiver" class="form-label">Receiver: </label>
+            <ngx-select-dropdown [config]="config" [options]="receivers" (change)="receiverChanged($event)"></ngx-select-dropdown>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-success" (click)="createSupplierParcel()">Create</button>
+      </div>
+    </div>
+  </div>
+</div>

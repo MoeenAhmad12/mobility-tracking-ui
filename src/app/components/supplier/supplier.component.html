@@ -1,0 +1,76 @@
+
+<!-- <div class="d-flex align-items-end flex-column bd-highlight mb-3">
+  <button class="btn btn-success" style="width: 130px;" data-bs-toggle="modal" data-bs-target="#supplierModal">Add Supplier</button>
+</div> -->
+<div class="m-3 mat-elevation-z8">
+  <mat-table #table [dataSource]="dataSource" matSort class="mat-cell">
+    <ng-container matColumnDef="Name">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Name</mat-header-cell>
+      <mat-cell *matCellDef="let row" >{{row.Name}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="Phone">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Phone</mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.Phone}}</mat-cell>
+    </ng-container>
+
+    
+    <ng-container matColumnDef="Address">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Address</mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.Address}}</mat-cell>
+    </ng-container>
+
+
+    <!-- actions -->
+    <ng-container matColumnDef="Actions">
+      <mat-header-cell *matHeaderCellDef>
+        <button mat-icon-button color="primary" >
+          <mat-icon aria-label="Example icon-button with a heart icon" data-bs-toggle="modal" data-bs-target="#supplierModal">add</mat-icon>
+        </button>
+      </mat-header-cell>
+
+      <mat-cell *matCellDef="let row; let i=index;">
+        <button mat-icon-button color="accent">
+          <mat-icon aria-label="launch">launch</mat-icon>
+        </button>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+</div>
+
+
+<div class="modal fade" #closeModal id="supplierModal" tabindex="-1" aria-labelledby="supplierModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="supplierModalLabel">Create Supplier</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div [formGroup]="supplierForm">
+
+          <div class="mb-3">
+            <label for="name" class="form-label">Name: </label>
+            <input id="name" type="text" formControlName="name" class="form-control" >
+          </div>
+          <div class="mb-3">
+            <label for="phone" class="form-label">Phone: </label>
+            <input id="phone" type="text" formControlName="phone" class="form-control" >
+          </div>
+          <div class="mb-3">
+            <label for="address" class="form-label">Address: </label>
+            <textarea id="address" type="text" formControlName="address" class="form-control" >
+            </textarea>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-success" (click)="addSupplier()">Create</button>
+      </div>
+    </div>
+  </div>
+</div>
