@@ -13,7 +13,7 @@ import { DataService } from 'src/app/services/data.service';
 })
 export class VendorPaidItemsComponent implements OnInit {
   vendors: UserModel[] = [];
-  displayedColumns = ['Model', 'Price', 'Tracking_Number', 'Post_Code'];
+  displayedColumns = ['Model', 'Vendor_Price', 'Imei', 'Actions'];
   dataSource =  new MatTableDataSource();
   vendorId:string='';
   config = {
@@ -38,6 +38,7 @@ export class VendorPaidItemsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getVendors()
+    this.getVendorPaidItem()
   }
   vendorChanged(val:any){
     this.vendorId= val.value.Id

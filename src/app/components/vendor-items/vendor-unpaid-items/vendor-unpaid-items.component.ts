@@ -13,7 +13,7 @@ import { DataService } from 'src/app/services/data.service';
 })
 export class VendorUnpaidItemsComponent implements OnInit {
   vendors: UserModel[] = [];
-  displayedColumns = ['Model', 'Price', 'Tracking_Number', 'Post_Code'];
+  displayedColumns = ['Vendor_Price', 'Imei', 'Actions'];
   dataSource =  new MatTableDataSource();
   vendorId:string='';
   config = {
@@ -38,6 +38,7 @@ export class VendorUnpaidItemsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getVendors()
+    this.getVendorUnPaidItem()
   }
   vendorChanged(val:any){
     this.vendorId= val.value.Id
@@ -64,16 +65,11 @@ export class VendorUnpaidItemsComponent implements OnInit {
       response => {
         this.dataSource.data= response.data.rows.map(function(x:any) {
           return {   
-            "Model": x[0], 
-            "Price": x[1], 
-            "Id": x[2], 
-            "Parcel_Id": x[2], 
-            "Is_Received": x[4], 
-            "Is_Paid": x[5], 
-            "Created_At": x[6], 
-            "Paid_At": x[7],
-            "Tracking_Number": x[9], 
-            "Post_Code": x[10] 
+            "Item_Id": x[0], 
+            "Vendor_Price": x[1], 
+            "Imei": x[2], 
+            "Vendor_Paid_At": x[3], 
+            "Receiver_Shipment_Id": x[4]
           }
         })
       },

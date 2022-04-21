@@ -168,14 +168,20 @@ export class DataService {
   }
 
   getVendorUnPaidItem(id:string) : Observable<any>{
-    const url = this.baseUrl + '/GetVendorUnPaidItem?VendorId='+id;
+    var url = this.baseUrl + '/GetVendorUnPaidItem';
+    if(id){
+      url= url+'?VendorId='+id
+    }
     return this.http.get(url).pipe(
       map((response: any) => response)
     );
   }
 
   getVendorPaidItem(id:string) : Observable<any>{
-    const url = this.baseUrl + '/GetVendorPaidItem?VendorId='+id;
+    var url = this.baseUrl + '/GetVendorPaidItem';
+    if(id){
+      url= url+'?VendorId='+id
+    }
     return this.http.get(url).pipe(
       map((response: any) => response)
     );
