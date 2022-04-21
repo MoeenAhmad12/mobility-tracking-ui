@@ -1,0 +1,13 @@
+<h2 mat-dialog-title>Install Angular</h2>
+<mat-dialog-content class="mat-typography" style="height: 150px;">
+    
+    <div [formGroup]="vendorReceiveItemForm">
+        <label for="imei" class="form-label">Vendor Price: </label>
+        <input id="imei" type="text" formControlName="vendorPrice" class="form-control" >
+    </div>
+      
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-raised-button color="accent" mat-dialog-close (click)="receiveItem()">Receive</button>
+</mat-dialog-actions>

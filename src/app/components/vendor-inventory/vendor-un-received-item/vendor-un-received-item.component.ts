@@ -1,19 +1,22 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ToastrService } from 'ngx-toastr';
+import { VendorReceiveItemModalComponent } from 'src/app/modals/vendor-receive-item-modal/vendor-receive-item-modal.component';
 import { UserModel } from 'src/app/models/user-model';
 import { DataService } from 'src/app/services/data.service';
 
 @Component({
-  selector: 'app-vendor-paid-items',
-  templateUrl: './vendor-paid-items.component.html',
-  styleUrls: ['./vendor-paid-items.component.css']
+  selector: 'app-vendor-un-received-item',
+  templateUrl: './vendor-un-received-item.component.html',
+  styleUrls: ['./vendor-un-received-item.component.css']
 })
-export class VendorPaidItemsComponent implements OnInit {
+export class VendorUnReceivedItemComponent implements OnInit {
+
   vendors: UserModel[] = [];
-  displayedColumns = ['Model', 'Vendor_Price', 'Imei', 'Actions'];
+  displayedColumns = ['Model', 'Imei','Actions'];
   dataSource =  new MatTableDataSource();
   vendorId:string='';
   config = {
@@ -34,15 +37,25 @@ export class VendorPaidItemsComponent implements OnInit {
   @ViewChild('filter',  {static: true}) filter: any;
   constructor(
     private dataService: DataService,
-    private toastr: ToastrService) { }
+    private toastr: ToastrService,
+    private dialog: MatDialog,) { }
 
   ngOnInit(): void {
-    this.getVendors()
-    this.getVendorPaidItem()
+    this.getVendors();
+    this.getVendorUnReceivedItem()
+  }
+  openDialog(id:string) {
+    const dialogRef=this.dialog.open(VendorReceiveItemModalComponent,{
+      height: '300px',
+      width: '400px',
+      data: { id: id },
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.getVendorUnReceivedItem();
+    });
   }
   vendorChanged(val:any){
     this.vendorId= val.value.Id
-    this.getVendorPaidItem()
   }
   
   getVendors(){
@@ -60,19 +73,19 @@ export class VendorPaidItemsComponent implements OnInit {
       }
     );
   }
-  getVendorPaidItem(){
-    this.dataService.getVendorPaidItem(this.vendorId).subscribe(
+  getVendorUnReceivedItem(){
+    this.dataService.getVendorUnReceivedItem(this.vendorId).subscribe(
       response => {
         this.dataSource.data= response.data.rows.map(function(x:any) {
           return {   
             "Model": x[0], 
-            "Parcel_Item_Id": x[1], 
-            "Vendor_Price": x[2], 
-            "Is_Sent": x[3], 
-            "Imei": x[4], 
-            "Vendor_Paid_At": x[5], 
-            "Receiver_Shipment_Id": x[6],
-            
+            "Imei": x[1], 
+            "Item_Id": x[2], 
+            "Vendor_Price": x[3], 
+            "Is_Sent": x[4], 
+            "Vendor_Paid": x[6], 
+            "Receiver_Id": x[7], 
+            "Receiver_Shipment_Id": x[8],
           }
         })
       },
@@ -80,4 +93,5 @@ export class VendorPaidItemsComponent implements OnInit {
       }
     );
   }
+
 }

@@ -51,6 +51,10 @@ import { AddReceiverModalComponent } from './modals/add-receiver-modal/add-recei
 import { AddVendorModalComponent } from './modals/add-vendor-modal/add-vendor-modal.component';
 import { AddParcelItemModalComponent } from './modals/add-parcel-item-modal/add-parcel-item-modal.component';
 import { AddShipmentModalComponent } from './modals/add-shipment-modal/add-shipment-modal.component';
+import { VendorInventoryComponent } from './components/vendor-inventory/vendor-inventory.component';
+import { VendorUnReceivedItemComponent } from './components/vendor-inventory/vendor-un-received-item/vendor-un-received-item.component';
+import { VendorReceivedItemComponent } from './components/vendor-inventory/vendor-received-item/vendor-received-item.component';
+import { VendorReceiveItemModalComponent } from './modals/vendor-receive-item-modal/vendor-receive-item-modal.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -86,6 +90,10 @@ import { AddShipmentModalComponent } from './modals/add-shipment-modal/add-shipm
     AddVendorModalComponent,
     AddParcelItemModalComponent,
     AddShipmentModalComponent,
+    VendorInventoryComponent,
+    VendorUnReceivedItemComponent,
+    VendorReceivedItemComponent,
+    VendorReceiveItemModalComponent
   ],
   imports: [
     BrowserModule,

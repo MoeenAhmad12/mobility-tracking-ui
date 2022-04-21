@@ -194,6 +194,13 @@ export class DataService {
     );
   }
   
+  getVendorReceivedItems(id:string) : Observable<any>{
+    const url = this.baseUrl + '/GetVendorReceivedItems';
+    return this.http.get(url).pipe(
+      map((response: any) => response)
+    );
+  }
+  
   vendorReceiveShipment(id:string) : Observable<any>{
     const obj ={
       "receiver_shipment_id": id
@@ -209,6 +216,12 @@ export class DataService {
       map((response: any) => response)
     );
   }
+
+  vendorReceiveItem(obj:any) : Observable<any>{
+    const url = this.baseUrl + '/VendorReceiveItem';
+    return this.http.post(url, obj).pipe(map((response: any) => response));
+  }
+  
 
   GetReceiverShipmentItemReceived(id:string) : Observable<any>{
     const url = this.baseUrl + '/GetReceiverShipmentItemReceived';

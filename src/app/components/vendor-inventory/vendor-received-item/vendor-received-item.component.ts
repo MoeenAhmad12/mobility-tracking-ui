@@ -7,13 +7,13 @@ import { UserModel } from 'src/app/models/user-model';
 import { DataService } from 'src/app/services/data.service';
 
 @Component({
-  selector: 'app-vendor-paid-items',
-  templateUrl: './vendor-paid-items.component.html',
-  styleUrls: ['./vendor-paid-items.component.css']
+  selector: 'app-vendor-received-item',
+  templateUrl: './vendor-received-item.component.html',
+  styleUrls: ['./vendor-received-item.component.css']
 })
-export class VendorPaidItemsComponent implements OnInit {
+export class VendorReceivedItemComponent implements OnInit {
   vendors: UserModel[] = [];
-  displayedColumns = ['Model', 'Vendor_Price', 'Imei', 'Actions'];
+  displayedColumns = ['Model', 'Vendor_Price', 'Imei'];
   dataSource =  new MatTableDataSource();
   vendorId:string='';
   config = {
@@ -37,14 +37,11 @@ export class VendorPaidItemsComponent implements OnInit {
     private toastr: ToastrService) { }
 
   ngOnInit(): void {
-    this.getVendors()
-    this.getVendorPaidItem()
+    this.getVendorReceivedItems()
   }
   vendorChanged(val:any){
     this.vendorId= val.value.Id
-    this.getVendorPaidItem()
   }
-  
   getVendors(){
     this.dataService.getVendors().subscribe(
       response => {
@@ -60,8 +57,8 @@ export class VendorPaidItemsComponent implements OnInit {
       }
     );
   }
-  getVendorPaidItem(){
-    this.dataService.getVendorPaidItem(this.vendorId).subscribe(
+  getVendorReceivedItems(){
+    this.dataService.getVendorReceivedItems(this.vendorId).subscribe(
       response => {
         this.dataSource.data= response.data.rows.map(function(x:any) {
           return {   
@@ -71,8 +68,7 @@ export class VendorPaidItemsComponent implements OnInit {
             "Is_Sent": x[3], 
             "Imei": x[4], 
             "Vendor_Paid_At": x[5], 
-            "Receiver_Shipment_Id": x[6],
-            
+            "Receiver_Shipment_Id": x[6], 
           }
         })
       },
