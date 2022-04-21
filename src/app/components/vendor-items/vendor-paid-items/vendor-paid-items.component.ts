@@ -65,15 +65,12 @@ export class VendorPaidItemsComponent implements OnInit {
         this.dataSource.data= response.data.rows.map(function(x:any) {
           return {   
             "Model": x[0], 
-            "Price": x[1], 
-            "Id": x[2], 
-            "Parcel_Id": x[2], 
-            "Is_Received": x[4], 
-            "Is_Paid": x[5], 
-            "Created_At": x[6], 
-            "Paid_At": x[7],
-            "Tracking_Number": x[9], 
-            "Post_Code": x[10] 
+            "Parcel_Item_Id": x[1], 
+            "Vendor_Price": x[2], 
+            "Is_Sent": x[3], 
+            "Imei": x[4], 
+            "Vendor_Paid_At": x[5], 
+            "Receiver_Shipment_Id": x[6],
           }
         })
       },
