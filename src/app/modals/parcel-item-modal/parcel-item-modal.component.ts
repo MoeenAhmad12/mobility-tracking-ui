@@ -1,16 +1,33 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Inject, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 import { ToastrService } from 'ngx-toastr';
 import { ParcelItemModel } from 'src/app/models/parcel-item-model';
 import { DataService } from 'src/app/services/data.service';
+import { AddParcelItemModalComponent } from '../add-parcel-item-modal/add-parcel-item-modal.component';
 
 @Component({
   selector: 'app-parcel-item-modal',
   templateUrl: './parcel-item-modal.component.html',
   styleUrls: ['./parcel-item-modal.component.css']
 })
-export class ParcelItemModalComponent implements OnInit ,OnChanges{
-  @Input() parcelId = '';
+export class ParcelItemModalComponent implements OnInit {
+  
+  
+  displayedColumns = ['Model', 'Price','Actions'];
+  exampleDatabase: any
+  
+  dataSource = new MatTableDataSource();
+  index: number =0;
+  parcelId: string= '';
+
+
+  @ViewChild(MatPaginator, {static: true}) paginator: any;
+  @ViewChild(MatSort, {static: true}) sort: any;
+  @ViewChild('filter',  {static: true}) filter: any;
   id:string = '';
   isEditMode:boolean=false;
   parcelItems: ParcelItemModel[]=[];
@@ -21,12 +38,23 @@ export class ParcelItemModalComponent implements OnInit ,OnChanges{
   constructor(
     private formBuilder: FormBuilder,
     private dataService: DataService,
-    private toastr: ToastrService) { }
-  ngOnChanges() {
+    private toastr: ToastrService,
+    private dialog: MatDialog,
+    @Inject(MAT_DIALOG_DATA) public data: {id: string}) { 
+      this.parcelId = data.id
+    }
+  ngOnInit(): void {
     this.getParcelItems();
   }
-
-  ngOnInit(): void {
+  addParcelItem(row?:any) {
+    const dialogRef=this.dialog.open(AddParcelItemModalComponent,{
+      height: '330px',
+      width: '400px',
+      data:{id:this.parcelId,row:row}
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.getParcelItems();
+    });
   }
 
   editItem(item:ParcelItemModel){
@@ -37,59 +65,20 @@ export class ParcelItemModalComponent implements OnInit ,OnChanges{
     })
     this.id = item.Id;
   }
-  createParcelItem(){
-    
-      const payload={
-        "Model":  this.parcelItemForm.value.model,
-        "Price":  this.parcelItemForm.value.price,
-        "Parcel_Id":  this.parcelId
-      }
-      this.dataService.createParcelItem(payload).subscribe(
-        response => {
-          this.toastr.success(response.message, "Parcel Item")
-          this.parcelItemForm.reset()
-          this.getParcelItems();
-        },
-        error => {
-          this.toastr.error("Error in creating parcel item", "Parcel Item")
-        }
-      );
-  }
-  updateParcelItem(){
-    const payload={
-      "Model":  this.parcelItemForm.value.model,
-      "Price":  this.parcelItemForm.value.price,
-      "Parcel_Id":  this.parcelId,
-      "Id": this.id
-    }
-    this.dataService.updateParcelItem(payload).subscribe(
-      response => {
-        this.toastr.success(response.message, "Parcel Item")
-        this.parcelItemForm.reset()
-        this.getParcelItems();
-      },
-      error => {
-        this.toastr.error("Error in creating parcel item", "Parcel Item")
-      }
-    );
-  }
   getParcelItems(){
     if(this.parcelId != ''){
       this.dataService.getParcelItems(this.parcelId).subscribe(
         response => {
-          this.parcelItems= response.data.rows.map(function(x:any) {
+          this.dataSource.data= response.data.rows.map(function(x:any) {
             return {    
               "Model": x[0],
               "Price": x[1],
               "Id": x[2],
-              "Parcel_Id": x[3],
-              "Is_Received": x[4],
-              "Is_Paid": x[5],
-              "Created_At": x[6],
-              "Paid_At": x[7]
+              "Is_Paid": x[3],
+              "Paid_At": x[4],
+              "Received_At": x[5] == null? false : x[5]
             }
           })
-          console.log(this.parcelItems)
         },
         error => {
         }

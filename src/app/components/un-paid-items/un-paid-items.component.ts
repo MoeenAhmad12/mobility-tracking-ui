@@ -13,10 +13,10 @@ import { DataService } from 'src/app/services/data.service';
 })
 export class UnPaidItemsComponent implements OnInit {
 
-  receivers: UserModel[] = [];
-  displayedColumns = ['id', 'title', 'state', 'url', 'created_at', 'updated_at', 'actions'];
+  suppliers: UserModel[] = [];
+  displayedColumns = ['Model', 'Price', 'Tracking_Number', 'Post_Code','Created_At','Date'];
   dataSource =  new MatTableDataSource();
-  receiverId:string='';
+  supplierId:string='';
 
 
   @ViewChild(MatPaginator, {static: true}) paginator: any;
@@ -40,16 +40,16 @@ export class UnPaidItemsComponent implements OnInit {
     private dataService: DataService,
     private toastr: ToastrService) { }
   ngOnInit(): void {
-    this.getReceivers();
+    this.getSupplier();
   }
   receiverChanged(val:any){
-    this.receiverId= val.value.Id
+    this.supplierId= val.value.Id
     this.getSupplierUnPaidItems()
   }
-  getReceivers(){
-    this.dataService.getReceivers().subscribe(
+  getSupplier(){
+    this.dataService.getSuppliers().subscribe(
       response => {
-        this.receivers= response.data.rows.map(function(x:any) {
+        this.suppliers= response.data.rows.map(function(x:any) {
           return {    
             "Id": x[0],
             "Name": x[1],
@@ -62,13 +62,18 @@ export class UnPaidItemsComponent implements OnInit {
     );
   }
   getSupplierUnPaidItems(){
-    this.dataService.getSupplierUnPaidItems(this.receiverId).subscribe(
+    this.dataService.getSupplierUnPaidItems(this.supplierId).subscribe(
       response => {
-        this.receivers= response.data.rows.map(function(x:any) {
-          return {    
-            "Id": x[0],
-            "Name": x[1],
-            "Phone": x[2]
+        this.dataSource.data= response.data.rows.map(function(x:any) {
+          return {   
+            "Model": x[0], 
+            "Price": x[1], 
+            "Item_Id": x[2], 
+            "Created_At": x[3], 
+            "Received_At": x[4], 
+            "Tracking_Number": x[5], 
+            "Post_Code": x[6], 
+            "Date": x[7],
           }
         })
       },

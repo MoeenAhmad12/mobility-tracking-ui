@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { PaidParcelsComponent } from './paid-parcels/paid-parcels.component';
 
 @Component({
   selector: 'app-receiver-pay-parcel',
@@ -7,9 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ReceiverPayParcelsComponent implements OnInit {
 
+  @ViewChild(PaidParcelsComponent, {static : true}) child : any;
   constructor() { }
 
   ngOnInit(): void {
+  }
+  parcelPaid(val:any){
+    this.child.getReceiverPaidParcels()
   }
 
 }

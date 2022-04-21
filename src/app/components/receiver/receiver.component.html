@@ -14,14 +14,14 @@
     <!-- actions -->
     <ng-container matColumnDef="Actions">
       <mat-header-cell *matHeaderCellDef>
-        <button mat-icon-button color="primary" >
-          <mat-icon aria-label="Example icon-button with a heart icon" data-bs-toggle="modal" data-bs-target="#receiverModal">add</mat-icon>
+        <button mat-icon-button color="primary" (click)="addReceiver()">
+          <mat-icon aria-label="Example icon-button with a heart icon" >add</mat-icon>
         </button>
       </mat-header-cell>
 
       <mat-cell *matCellDef="let row; let i=index;">
         <button mat-icon-button color="accent">
-          <mat-icon aria-label="launch">launch</mat-icon>
+          <mat-icon aria-label="Edit">edit</mat-icon>
         </button>
       </mat-cell>
     </ng-container>
@@ -32,7 +32,7 @@
 </div>
 
 
-
+<!-- 
 <div class="modal fade" #closeModal id="receiverModal" tabindex="-1" aria-labelledby="receiverModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -59,4 +59,4 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->

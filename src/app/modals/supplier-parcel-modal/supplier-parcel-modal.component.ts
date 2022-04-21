@@ -10,7 +10,6 @@ import { DataService } from 'src/app/services/data.service';
   styleUrls: ['./supplier-parcel-modal.component.css']
 })
 export class SupplierParcelModalComponent implements OnInit {
-  @ViewChild('supplierParcelModal') private supplierParcelModal:any;
   suppliers: UserModel[] = [];
   receivers: UserModel[] = [];
   supplierId:string='';
@@ -41,9 +40,6 @@ export class SupplierParcelModalComponent implements OnInit {
   ngOnInit(): void {
     this.getReceivers();
     this.getSuppliers();
-  }
-  hideModel() {
-    this.supplierParcelModal.nativeElement.click();      
   }
   supplierChanged(val:any){
     console.log(val)
@@ -92,13 +88,12 @@ export class SupplierParcelModalComponent implements OnInit {
       "Post_Code":  this.suppliesParcelForm.value.postCode,
       "Supplier_Id":  this.supplierId,
       "Receiver_Id":  this.receiverId,
-      "Date":  this.suppliesParcelForm.value.supplierId
+      "Date":"10-10-2010"
     }
     this.dataService.createSupplierParcel(payload).subscribe(
       response => {
         this.toastr.success(response.message, "Supplier Parcel")
         this.suppliesParcelForm.reset()
-        this.hideModel();
       },
       error => {
         this.toastr.error("Error in creating supplier parcel", "Supplier Parcel")

@@ -31,14 +31,12 @@
       <!-- actions -->
       <ng-container matColumnDef="Actions">
         <mat-header-cell *matHeaderCellDef>
-          <button mat-icon-button color="primary" >
-            <mat-icon aria-label="Example icon-button with a heart icon"  data-bs-toggle="modal" data-bs-target="#supplierParcel">add</mat-icon>
-          </button>
+          Actions
         </mat-header-cell>
   
         <mat-cell *matCellDef="let row; let i=index;">
-          <button mat-icon-button color="accent">
-            <mat-icon aria-label="launch"  data-bs-toggle="modal" data-bs-target="#parcelItem">launch</mat-icon>
+          <button mat-raised-button color="primary" (click)="viewParcelItems(row.Id)">
+            View
           </button>
         </mat-cell>
       </ng-container>

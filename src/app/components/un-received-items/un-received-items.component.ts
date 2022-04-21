@@ -12,11 +12,10 @@ import { DataService } from 'src/app/services/data.service';
   styleUrls: ['./un-received-items.component.css']
 })
 export class UnReceivedItemsComponent implements OnInit {
-
-  displayedColumns = ['id', 'title', 'state', 'url', 'created_at', 'updated_at', 'actions'];
+  suppliers: UserModel[] = [];
+  displayedColumns = ['Model', 'Price', 'Tracking_Number', 'Post_Code','Receiver_Name','Supplier_Name','Created_At','Date'];
   dataSource =  new MatTableDataSource();
-  receivers: UserModel[] = [];
-  receiverId:string='';
+  supplierId:string='';
 
 
   @ViewChild(MatPaginator, {static: true}) paginator: any;
@@ -39,16 +38,17 @@ export class UnReceivedItemsComponent implements OnInit {
     private dataService: DataService,
     private toastr: ToastrService) { }
   ngOnInit(): void {
-    this.getReceivers();
+    this.getSupplier();
   }
   receiverChanged(val:any){
-    this.receiverId= val.value.Id
+    this.supplierId= val.value.Id
     this.getSupplierUnReceivedItems()
   }
-  getReceivers(){
-    this.dataService.getReceivers().subscribe(
+  
+  getSupplier(){
+    this.dataService.getSuppliers().subscribe(
       response => {
-        this.receivers= response.data.rows.map(function(x:any) {
+        this.suppliers= response.data.rows.map(function(x:any) {
           return {    
             "Id": x[0],
             "Name": x[1],
@@ -60,15 +60,21 @@ export class UnReceivedItemsComponent implements OnInit {
       }
     );
   }
-  
   getSupplierUnReceivedItems(){
-    this.dataService.getSupplierUnReceivedItems(this.receiverId).subscribe(
+    this.dataService.getSupplierUnReceivedItems(this.supplierId).subscribe(
       response => {
-        this.receivers= response.data.rows.map(function(x:any) {
-          return {    
-            "Id": x[0],
-            "Name": x[1],
-            "Phone": x[2]
+        this.dataSource.data= response.data.rows.map(function(x:any) {
+          return {   
+            "Receiver_Name": x[0], 
+            "Supplier_Name": x[1], 
+            "Model": x[2], 
+            "Price": x[3], 
+            "Id": x[4], 
+            "Tracking_Number": x[5], 
+            "Post_Code": x[6], 
+            "Created_At": x[7],
+            "Date": x[9], 
+            "Paid_At": x[10] 
           }
         })
       },

@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
+import { AddShipmentModalComponent } from 'src/app/modals/add-shipment-modal/add-shipment-modal.component';
 
 @Component({
   selector: 'app-shipment',
@@ -19,9 +21,19 @@ export class ShipmentComponent implements OnInit {
   @ViewChild(MatPaginator, {static: true}) paginator: any;
   @ViewChild(MatSort, {static: true}) sort: any;
   @ViewChild('filter',  {static: true}) filter: any;
-  constructor() { }
+  constructor(
+    private dialog: MatDialog,) { }
 
   ngOnInit(): void {
+  }
+
+  addShipment() {
+    const dialogRef=this.dialog.open(AddShipmentModalComponent,{
+      height: '410px',
+      width: '600px',
+    });
+    dialogRef.afterClosed().subscribe(result => {
+    });
   }
 
 }

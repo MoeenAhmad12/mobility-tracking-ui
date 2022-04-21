@@ -1,0 +1,24 @@
+<h2 mat-dialog-title>Create Vendor</h2>
+<mat-dialog-content class="mat-typography" style="height: 270px;">
+
+    <div [formGroup]="vendorForm">
+
+        <div class="mb-3">
+          <label for="name" class="form-label">Name: </label>
+          <input id="name" type="text" formControlName="name" class="form-control" >
+        </div>
+        <div class="mb-3">
+          <label for="phone" class="form-label">Phone: </label>
+          <input id="phone" type="text" formControlName="phone" class="form-control" >
+        </div>
+        <div class="mb-3">
+          <label for="address" class="form-label">Address: </label>
+          <textarea id="address" type="text" formControlName="address" class="form-control" >
+          </textarea>
+        </div>
+      </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-raised-button color="accent" mat-dialog-close (click)="addVendor()">Create</button>
+</mat-dialog-actions>

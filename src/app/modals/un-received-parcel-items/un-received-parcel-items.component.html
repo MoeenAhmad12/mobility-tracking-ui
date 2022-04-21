@@ -16,6 +16,11 @@
             <mat-header-cell *matHeaderCellDef mat-sort-header>Price</mat-header-cell>
             <mat-cell *matCellDef="let row"> {{row.Price}}</mat-cell>
           </ng-container>
+          
+          <ng-container matColumnDef="Received_At">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Received_At</mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.Received_At | date:'mediumDate'}}</mat-cell>
+          </ng-container>
       
           
           <!-- actions -->
@@ -25,9 +30,12 @@
             </mat-header-cell>
       
             <mat-cell *matCellDef="let row; let i=index;">
-              <button mat-raised-button color="accent">
-                  Pay
+              <button mat-raised-button color="accent" *ngIf="!row.Received_At" (click)="receiveParcelItems(row.Id)">
+                  Receive
               </button>
+              <button mat-raised-button disabled="true" color="accent" *ngIf="row.Received_At">
+                Received
+            </button>
             </mat-cell>
           </ng-container>
       

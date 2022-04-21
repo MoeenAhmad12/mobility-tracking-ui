@@ -8,6 +8,7 @@ import { ShipmentComponent } from './components/shipment/shipment.component';
 import { SupplierParcelsComponent } from './components/supplier-parcels/supplier-parcels.component';
 import { SupplierComponent } from './components/supplier/supplier.component';
 import { UsersComponent } from './components/users/users.component';
+import { VendorItemsComponent } from './components/vendor-items/vendor-items.component';
 import { VendorShipmentComponent } from './components/vendor-shipment/vendor-shipment.component';
 import { VerdorComponent } from './components/verdor/verdor.component';
 
@@ -18,6 +19,7 @@ const routes: Routes = [
   {path: 'shipment', component: ShipmentComponent },
   {path: 'receiver-inventory', component: ReceiverInventoryComponent },
   {path: 'vendor-shipment', component: VendorShipmentComponent },
+  {path: 'vendor-items', component: VendorItemsComponent },
   {path: 'users', component: UsersComponent },
   {path: '', component: UsersComponent }
 ];

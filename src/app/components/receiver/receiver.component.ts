@@ -7,6 +7,8 @@ import { MatSort, Sort } from '@angular/material/sort';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
+import { MatDialog } from '@angular/material/dialog';
+import { AddReceiverModalComponent } from 'src/app/modals/add-receiver-modal/add-receiver-modal.component';
 @Component({
   selector: 'app-receiver',
   templateUrl: './receiver.component.html',
@@ -17,15 +19,10 @@ export class ReceiverComponent implements OnInit , AfterViewInit{
   @ViewChild('closeModal') private closeModal:any;
   
   receivers: UserModel[] = [];
-  receiverForm= this.formBuilder.group({
-    name: ['', Validators.required],
-    phone: ['', Validators.required],
-  });
   constructor(
-    private formBuilder: FormBuilder,
     private dataService: DataService,
     private toastr: ToastrService,
-    private _liveAnnouncer: LiveAnnouncer) { }
+    private dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.getReceivers();
@@ -38,40 +35,15 @@ export class ReceiverComponent implements OnInit , AfterViewInit{
   ngAfterViewInit() {
     this.dataSource.sort = this.sort;
   }
-
-  /** Announce the change in sort state for assistive technology. */
-  announceSortChange(sortState: Sort) {
-    // This example uses English messages. If your application supports
-    // multiple language, you would internationalize these strings.
-    // Furthermore, you can customize the message to add additional
-    // details about the values being sorted.
-    if (sortState.direction) {
-      this._liveAnnouncer.announce(`Sorted ${sortState.direction}ending`);
-    } else {
-      this._liveAnnouncer.announce('Sorting cleared');
-    }
+  addReceiver() {
+    const dialogRef=this.dialog.open(AddReceiverModalComponent,{
+      height: '350px',
+      width: '500px',
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.getReceivers();
+    });
   }
-  hideModel() {
-    this.closeModal.nativeElement.click();      
-  }
-  addReceiver(){
-    const payload={
-      "Name":  this.receiverForm.value.name,
-      "Phone":  this.receiverForm.value.phone,
-    }
-    this.dataService.createReceiver(payload).subscribe(
-      response => {
-        this.toastr.success(response.message, "Receiver")
-        this.hideModel();
-        this.receiverForm.reset();
-        this.getReceivers();
-      },
-      error => {
-        this.toastr.error("Error in creating receiver", "Receiver")
-      }
-    );
-  }
-
   getReceivers(){
     this.dataService.getReceivers().subscribe(
       response => {

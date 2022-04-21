@@ -1,0 +1,36 @@
+<div class="m-3" style="width:200px">
+    <ngx-select-dropdown [config]="config" [options]="vendors" (change)="vendorChanged($event)"></ngx-select-dropdown>
+  </div>
+    <div class="m-3 mat-elevation-z8">
+      <mat-table #table [dataSource]="dataSource" matSort class="mat-cell" style="min-height: 400px;">
+        ng update @angular/cli @angular/core
+        <!--- Note that these columns can be defined in any order.
+              The actual rendered columns are set as a property on the row definition" -->
+    
+        <!-- ID Column -->
+        <ng-container matColumnDef="Model">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Model</mat-header-cell>
+          <mat-cell *matCellDef="let row" >{{row.Model}}</mat-cell>
+        </ng-container>
+    
+        <ng-container matColumnDef="Price">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Price</mat-header-cell>
+          <mat-cell *matCellDef="let row"> {{row.Price}}</mat-cell>
+        </ng-container>
+    
+        <ng-container matColumnDef="Tracking_Number">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Tracking_Number</mat-header-cell>
+          <mat-cell *matCellDef="let row"> {{row.Tracking_Number}}</mat-cell>
+        </ng-container>
+    
+        <ng-container matColumnDef="Post_Code">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Post_Code</mat-header-cell>
+          <mat-cell *matCellDef="let row"> {{row.Post_Code}}</mat-cell>
+        </ng-container>
+    
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+      </mat-table>
+  
+  </div>
+    

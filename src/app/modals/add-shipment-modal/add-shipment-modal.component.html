@@ -1,0 +1,22 @@
+<h2 mat-dialog-title>Create Shipment</h2>
+<mat-dialog-content class="mat-typography" style="height: 270px;">
+
+    <div [formGroup]="shipmentForm">
+        <div class="mb-3">
+            <label for="name" class="form-label">Tracking Number: </label>
+            <input id="name" type="text" formControlName="trackingNumber" class="form-control" >
+          </div>
+          <div class="mb-3">
+            <label for="supplier" class="form-label">Vendor: </label>
+            <ngx-select-dropdown [config]="config" [options]="vendors" (change)="vendorChanged($event)"></ngx-select-dropdown>
+          </div>
+          <div class="mb-3">
+            <label for="receiver" class="form-label">Receiver: </label>
+            <ngx-select-dropdown [config]="config" [options]="receivers" (change)="receiverChanged($event)"></ngx-select-dropdown>
+          </div>
+    </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-raised-button color="accent" mat-dialog-close (click)="createShipment()">Create</button>
+</mat-dialog-actions>

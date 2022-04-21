@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { UserModel } from '../models/user-model';
-import { map } from 'rxjs';
+import { map, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -11,21 +11,21 @@ export class DataService {
   constructor(private http: HttpClient) { }
   private baseUrl: string ='http://localhost:8000';
 
-  createReceiver(payload: UserModel) {
+  createReceiver(payload: UserModel) : Observable<any>{
     const url = this.baseUrl + '/AddReceiver';
     return this.http.post(url, payload).pipe(map((response: any) => response));
   }
-  updateReceiver(payload: UserModel) {
+  updateReceiver(payload: UserModel) : Observable<any>{
     const url = this.baseUrl + '/UpdateReceiver';
     return this.http.put(url, payload).pipe(map((response: any) => response));
   }
 
-  deleteReceiver(id: number) {
+  deleteReceiver(id: number) : Observable<any>{
     const url = this.baseUrl + '/Receiver?id='+id;
     return this.http.delete(url).pipe(map((response: any) => response));
   }
 
-  getReceivers() {
+  getReceivers() : Observable<any>{
     const url = this.baseUrl + '/GetReceivers';
     return this.http.get(url).pipe(
       map((response: any) => response)
@@ -34,17 +34,17 @@ export class DataService {
 
 
 
-  createVendor(payload: UserModel) {
+  createVendor(payload: UserModel) : Observable<any>{
     const url = this.baseUrl + '/AddVendor';
     return this.http.post(url, payload).pipe(map((response: any) => response));
   }
 
-  updateVendor(payload: UserModel) {
+  updateVendor(payload: UserModel) : Observable<any>{
     const url = this.baseUrl + '/UpdateVendor';
     return this.http.put(url, payload).pipe(map((response: any) => response));
   }
 
-  getVendors() {
+  getVendors() : Observable<any>{
     const url = this.baseUrl + '/GetVendors';
     return this.http.get(url).pipe(
       map((response: any) => response)
@@ -54,16 +54,16 @@ export class DataService {
 
   
 
-  createSupplier(payload: UserModel) {
+  createSupplier(payload: UserModel) : Observable<any>{
     const url = this.baseUrl + '/AddSupplier';
     return this.http.post(url, payload).pipe(map((response: any) => response));
   }
 
-  updateSupplier(payload: UserModel) {
+  updateSupplier(payload: UserModel) : Observable<any>{
     const url = this.baseUrl + '/UpdateSupplier';
     return this.http.put(url, payload).pipe(map((response: any) => response));
   }
-  getSuppliers() {
+  getSuppliers() : Observable<any>{
     const url = this.baseUrl + '/GetSuppliers';
     return this.http.get(url).pipe(
       map((response: any) => response)
@@ -72,84 +72,84 @@ export class DataService {
 
 
 
-  createSupplierParcel(payload: any) {
+  createSupplierParcel(payload: any) : Observable<any>{
     const url = this.baseUrl + '/AddSupplierParcel';
     return this.http.post(url, payload).pipe(map((response: any) => response));
   }
 
-  getSupplierParcels() {
+  getSupplierParcels() : Observable<any>{
     const url = this.baseUrl + '/GetSupplierParcels';
     return this.http.get(url).pipe(
       map((response: any) => response)
     );
   }
 
-  createParcelItem(payload: any) {
+  createParcelItem(payload: any) : Observable<any>{
     const url = this.baseUrl + '/AddSupplierParcelsItem';
     return this.http.post(url, payload).pipe(map((response: any) => response));
   }
 
-  updateParcelItem(payload: any) {
+  updateParcelItem(payload: any) : Observable<any>{
     const url = this.baseUrl + '/UpdateParcelItem';
     return this.http.post(url, payload).pipe(map((response: any) => response));
   }
 
-  getParcelItems(id: string) {
+  getParcelItems(id: string) : Observable<any>{
     const url = this.baseUrl + '/GetParcelsItems?ParcelId='+id;
     return this.http.get(url).pipe(
       map((response: any) => response)
     );
   }
 
-  getSupplierUnPaidItems(id: string) {
+  getSupplierUnPaidItems(id: string)  : Observable<any>{
     const url = this.baseUrl + '/GetSupplierUnPaidItems?SupplierId='+id;
     return this.http.get(url).pipe(
       map((response: any) => response)
     );
   }
 
-  getSupplierUnReceivedItems(id: string) {
-    const url = this.baseUrl + '/GetSupplierUnReceivedItems?ParcelId='+id;
+  getSupplierUnReceivedItems(id: string) : Observable<any>{
+    const url = this.baseUrl + '/GetSupplierUnReceivedItems?SupplierId='+id;
     return this.http.get(url).pipe(
       map((response: any) => response)
     );
   }
-  getUnReceivedParcels() {
-    const url = this.baseUrl + '/GetSupplierParcels?StartDate=10-10-2020&EndDate=20-12-2022&IsReceived=false'
-    return this.http.get(url).pipe(
-      map((response: any) => response)
-    );
-  }
-
-  getReceivedParcels() {
-    const url = this.baseUrl + '/GetSupplierParcels?StartDate=10-10-2020&EndDate=20-12-2022&IsReceived=true'
+  getUnReceivedParcels() : Observable<any>{
+    const url = this.baseUrl + '/GetSupplierParcels?IsReceived=false'
     return this.http.get(url).pipe(
       map((response: any) => response)
     );
   }
 
-  getReceiverPaidParcels() {
+  getReceivedParcels() : Observable<any>{
+    const url = this.baseUrl + '/GetSupplierParcels?IsReceived=true'
+    return this.http.get(url).pipe(
+      map((response: any) => response)
+    );
+  }
+
+  getReceiverPaidParcels() : Observable<any>{
     const url = this.baseUrl + '/ReceiverPaidParcels';
     return this.http.get(url).pipe(
       map((response: any) => response)
     );
   }
 
-  getReceiverUnPaidParcels() {
+  getReceiverUnPaidParcels() : Observable<any>{
     const url = this.baseUrl + '/ReceiverUnpaidParcels';
     return this.http.get(url).pipe(
       map((response: any) => response)
     );
   }
 
-  markParcelPaid(id:string) {
+  markParcelPaid(id:string) : Observable<any>{
     const url = this.baseUrl + '/UpdateReceiverPaid';
     var obj ={
       "Id":id
     }
     return this.http.post(url, obj).pipe(map((response: any) => response));
   }
-  markParcelItemPaid(id:string) {
+  markParcelItemPaid(id:string) : Observable<any>{
     const url = this.baseUrl + '/MarkParcelItemPaid';
     var obj ={
       "Id":id
@@ -157,7 +157,43 @@ export class DataService {
     return this.http.post(url, obj).pipe(map((response: any) => response));
   }
 
+  markParcelReceived(obj:any) : Observable<any>{
+    const url = this.baseUrl + '/ParcelReceived';
+    return this.http.post(url, obj).pipe(map((response: any) => response));
+  }
 
+  markParcelItemReceived(obj:any) : Observable<any>{
+    const url = this.baseUrl + '/UpdateItemReceive';
+    return this.http.post(url, obj).pipe(map((response: any) => response));
+  }
+
+  getVendorUnPaidItem(id:string) : Observable<any>{
+    const url = this.baseUrl + '/GetVendorUnPaidItem?VendorId='+id;
+    return this.http.get(url).pipe(
+      map((response: any) => response)
+    );
+  }
+
+  getVendorPaidItem(id:string) : Observable<any>{
+    const url = this.baseUrl + '/GetVendorPaidItem?VendorId='+id;
+    return this.http.get(url).pipe(
+      map((response: any) => response)
+    );
+  }
+
+  vendorReceiveShipment(id:string) : Observable<any>{
+    const obj ={
+      "receiver_shipment_id": id
+    }
+    const url = this.baseUrl + '/VendorReceiveShipment';
+    return this.http.post(url, obj).pipe(map((response: any) => response));
+  }
+  
+
+  createShipment(payload: any) : Observable<any>{
+    const url = this.baseUrl + '/AddSupplierParcel';
+    return this.http.post(url, payload).pipe(map((response: any) => response));
+  }
 
 
 

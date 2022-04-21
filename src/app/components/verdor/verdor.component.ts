@@ -1,8 +1,10 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ToastrService } from 'ngx-toastr';
+import { AddVendorModalComponent } from 'src/app/modals/add-vendor-modal/add-vendor-modal.component';
 import { UserModel } from 'src/app/models/user-model';
 import { DataService } from 'src/app/services/data.service';
 
@@ -15,11 +17,6 @@ export class VerdorComponent implements OnInit, AfterViewInit {
   @ViewChild('closeModal') private closeModal:any;
   
   vendors: UserModel[] = [];
-  vendorForm= this.formBuilder.group({
-    name: ['', Validators.required],
-    phone: ['', Validators.required],
-    address: ['']
-  });
   displayedColumns: string[] = ['Name', 'Phone','Address','Actions'];
   dataSource = new MatTableDataSource(this.vendors);
 
@@ -28,40 +25,27 @@ export class VerdorComponent implements OnInit, AfterViewInit {
   
   
   constructor(
-    private formBuilder: FormBuilder,
     private dataService: DataService,
-    private toastr: ToastrService) { }
+    private toastr: ToastrService,
+    private dialog: MatDialog,) { }
 
   ngOnInit(): void {
     this.getVendors();
+  }
+  addVendor() {
+    const dialogRef=this.dialog.open(AddVendorModalComponent,{
+      height: '450px',
+      width: '500px',
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.getVendors();
+    });
   }
 
   ngAfterViewInit() {
     this.dataSource.sort = this.sort;
   }
-
-  hideModel() {
-    this.closeModal.nativeElement.click();      
-  }
-  addVendor(){
-    const payload={
-      "Name":  this.vendorForm.value.name,
-      "Phone":  this.vendorForm.value.phone,
-      "Address":  this.vendorForm.value.address,
-    }
-    this.dataService.createVendor(payload).subscribe(
-      response => {
-        this.toastr.success(response.message, "Vendor")
-        this.vendorForm.reset()
-        this.hideModel();
-        this.getVendors();
-      },
-      error => {
-        this.toastr.error("Error in creating vendor", "Vendor")
-      }
-    );
-  }
-
+  
   getVendors(){
     this.dataService.getVendors().subscribe(
       response => {

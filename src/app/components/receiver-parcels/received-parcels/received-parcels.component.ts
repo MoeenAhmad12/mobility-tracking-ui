@@ -1,8 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ToastrService } from 'ngx-toastr';
+import { UnReceivedParcelItemsComponent } from 'src/app/modals/un-received-parcel-items/un-received-parcel-items.component';
 import { DataService } from 'src/app/services/data.service';
 
 @Component({
@@ -22,12 +24,18 @@ export class ReceivedParcelsComponent implements OnInit {
   @ViewChild('filter',  {static: true}) filter: any;
   constructor(
     private dataService: DataService,
-    private toastr: ToastrService,) { }
+    private toastr: ToastrService,private dialog: MatDialog,) { }
 
   ngOnInit(): void {
     this.getReceivedParcels();
   }
-  
+  viewParcelItems(id:string) {
+    this.dialog.open(UnReceivedParcelItemsComponent,{
+      height: '600px',
+      width: '1000px',
+      data: { id: id },
+    });
+  }
   getReceivedParcels(){
     this.dataService.getReceivedParcels().subscribe(
       response => {

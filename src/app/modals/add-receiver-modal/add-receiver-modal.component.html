@@ -1,0 +1,19 @@
+<h2 mat-dialog-title>Create Receiver</h2>
+<mat-dialog-content class="mat-typography" style="height: 170px;">
+
+    <div [formGroup]="receiverForm">
+
+        <div class="mb-3">
+          <label for="name" class="form-label">Name: </label>
+          <input id="name" type="text" formControlName="name" class="form-control" >
+        </div>
+        <div class="mb-3">
+          <label for="phone" class="form-label">Phone: </label>
+          <input id="phone" type="text" formControlName="phone" class="form-control" >
+        </div>
+      </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-raised-button color="accent" mat-dialog-close (click)="addReceiver()">Create</button>
+</mat-dialog-actions>

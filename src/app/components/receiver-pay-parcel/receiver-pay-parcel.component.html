@@ -4,6 +4,6 @@
         <app-paid-parcels></app-paid-parcels>
     </mat-tab>
     <mat-tab label="Un Paid Parcels"> 
-        <app-un-paid-parcels></app-un-paid-parcels> 
+        <app-un-paid-parcels (parcelPaid)="parcelPaid($event)"></app-un-paid-parcels> 
     </mat-tab>
 </mat-tab-group>

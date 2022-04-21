@@ -1,0 +1,21 @@
+<h2 *ngIf="!isEditCheck" mat-dialog-title>Create Parcel Item</h2>
+<h2 *ngIf="isEditCheck" mat-dialog-title>Update Parcel Item</h2>
+
+<mat-dialog-content class="mat-typography" style="height: 180px;">
+    <div [formGroup]="parcelItemForm">
+      <div class="mb-3">
+        <label for="model" class="form-label">Model: </label>
+        <input id="model" type="text" formControlName="model" class="form-control" >
+      </div>
+      <div class="mb-3">
+        <label for="price" class="form-label">Price: </label>
+        <input id="price" type="text" formControlName="price" class="form-control" >
+      </div>
+    </div> 
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button *ngIf="!isEditCheck" mat-raised-button color="accent" mat-dialog-close (click)="createParcelItem()">Create</button>
+  <button *ngIf="isEditCheck" mat-raised-button color="accent" mat-dialog-close (click)="updateParcelItem()">Update</button>
+</mat-dialog-actions>
+

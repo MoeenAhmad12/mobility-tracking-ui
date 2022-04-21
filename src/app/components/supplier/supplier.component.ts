@@ -5,6 +5,8 @@ import { DataService } from 'src/app/services/data.service';
 import { ToastrService } from 'ngx-toastr';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
+import { MatDialog } from '@angular/material/dialog';
+import { AddSupplierModalComponent } from 'src/app/modals/add-supplier-modal/add-supplier-modal.component';
 
 @Component({
   selector: 'app-supplier',
@@ -15,11 +17,6 @@ export class SupplierComponent implements OnInit {
   
   @ViewChild('closeModal') private closeModal:any;
   suppliers: UserModel[] = [];
-  supplierForm= this.formBuilder.group({
-    name: ['', Validators.required],
-    phone: ['', Validators.required],
-    address: ['']
-  });
   displayedColumns: string[] = ['Name', 'Phone','Address','Actions'];
   dataSource = new MatTableDataSource(this.suppliers);
 
@@ -28,9 +25,9 @@ export class SupplierComponent implements OnInit {
   
 
   constructor(
-    private formBuilder: FormBuilder,
     private dataService: DataService,
-    private toastr: ToastrService) { }
+    private toastr: ToastrService,
+    private dialog: MatDialog,) { }
 
   ngOnInit(): void {
     this.getSuppliers();
@@ -38,26 +35,14 @@ export class SupplierComponent implements OnInit {
   ngAfterViewInit() {
     this.dataSource.sort = this.sort;
   }
-  hideModel() {
-    this.closeModal.nativeElement.click();      
-  }
-  addSupplier(){
-    const payload={
-      "Name":  this.supplierForm.value.name,
-      "Phone":  this.supplierForm.value.phone,
-      "Address":  this.supplierForm.value.address,
-    }
-    this.dataService.createSupplier(payload).subscribe(
-      response => {
-        this.toastr.success(response.message, "Supplier")
-        this.supplierForm.reset()
-        this.hideModel();
-        this.getSuppliers();
-      },
-      error => {
-        this.toastr.error("Error in creating receiver", "Receiver")
-      }
-    );
+  addSupplier() {
+    const dialogRef=this.dialog.open(AddSupplierModalComponent,{
+      height: '430px',
+      width: '500px',
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.getSuppliers();
+    });
   }
 
   getSuppliers(){

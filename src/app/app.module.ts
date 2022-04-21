@@ -42,6 +42,15 @@ import { UnPaidParcelItemsComponent } from './modals/un-paid-parcel-items/un-pai
 
 import {MatDialog} from '@angular/material/dialog';
 import { UnReceivedShipmentItemsComponent } from './modals/un-received-shipment-items/un-received-shipment-items.component';
+import { ReceiveParcelComponent } from './modals/receive-parcel/receive-parcel.component';
+import { VendorUnpaidItemsComponent } from './components/vendor-items/vendor-unpaid-items/vendor-unpaid-items.component';
+import { VendorPaidItemsComponent } from './components/vendor-items/vendor-paid-items/vendor-paid-items.component';
+import { VendorItemsComponent } from './components/vendor-items/vendor-items.component';
+import { AddSupplierModalComponent } from './modals/add-supplier-modal/add-supplier-modal.component';
+import { AddReceiverModalComponent } from './modals/add-receiver-modal/add-receiver-modal.component';
+import { AddVendorModalComponent } from './modals/add-vendor-modal/add-vendor-modal.component';
+import { AddParcelItemModalComponent } from './modals/add-parcel-item-modal/add-parcel-item-modal.component';
+import { AddShipmentModalComponent } from './modals/add-shipment-modal/add-shipment-modal.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -62,12 +71,21 @@ import { UnReceivedShipmentItemsComponent } from './modals/un-received-shipment-
     UnReceivedShipmentComponent,
     ReceivedShipmentComponent,
     ShipmentComponent,
+    VendorItemsComponent,
     ReceiverParcelsComponent,
     ReceiverPayParcelsComponent,
     VendorShipmentComponent,
     UnReceivedParcelItemsComponent,
     UnPaidParcelItemsComponent,
     UnReceivedShipmentItemsComponent,
+    ReceiveParcelComponent,
+    VendorUnpaidItemsComponent,
+    VendorPaidItemsComponent,
+    AddSupplierModalComponent,
+    AddReceiverModalComponent,
+    AddVendorModalComponent,
+    AddParcelItemModalComponent,
+    AddShipmentModalComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,9 +1,12 @@
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ToastrService } from 'ngx-toastr';
+import { ParcelItemModalComponent } from 'src/app/modals/parcel-item-modal/parcel-item-modal.component';
+import { SupplierParcelModalComponent } from 'src/app/modals/supplier-parcel-modal/supplier-parcel-modal.component';
 import { ParcelItemModel } from 'src/app/models/parcel-item-model';
 import { SuppliesParcelModel } from 'src/app/models/supplier-parcel-model';
 import { UserModel } from 'src/app/models/user-model';
@@ -45,8 +48,25 @@ export class SupplierParcelsComponent implements OnInit, AfterViewInit {
     private formBuilder: FormBuilder,
     private dataService: DataService,
     private toastr: ToastrService,
+    private dialog: MatDialog,
     private _liveAnnouncer: LiveAnnouncer) { }
 
+  openDialog() {
+    const dialogRef=this.dialog.open(SupplierParcelModalComponent,{
+      height: '440px',
+      width: '1000px',
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.getSupplierParcels();
+    });
+  }
+  openParcelItems(id:string) {
+    const dialogRef=this.dialog.open(ParcelItemModalComponent,{
+      height: '500px',
+      width: '800px',
+      data:{id:id}
+    });
+  }
   ngOnInit(): void {
     this.getSupplierParcels();
   }

@@ -13,7 +13,7 @@ import { DataService } from 'src/app/services/data.service';
 })
 export class UnPaidParcelItemsComponent implements OnInit {
 
-  displayedColumns = ['Model', 'Price', 'Actions'];
+  displayedColumns = ['Model', 'Price','Received_At', 'Paid_At','Actions'];
   exampleDatabase: any
   
   dataSource = new MatTableDataSource();
@@ -29,8 +29,7 @@ export class UnPaidParcelItemsComponent implements OnInit {
     private toastr: ToastrService,
     @Inject(MAT_DIALOG_DATA) public data: {id: string}) { 
       this.parcelId = data.id
-      
-  }
+    }
   ngOnInit(): void {
     this.getParcelItems()
   }
@@ -38,6 +37,7 @@ export class UnPaidParcelItemsComponent implements OnInit {
     this.dataService.markParcelItemPaid(id).subscribe(
       response => {
         this.toastr.success(response.message, "Parcel")
+        this.getParcelItems();
       },
       error => {
         this.toastr.error("Error in paying Parcel Item", "Parcel Item")
@@ -52,11 +52,9 @@ export class UnPaidParcelItemsComponent implements OnInit {
             "Model": x[0],
             "Price": x[1],
             "Id": x[2],
-            "Parcel_Id": x[3],
-            "Is_Received": x[4],
-            "Is_Paid": x[5],
-            "Created_At": x[6],
-            "Paid_At": x[7]
+            "Is_Paid": x[3],
+            "Paid_At": x[4],
+            "Received_At": x[5]
           }
         })
       },

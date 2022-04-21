@@ -1,11 +1,5 @@
-<div class="modal fade" #supplierParcelModal id="supplierParcel" tabindex="-1" aria-labelledby="supplierParcelLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="supplierParcelLabel">Add Parcal</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
+<h2 mat-dialog-title>Add Parcel</h2>
+  <mat-dialog-content class="mat-typography">
         <div [formGroup]="suppliesParcelForm">
 
           <div class="mb-3">
@@ -23,12 +17,12 @@
           <div class="mb-3">
             <label for="receiver" class="form-label">Receiver: </label>
             <ngx-select-dropdown [config]="config" [options]="receivers" (change)="receiverChanged($event)"></ngx-select-dropdown>
-        </div>
+          </div>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-success" (click)="createSupplierParcel()">Create</button>
-      </div>
-    </div>
-  </div>
-</div>
+      
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+      
+      <button mat-button mat-dialog-close>Cancel</button>
+      <button type="button" mat-raised-button color="accent" mat-dialog-close (click)="createSupplierParcel()">Create</button>
+    </mat-dialog-actions>
