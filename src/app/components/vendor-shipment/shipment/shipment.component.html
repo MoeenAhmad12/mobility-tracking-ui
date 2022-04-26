@@ -1,0 +1,49 @@
+
+  <div class="m-3 mat-elevation-z8">
+    <mat-table #table [dataSource]="dataSource" matSort class="mat-cell">
+      ng update @angular/cli @angular/core
+      <!--- Note that these columns can be defined in any order.
+            The actual rendered columns are set as a property on the row definition" -->
+  
+      <!-- ID Column -->
+      <ng-container matColumnDef="Tracking_Number">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Tracking_Number</mat-header-cell>
+        <mat-cell *matCellDef="let row" >{{row.Tracking_Number}}</mat-cell>
+      </ng-container>
+  
+      <ng-container matColumnDef="Created_At">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Created_At</mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{row.Created_At}}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="Actions">
+        <mat-header-cell *matHeaderCellDef>
+          <button mat-icon-button color="primary" (click)="addShipment()">
+            <mat-icon aria-label="Example icon-button with a heart icon">add</mat-icon>
+          </button>
+        </mat-header-cell>
+  
+        <mat-cell *matCellDef="let row; let i=index;">
+          <button mat-raised-button color="primary">
+            View
+          </button>
+        </mat-cell>
+      </ng-container>
+  
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+  
+  
+    <!-- <div class="no-results" [style.display]="dataSource.renderedData.length == 0 ? '' : 'none'">
+      No results
+    </div>
+  
+    <mat-paginator #paginator
+                   [length]="dataSource.filteredData.length"
+                   [pageIndex]="0"
+                   [pageSize]="10"
+                   [pageSizeOptions]="[5, 10, 25, 100]">
+    </mat-paginator> -->
+  </div>
+  

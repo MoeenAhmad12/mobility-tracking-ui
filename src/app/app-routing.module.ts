@@ -4,7 +4,7 @@ import { ReceiverInventoryComponent } from './components/receiver-inventory/rece
 import { ReceiverParcelsComponent } from './components/receiver-parcels/receiver-parcel.component';
 import { ReceiverPayParcelsComponent } from './components/receiver-pay-parcel/receiver-pay-parcel.component';
 import { ReceiverComponent } from './components/receiver/receiver.component';
-import { ShipmentComponent } from './components/shipment/shipment.component';
+import { ShipmentComponent } from './components/vendor-shipment/shipment/shipment.component';
 import { SupplierParcelsComponent } from './components/supplier-parcels/supplier-parcels.component';
 import { SupplierComponent } from './components/supplier/supplier.component';
 import { UsersComponent } from './components/users/users.component';
@@ -18,7 +18,6 @@ const routes: Routes = [
   {path: 'supplier-percel', component: SupplierParcelsComponent },
   {path: 'receiver-parcels', component: ReceiverParcelsComponent },
   {path: 'receiver-pay-parcels', component: ReceiverPayParcelsComponent },
-  {path: 'shipment', component: ShipmentComponent },
   {path: 'receiver-inventory', component: ReceiverInventoryComponent },
   {path: 'vendor-shipment', component: VendorShipmentComponent },
   {path: 'vendor-items', component: VendorItemsComponent },

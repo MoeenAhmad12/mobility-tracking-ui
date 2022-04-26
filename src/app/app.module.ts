@@ -33,7 +33,7 @@ import { PaidParcelsComponent } from './components/receiver-pay-parcel/paid-parc
 import { ReceiverInventoryComponent } from './components/receiver-inventory/receiver-inventory.component';
 import { UnReceivedShipmentComponent } from './components/vendor-shipment/un-received-shipment/un-received-shipment.component';
 import { ReceivedShipmentComponent } from './components/vendor-shipment/received-shipment/received-shipment.component';
-import { ShipmentComponent } from './components/shipment/shipment.component';
+import { ShipmentComponent } from './components/vendor-shipment/shipment/shipment.component';
 import { ReceiverParcelsComponent } from './components/receiver-parcels/receiver-parcel.component';
 import { ReceiverPayParcelsComponent } from './components/receiver-pay-parcel/receiver-pay-parcel.component';
 import { VendorShipmentComponent } from './components/vendor-shipment/vendor-shipment.component';
@@ -55,6 +55,7 @@ import { VendorInventoryComponent } from './components/vendor-inventory/vendor-i
 import { VendorUnReceivedItemComponent } from './components/vendor-inventory/vendor-un-received-item/vendor-un-received-item.component';
 import { VendorReceivedItemComponent } from './components/vendor-inventory/vendor-received-item/vendor-received-item.component';
 import { VendorReceiveItemModalComponent } from './modals/vendor-receive-item-modal/vendor-receive-item-modal.component';
+import { AddInventoryItemModalComponent } from './modals/add-inventory-item-modal/add-inventory-item-modal.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -93,7 +94,8 @@ import { VendorReceiveItemModalComponent } from './modals/vendor-receive-item-mo
     VendorInventoryComponent,
     VendorUnReceivedItemComponent,
     VendorReceivedItemComponent,
-    VendorReceiveItemModalComponent
+    VendorReceiveItemModalComponent,
+    AddInventoryItemModalComponent
   ],
   imports: [
     BrowserModule,

@@ -1,1 +1,22 @@
-<p>receiver-inventory works!</p>
+
+  <div class="m-3 mat-elevation-z8">
+    <mat-table #table [dataSource]="dataSource" matSort class="mat-cell">
+      <ng-container matColumnDef="Model">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Model</mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{row.Model}}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="Imei">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Imei</mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{row.Imei}}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="Vendor_Price">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Vendor_Price</mat-header-cell>
+        <mat-cell *matCellDef="let row" >{{row.Vendor_Price}}</mat-cell>
+      </ng-container>
+  
+  
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+  </div>
+  

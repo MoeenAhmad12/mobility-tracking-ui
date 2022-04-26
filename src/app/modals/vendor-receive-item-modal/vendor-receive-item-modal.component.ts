@@ -27,7 +27,7 @@ export class VendorReceiveItemModalComponent implements OnInit {
   receiveItem(){
 
     const payload={
-      "Receiver_Shipment_Id": this.Id,
+      "Item_Id": this.Id,
       "Vendor_Price":this.vendorReceiveItemForm.value.vendorPrice
     }
     this.dataService.vendorReceiveItem(payload).subscribe(

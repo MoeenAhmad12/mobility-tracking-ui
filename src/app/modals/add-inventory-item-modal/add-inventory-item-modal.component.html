@@ -1,0 +1,11 @@
+<h2 mat-dialog-title>Slect Item</h2>
+<mat-dialog-content class="mat-typography" style="height: 260px;">
+    <div class="mb-3">
+        <label for="receiver" class="form-label">Imei: </label>
+        <ngx-select-dropdown [config]="config" [options]="items" (change)="itemChanged($event)"></ngx-select-dropdown>
+    </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-raised-button color="accent" mat-dialog-close >Add</button>
+</mat-dialog-actions>

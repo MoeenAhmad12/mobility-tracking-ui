@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import { MatTableDataSource } from '@angular/material/table';
 import { ToastrService } from 'ngx-toastr';
 import { UserModel } from 'src/app/models/user-model';
 import { DataService } from 'src/app/services/data.service';
+import { AddInventoryItemModalComponent } from '../add-inventory-item-modal/add-inventory-item-modal.component';
 
 @Component({
   selector: 'app-add-shipment-modal',
@@ -12,11 +15,15 @@ import { DataService } from 'src/app/services/data.service';
 export class AddShipmentModalComponent implements OnInit {
   vendors: UserModel[] = [];
   receivers: UserModel[] = [];
+  shipmentItems:any[]=[];
   vendorId:string='';
   receiverId:string='';
   shipmentForm= this.formBuilder.group({
     trackingNumber: ['', Validators.required]
   });
+  
+  displayedColumns = ['Model', 'Imei','Vendor_Price','Actions'];
+  dataSource = new MatTableDataSource();
   config = {
     displayKey:"Name", //if objects array passed which key to be displayed defaults to description
     search:true, //true/false for the search functionlity defaults to false,
@@ -33,11 +40,22 @@ export class AddShipmentModalComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private dataService: DataService,
-    private toastr: ToastrService) { }
+    private toastr: ToastrService,
+    private dialog: MatDialog,) { }
 
   ngOnInit(): void {
     this.getReceivers()
     this.getVendors()
+  }
+  addShipment() {
+    const dialogRef=this.dialog.open(AddInventoryItemModalComponent,{
+      height: '400px',
+      width: '400px',
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.shipmentItems.push(result.value);
+      this.dataSource.data = this.shipmentItems;
+    });
   }
   vendorChanged(val:any){
     this.vendorId= val.value.Id;
@@ -80,10 +98,12 @@ export class AddShipmentModalComponent implements OnInit {
   }
   
   createShipment(){
+    var item = this.shipmentItems.map(x=>x.Item_Id)
     const payload={
       "Tracking_Number":  this.shipmentForm.value.trackingNumber,
       "Vendor_Id":  this.vendorId,
-      "Receiver_Id":  this.receiverId
+      "Receiver_Id":  this.receiverId,
+      "Items": item
     }
     this.dataService.createShipment(payload).subscribe(
       response => {

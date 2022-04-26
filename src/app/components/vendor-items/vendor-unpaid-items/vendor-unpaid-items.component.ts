@@ -79,4 +79,16 @@ export class VendorUnpaidItemsComponent implements OnInit {
       }
     );
   }
+  markVendorPaidItem(id:string){
+    this.dataService.MarkVendorPaidItem(id).subscribe(
+      response => {
+        this.toastr.success(response.message, "Vendor Item")
+        this.getVendorUnPaidItem()
+      },
+      error => {
+        this.toastr.error("Error in paying Parcel", "Parcel")
+      }
+    );
+  }
+  
 }

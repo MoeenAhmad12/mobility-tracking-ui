@@ -1,8 +1,14 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 import { ToastrService } from 'ngx-toastr';
+import { ParcelItemModel } from 'src/app/models/parcel-item-model';
 import { UserModel } from 'src/app/models/user-model';
 import { DataService } from 'src/app/services/data.service';
+import { AddParcelItemModalComponent } from '../add-parcel-item-modal/add-parcel-item-modal.component';
 
 @Component({
   selector: 'app-supplier-parcel-modal',
@@ -14,6 +20,15 @@ export class SupplierParcelModalComponent implements OnInit {
   receivers: UserModel[] = [];
   supplierId:string='';
   receiverId:string='';
+  
+  displayedColumns = ['Model', 'Price','Actions'];
+  dataSource = new MatTableDataSource();
+  parcelId: string= '';
+
+
+  @ViewChild(MatPaginator, {static: true}) paginator: any;
+  @ViewChild(MatSort, {static: true}) sort: any;
+  @ViewChild('filter',  {static: true}) filter: any;
   
   suppliesParcelForm= this.formBuilder.group({
     trackingNumber: ['', Validators.required],
@@ -35,7 +50,8 @@ export class SupplierParcelModalComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private dataService: DataService,
-    private toastr: ToastrService) { }
+    private toastr: ToastrService,
+    private dialog: MatDialog,) { }
 
   ngOnInit(): void {
     this.getReceivers();
@@ -99,6 +115,36 @@ export class SupplierParcelModalComponent implements OnInit {
         this.toastr.error("Error in creating supplier parcel", "Supplier Parcel")
       }
     );
+  }
+  addParcelItem(row?:any) {
+    const dialogRef=this.dialog.open(AddParcelItemModalComponent,{
+      height: '330px',
+      width: '400px',
+      data:{id:this.parcelId,row:row}
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.getParcelItems();
+    });
+  }
+  getParcelItems(){
+    if(this.parcelId != ''){
+      this.dataService.getParcelItems(this.parcelId).subscribe(
+        response => {
+          this.dataSource.data= response.data.rows.map(function(x:any) {
+            return {    
+              "Model": x[0],
+              "Price": x[1],
+              "Id": x[2],
+              "Is_Paid": x[3],
+              "Paid_At": x[4],
+              "Received_At": x[5] == null? false : x[5]
+            }
+          })
+        },
+        error => {
+        }
+      );
+    }
   }
 
 }

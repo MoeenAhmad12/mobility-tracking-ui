@@ -53,7 +53,7 @@ export class SupplierParcelsComponent implements OnInit, AfterViewInit {
 
   openDialog() {
     const dialogRef=this.dialog.open(SupplierParcelModalComponent,{
-      height: '440px',
+      height: '690px',
       width: '1000px',
     });
     dialogRef.afterClosed().subscribe(result => {

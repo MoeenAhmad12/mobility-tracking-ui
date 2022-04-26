@@ -1,28 +1,68 @@
 <h2 mat-dialog-title>Add Parcel</h2>
   <mat-dialog-content class="mat-typography">
-        <div [formGroup]="suppliesParcelForm">
+        <div [formGroup]="suppliesParcelForm" class="row">
 
-          <div class="mb-3">
+          <div class="col-6 mb-3">
             <label for="name" class="form-label">Tracking Number: </label>
             <input id="name" type="text" formControlName="trackingNumber" class="form-control" >
           </div>
-          <div class="mb-3">
+          <div class="col-6 mb-3">
             <label for="phone" class="form-label">Post Code: </label>
             <input id="phone" type="text" formControlName="postCode" class="form-control" >
           </div>
-          <div class="mb-3">
+          <div class="col-6 mb-3">
             <label for="supplier" class="form-label">Supplier: </label>
             <ngx-select-dropdown [config]="config" [options]="suppliers" (change)="supplierChanged($event)"></ngx-select-dropdown>
           </div>
-          <div class="mb-3">
+          <div class="col-6 mb-3">
             <label for="receiver" class="form-label">Receiver: </label>
             <ngx-select-dropdown [config]="config" [options]="receivers" (change)="receiverChanged($event)"></ngx-select-dropdown>
           </div>
+          <div class="d-flex align-items-end flex-column bd-highlight mb-3">
+            <button type="button" mat-raised-button color="accent" mat-dialog-close (click)="createSupplierParcel()">Create Parcel</button>
+          </div>
+      </div>
+      <div class="my-2 mat-elevation-z8">
+        <mat-table #table [dataSource]="dataSource" matSort class="mat-cell" style="height: 340px;">
+          ng update @angular/cli @angular/core
+          <!--- Note that these columns can be defined in any order.
+                The actual rendered columns are set as a property on the row definition" -->
+      
+          <!-- ID Column -->
+          <ng-container matColumnDef="Model">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Model</mat-header-cell>
+            <mat-cell *matCellDef="let row" >{{row.Model}}</mat-cell>
+          </ng-container>
+      
+          <ng-container matColumnDef="Price">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Price</mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.Price}}</mat-cell>
+          </ng-container>
+      
+          
+          <!-- actions -->
+          <ng-container matColumnDef="Actions">
+            <mat-header-cell *matHeaderCellDef>
+              <button mat-icon-button color="primary" (click)="addParcelItem()">
+                <mat-icon aria-label="Example icon-button with a heart icon">add</mat-icon>
+              </button>
+            </mat-header-cell>
+      
+            <mat-cell *matCellDef="let row; let i=index;">
+              <button mat-icon-button color="accent"  [disabled]="row.Received_At" (click)="addParcelItem(row)">  
+                <mat-icon aria-label="Edit" >edit</mat-icon>
+              </button>
+            </mat-cell>
+          </ng-container>
+      
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </mat-table>
+    
       </div>
       
     </mat-dialog-content>
     <mat-dialog-actions align="end">
       
       <button mat-button mat-dialog-close>Cancel</button>
-      <button type="button" mat-raised-button color="accent" mat-dialog-close (click)="createSupplierParcel()">Create</button>
     </mat-dialog-actions>
