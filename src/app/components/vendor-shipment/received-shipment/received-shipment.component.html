@@ -8,15 +8,6 @@
             The actual rendered columns are set as a property on the row definition" -->
   
       <!-- ID Column -->
-      <ng-container matColumnDef="Model">
-        <mat-header-cell *matHeaderCellDef mat-sort-header>Model</mat-header-cell>
-        <mat-cell *matCellDef="let row" >{{row.Model}}</mat-cell>
-      </ng-container>
-  
-      <ng-container matColumnDef="Price">
-        <mat-header-cell *matHeaderCellDef mat-sort-header>Price</mat-header-cell>
-        <mat-cell *matCellDef="let row"> {{row.Price}}</mat-cell>
-      </ng-container>
   
       <ng-container matColumnDef="Tracking_Number">
         <mat-header-cell *matHeaderCellDef mat-sort-header>Tracking_Number</mat-header-cell>
@@ -26,6 +17,11 @@
       <ng-container matColumnDef="Post_Code">
         <mat-header-cell *matHeaderCellDef mat-sort-header>Post_Code</mat-header-cell>
         <mat-cell *matCellDef="let row"> {{row.Post_Code}}</mat-cell>
+      </ng-container>
+      
+      <ng-container matColumnDef="Received_At">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Received_At</mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{row.Received_At}}</mat-cell>
       </ng-container>
   
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>

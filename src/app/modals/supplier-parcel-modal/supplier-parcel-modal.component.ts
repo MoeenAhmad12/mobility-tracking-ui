@@ -24,6 +24,7 @@ export class SupplierParcelModalComponent implements OnInit {
   displayedColumns = ['Model', 'Price','Actions'];
   dataSource = new MatTableDataSource();
   parcelId: string= '';
+  parcelItems:any[]=[];
 
 
   @ViewChild(MatPaginator, {static: true}) paginator: any;
@@ -104,7 +105,8 @@ export class SupplierParcelModalComponent implements OnInit {
       "Post_Code":  this.suppliesParcelForm.value.postCode,
       "Supplier_Id":  this.supplierId,
       "Receiver_Id":  this.receiverId,
-      "Date":"10-10-2010"
+      "Date":"10-10-2010",
+      "Items": this.parcelItems
     }
     this.dataService.createSupplierParcel(payload).subscribe(
       response => {
@@ -123,7 +125,8 @@ export class SupplierParcelModalComponent implements OnInit {
       data:{id:this.parcelId,row:row}
     });
     dialogRef.afterClosed().subscribe(result => {
-      this.getParcelItems();
+      this.parcelItems.push(result);
+      this.dataSource.data= this.parcelItems;
     });
   }
   getParcelItems(){

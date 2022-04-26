@@ -14,7 +14,7 @@ import { DataService } from 'src/app/services/data.service';
 export class ReceivedShipmentComponent implements OnInit {
 
   vendors: UserModel[] = [];
-  displayedColumns = ['Model', 'Price', 'Tracking_Number', 'Post_Code'];
+  displayedColumns = ['Tracking_Number', 'Post_Code','Received_At'];
   dataSource =  new MatTableDataSource();
   vendorId:string='';
   config = {
@@ -38,6 +38,7 @@ export class ReceivedShipmentComponent implements OnInit {
     private toastr: ToastrService) { }
 
   ngOnInit(): void {
+    this.getReceivedShipments()
   }
   vendorChanged(val:any){
     this.vendorId= val.value.Id
@@ -60,20 +61,18 @@ export class ReceivedShipmentComponent implements OnInit {
     );
   }
   getReceivedShipments(){
-    this.dataService.getSupplierUnReceivedItems(this.vendorId).subscribe(
+    this.dataService.getVendorReceivedShipment().subscribe(
       response => {
         this.dataSource.data= response.data.rows.map(function(x:any) {
           return {   
-            "Model": x[0], 
-            "Price": x[1], 
-            "Id": x[2], 
-            "Parcel_Id": x[2], 
+            "Id": x[0], 
+            "Vendor_Id": x[1], 
+            "Receiver_Id": x[2], 
+            "Received_At": x[3], 
             "Is_Received": x[4], 
-            "Is_Paid": x[5], 
-            "Created_At": x[6], 
-            "Paid_At": x[7],
-            "Tracking_Number": x[9], 
-            "Post_Code": x[10] 
+            "Created_At": x[5], 
+            "Tracking_Number": x[6],
+            "Post_Code": x[7], 
           }
         })
       },

@@ -222,8 +222,18 @@ export class DataService {
     const url = this.baseUrl + '/VendorReceiveShipment';
     return this.http.post(url, obj).pipe(map((response: any) => response));
   }
-
-  
+  getVendorReceivedShipment() : Observable<any>{
+    const url = this.baseUrl + '/GetVendorShipment?Received=true';
+    return this.http.get(url).pipe(
+      map((response: any) => response)
+    );
+  }
+  getVendorUnReceivedShipment() : Observable<any>{
+    const url = this.baseUrl + '/GetVendorShipment?Received=false';
+    return this.http.get(url).pipe(
+      map((response: any) => response)
+    );
+  }
   getReceiverShipmentItem(id:string) : Observable<any>{
     const url = this.baseUrl + '/GetReceiverShipmentItem';
     return this.http.get(url).pipe(
