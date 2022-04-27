@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -13,6 +13,7 @@ import { DataService } from 'src/app/services/data.service';
 })
 export class UnReceivedShipmentComponent implements OnInit {
 
+  @Output() shipmentReceived: EventEmitter<any> = new EventEmitter();
   vendors: UserModel[] = [];
   displayedColumns = ['Tracking_Number', 'Post_Code','Actions'];
   dataSource =  new MatTableDataSource();
@@ -39,6 +40,7 @@ export class UnReceivedShipmentComponent implements OnInit {
 
   ngOnInit(): void {
     this.getUnReceivedShipments()
+    this.getVendors()
   }
   vendorChanged(val:any){
     this.vendorId= val.value.Id
@@ -49,13 +51,14 @@ export class UnReceivedShipmentComponent implements OnInit {
       response => {
         this.toastr.success(response.message, "Shipment")
         this.getUnReceivedShipments();
+        this.shipmentReceived.emit()
       },
       error => {
       }
     );
   }
-  getSupplier(){
-    this.dataService.getSuppliers().subscribe(
+  getVendors(){
+    this.dataService.getVendors().subscribe(
       response => {
         this.vendors= response.data.rows.map(function(x:any) {
           return {    
@@ -70,7 +73,7 @@ export class UnReceivedShipmentComponent implements OnInit {
     );
   }
   getUnReceivedShipments(){
-    this.dataService.getVendorUnReceivedShipment().subscribe(
+    this.dataService.getVendorUnReceivedShipment(this.vendorId).subscribe(
       response => {
         this.dataSource.data= response.data.rows.map(function(x:any) {
           return {   

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -12,6 +12,8 @@ import { DataService } from 'src/app/services/data.service';
   styleUrls: ['./vendor-unpaid-items.component.css']
 })
 export class VendorUnpaidItemsComponent implements OnInit {
+  
+  @Output() itemPaid: EventEmitter<any> = new EventEmitter();
   vendors: UserModel[] = [];
   displayedColumns = ['Vendor_Price', 'Imei', 'Actions'];
   dataSource =  new MatTableDataSource();
@@ -83,7 +85,8 @@ export class VendorUnpaidItemsComponent implements OnInit {
     this.dataService.MarkVendorPaidItem(id).subscribe(
       response => {
         this.toastr.success(response.message, "Vendor Item")
-        this.getVendorUnPaidItem()
+        this.getVendorUnPaidItem();
+        this.itemPaid.emit();
       },
       error => {
         this.toastr.error("Error in paying Parcel", "Parcel")

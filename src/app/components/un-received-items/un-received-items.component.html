@@ -13,9 +13,9 @@
         <mat-cell *matCellDef="let row" >{{row.Model}}</mat-cell>
       </ng-container>
   
-      <ng-container matColumnDef="Price">
-        <mat-header-cell *matHeaderCellDef mat-sort-header>Price</mat-header-cell>
-        <mat-cell *matCellDef="let row"> {{row.Price}}</mat-cell>
+      <ng-container matColumnDef="Item_Price">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Item_Price</mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{row.Item_Price}}</mat-cell>
       </ng-container>
   
       <ng-container matColumnDef="Tracking_Number">
@@ -36,16 +36,6 @@
       <ng-container matColumnDef="Supplier_Name">
         <mat-header-cell *matHeaderCellDef mat-sort-header>Supplier_Name</mat-header-cell>
         <mat-cell *matCellDef="let row"> {{row.Supplier_Name}}</mat-cell>
-      </ng-container>
-      
-      <ng-container matColumnDef="Created_At">
-        <mat-header-cell *matHeaderCellDef mat-sort-header>Created_At</mat-header-cell>
-        <mat-cell *matCellDef="let row"> {{row.Created_At | date:'mediumDate'}}</mat-cell>
-      </ng-container>
-      
-      <ng-container matColumnDef="Date">
-        <mat-header-cell *matHeaderCellDef mat-sort-header>Date</mat-header-cell>
-        <mat-cell *matCellDef="let row"> {{row.Date | date:'mediumDate'}}</mat-cell>
       </ng-container>
   
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>

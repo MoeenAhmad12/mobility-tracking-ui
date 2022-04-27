@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { VendorReceivedItemComponent } from './vendor-received-item/vendor-received-item.component';
 
 @Component({
   selector: 'app-vendor-inventory',
@@ -7,9 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class VendorInventoryComponent implements OnInit {
 
+  @ViewChild(VendorReceivedItemComponent, {static : true}) child : any;
   constructor() { }
 
   ngOnInit(): void {
   }
-
+  
+  itemReceived(val:any){
+    this.child.getVendorReceivedItems();
+  }
 }

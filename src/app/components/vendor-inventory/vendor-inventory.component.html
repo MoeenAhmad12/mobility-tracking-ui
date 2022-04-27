@@ -4,6 +4,6 @@
         <app-vendor-received-item></app-vendor-received-item>
     </mat-tab>
     <mat-tab label="Un Received Items"> 
-        <app-vendor-un-received-item></app-vendor-un-received-item> 
+        <app-vendor-un-received-item (itemReceived)="itemReceived($event)"></app-vendor-un-received-item> 
     </mat-tab>
 </mat-tab-group>

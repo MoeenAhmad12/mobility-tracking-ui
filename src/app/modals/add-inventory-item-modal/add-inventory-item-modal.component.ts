@@ -54,6 +54,7 @@ export class AddInventoryItemModalComponent implements OnInit {
             "Vendor_Paid_At": x[9]
           }
         })
+        this.items = this.items.filter((x: { Is_Sent: number; }) => x.Is_Sent == 0)
       },
       error => {
         this.toastr.error("Error in getting supplier parcel", "Supplier Parcel")

@@ -202,14 +202,20 @@ export class DataService {
   }
   
   getVendorUnReceivedItem(id:string) : Observable<any>{
-    const url = this.baseUrl + '/GetVendorUnReceivedItem';
+    var url = this.baseUrl + '/GetVendorUnReceivedItem';
+    if(id){
+      url= url+'?VendorId='+id
+    }
     return this.http.get(url).pipe(
       map((response: any) => response)
     );
   }
   
   getVendorReceivedItems(id:string) : Observable<any>{
-    const url = this.baseUrl + '/GetVendorReceivedItems';
+    var url = this.baseUrl + '/GetVendorReceivedItems';
+    if(id){
+      url= url+'?VendorId='+id
+    }
     return this.http.get(url).pipe(
       map((response: any) => response)
     );
@@ -222,14 +228,20 @@ export class DataService {
     const url = this.baseUrl + '/VendorReceiveShipment';
     return this.http.post(url, obj).pipe(map((response: any) => response));
   }
-  getVendorReceivedShipment() : Observable<any>{
-    const url = this.baseUrl + '/GetVendorShipment?Received=true';
+  getVendorReceivedShipment(id:string) : Observable<any>{
+    var url = this.baseUrl + '/GetVendorShipment?Received=true';
+    if(id){
+      url+='&vendor_id='+id
+    }
     return this.http.get(url).pipe(
       map((response: any) => response)
     );
   }
-  getVendorUnReceivedShipment() : Observable<any>{
-    const url = this.baseUrl + '/GetVendorShipment?Received=false';
+  getVendorUnReceivedShipment(id:string) : Observable<any>{
+    var url = this.baseUrl + '/GetVendorShipment?Received=false';
+    if(id){
+      url+='&vendor_id='+id
+    }
     return this.http.get(url).pipe(
       map((response: any) => response)
     );

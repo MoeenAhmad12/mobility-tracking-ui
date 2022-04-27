@@ -13,7 +13,7 @@ import { DataService } from 'src/app/services/data.service';
 })
 export class UnReceivedItemsComponent implements OnInit {
   suppliers: UserModel[] = [];
-  displayedColumns = ['Model', 'Price', 'Tracking_Number', 'Post_Code','Receiver_Name','Supplier_Name','Created_At','Date'];
+  displayedColumns = ['Model', 'Item_Price', 'Tracking_Number', 'Post_Code','Receiver_Name','Supplier_Name'];
   dataSource =  new MatTableDataSource();
   supplierId:string='';
 
@@ -65,16 +65,13 @@ export class UnReceivedItemsComponent implements OnInit {
       response => {
         this.dataSource.data= response.data.rows.map(function(x:any) {
           return {   
-            "Receiver_Name": x[0], 
-            "Supplier_Name": x[1], 
-            "Model": x[2], 
-            "Price": x[3], 
-            "Id": x[4], 
-            "Tracking_Number": x[5], 
-            "Post_Code": x[6], 
-            "Created_At": x[7],
-            "Date": x[9], 
-            "Paid_At": x[10] 
+
+            "Model": x[0], 
+            "Item_Price": x[1], 
+            "Receiver_Name": x[2], 
+            "Supplier_Name": x[3], 
+            "Tracking_Number": x[4], 
+            "Post_Code": x[5], 
           }
         })
       },

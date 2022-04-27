@@ -4,6 +4,6 @@
         <app-vendor-paid-items></app-vendor-paid-items>
     </mat-tab>
     <mat-tab label="Vendor Un Paid Items"> 
-        <app-vendor-unpaid-items></app-vendor-unpaid-items> 
+        <app-vendor-unpaid-items (itemPaid)="itemPaid($event)"></app-vendor-unpaid-items> 
     </mat-tab>
 </mat-tab-group>

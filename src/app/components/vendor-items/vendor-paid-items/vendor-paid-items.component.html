@@ -23,16 +23,9 @@
           <mat-cell *matCellDef="let row"> {{row.Imei}}</mat-cell>
         </ng-container>
     
-        <ng-container matColumnDef="Actions">
-          <mat-header-cell *matHeaderCellDef>
-            Actions
-          </mat-header-cell>
-    
-          <mat-cell *matCellDef="let row; let i=index;">
-            <button mat-raised-button color="accent" class="mx-2">
-              
-            </button>
-          </mat-cell>
+        <ng-container matColumnDef="Vendor_Paid_At">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Vendor_Paid_At</mat-header-cell>
+          <mat-cell *matCellDef="let row"> {{row.Vendor_Paid_At}}</mat-cell>
         </ng-container>
     
         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>

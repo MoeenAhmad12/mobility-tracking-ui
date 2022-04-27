@@ -13,7 +13,7 @@ import { DataService } from 'src/app/services/data.service';
 })
 export class VendorPaidItemsComponent implements OnInit {
   vendors: UserModel[] = [];
-  displayedColumns = ['Model', 'Vendor_Price', 'Imei', 'Actions'];
+  displayedColumns = ['Model', 'Vendor_Price', 'Imei', 'Vendor_Paid_At'];
   dataSource =  new MatTableDataSource();
   vendorId:string='';
   config = {

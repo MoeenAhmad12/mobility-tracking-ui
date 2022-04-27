@@ -7,6 +7,6 @@
         <app-received-shipment></app-received-shipment>
     </mat-tab>
     <mat-tab label="Un Received Shipments"> 
-        <app-un-received-shipment></app-un-received-shipment> 
+        <app-un-received-shipment (shipmentReceived)="shipmentReceived()"></app-un-received-shipment> 
     </mat-tab>
 </mat-tab-group>

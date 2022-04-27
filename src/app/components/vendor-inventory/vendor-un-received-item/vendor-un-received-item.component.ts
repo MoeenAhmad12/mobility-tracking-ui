@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -14,7 +14,8 @@ import { DataService } from 'src/app/services/data.service';
   styleUrls: ['./vendor-un-received-item.component.css']
 })
 export class VendorUnReceivedItemComponent implements OnInit {
-
+  
+  @Output() itemReceived: EventEmitter<any> = new EventEmitter();
   vendors: UserModel[] = [];
   displayedColumns = ['Model', 'Imei','Actions'];
   dataSource =  new MatTableDataSource();
@@ -52,10 +53,12 @@ export class VendorUnReceivedItemComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       this.getVendorUnReceivedItem();
+      this.itemReceived.emit();
     });
   }
   vendorChanged(val:any){
     this.vendorId= val.value.Id
+    this.getVendorUnReceivedItem();
   }
   
   getVendors(){

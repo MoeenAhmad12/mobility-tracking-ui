@@ -38,15 +38,16 @@ export class ReceivedShipmentComponent implements OnInit {
     private toastr: ToastrService) { }
 
   ngOnInit(): void {
-    this.getReceivedShipments()
+    this.getReceivedShipments();
+    this.getVendors();
   }
   vendorChanged(val:any){
     this.vendorId= val.value.Id
     this.getReceivedShipments()
   }
   
-  getSupplier(){
-    this.dataService.getSuppliers().subscribe(
+  getVendors(){
+    this.dataService.getVendors().subscribe(
       response => {
         this.vendors= response.data.rows.map(function(x:any) {
           return {    
@@ -61,7 +62,7 @@ export class ReceivedShipmentComponent implements OnInit {
     );
   }
   getReceivedShipments(){
-    this.dataService.getVendorReceivedShipment().subscribe(
+    this.dataService.getVendorReceivedShipment(this.vendorId).subscribe(
       response => {
         this.dataSource.data= response.data.rows.map(function(x:any) {
           return {   
