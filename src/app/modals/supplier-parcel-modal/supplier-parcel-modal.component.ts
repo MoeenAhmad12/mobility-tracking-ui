@@ -129,6 +129,21 @@ export class SupplierParcelModalComponent implements OnInit {
       this.dataSource.data= this.parcelItems;
     });
   }
+  updateParcelItem(row?:any) {
+    const dialogRef=this.dialog.open(AddParcelItemModalComponent,{
+      height: '330px',
+      width: '400px',
+      data:{row:row}
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      var index = this.parcelItems.findIndex(x=> x.Model == row.Model &&  x.Price == row.Price)
+      
+      console.log(index)
+      this.parcelItems[index].Model = result.Model
+      this.parcelItems[index].Price = result.Price
+      this.dataSource.data= this.parcelItems;
+    });
+  }
   getParcelItems(){
     if(this.parcelId != ''){
       this.dataService.getParcelItems(this.parcelId).subscribe(

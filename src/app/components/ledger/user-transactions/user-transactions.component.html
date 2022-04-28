@@ -1,0 +1,40 @@
+<div class="m-3 row">
+    <div class="col-2">
+        <ngx-select-dropdown style="width:200px" [config]="config" [options]="types" (change)="changeType($event)"></ngx-select-dropdown>
+    </div>
+    <div class="col-2">
+        <ngx-select-dropdown style="width:200px" [config]="userConfig" [options]="users" (change)="changeUser($event)"></ngx-select-dropdown>
+    </div>
+    <div class="col-7">
+    </div>
+    
+    <div class="col-1">
+        
+        <button mat-raised-button color="accent" mat-dialog-close (click)="receiveParcel()">Pay User</button>
+    </div>
+</div>
+<div class="m-3 mat-elevation-z8">
+    <mat-table #table [dataSource]="dataSource" matSort class="mat-cell"  style="min-height: 400px;">
+      <ng-container matColumnDef="Transaction_Type">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Transaction_Type</mat-header-cell>
+        <mat-cell *matCellDef="let row" >{{row.Transaction_Type}}</mat-cell>
+      </ng-container>
+  
+      <ng-container matColumnDef="Amount">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Amount</mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{row.Amount}}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="Balance">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Balance</mat-header-cell>
+        <mat-cell *matCellDef="let row" >{{row.Balance}}</mat-cell>
+      </ng-container>
+  
+      <ng-container matColumnDef="User_type">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>User_type</mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{row.User_type}}</mat-cell>
+      </ng-container>
+  
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+  </div>

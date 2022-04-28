@@ -20,7 +20,7 @@
       </mat-header-cell>
 
       <mat-cell *matCellDef="let row; let i=index;">
-        <button mat-icon-button color="accent">
+        <button mat-icon-button color="accent" (click)="addReceiver(row)">
           <mat-icon aria-label="Edit">edit</mat-icon>
         </button>
       </mat-cell>
@@ -30,33 +30,3 @@
     <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
   </mat-table>
 </div>
-
-
-<!-- 
-<div class="modal fade" #closeModal id="receiverModal" tabindex="-1" aria-labelledby="receiverModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="receiverModalLabel">Create Receiver</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <div [formGroup]="receiverForm">
-
-          <div class="mb-3">
-            <label for="name" class="form-label">Name: </label>
-            <input id="name" type="text" formControlName="name" class="form-control" >
-          </div>
-          <div class="mb-3">
-            <label for="phone" class="form-label">Phone: </label>
-            <input id="phone" type="text" formControlName="phone" class="form-control" >
-          </div>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-success" (click)="addReceiver()">Create</button>
-      </div>
-    </div>
-  </div>
-</div> -->

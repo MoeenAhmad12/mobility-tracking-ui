@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { DataService } from 'src/app/services/data.service';
 
@@ -14,10 +15,26 @@ export class AddVendorModalComponent implements OnInit {
     phone: ['', Validators.required],
     address: ['']
   });
+  isEditMode = false;
+  id:string = '';
   constructor(
     private formBuilder: FormBuilder,
     private dataService: DataService,
-    private toastr: ToastrService) { }
+    private toastr: ToastrService,
+    @Inject(MAT_DIALOG_DATA) public data: {row: any}) {
+      if(data.row){
+        this.isEditMode = true;
+        this.vendorForm.patchValue({
+          name:data.row.Name,
+          phone:data.row.Phone,
+          address:data.row.Address,
+        })
+        this.id = data.row.Id
+      }
+      else{
+        this.isEditMode = false;
+      }
+     }
 
   ngOnInit(): void {
   }
@@ -38,6 +55,22 @@ export class AddVendorModalComponent implements OnInit {
       }
     );
   }
-
+  updateVendor(){
+    const payload={
+      "Name":  this.vendorForm.value.name,
+      "Phone":  this.vendorForm.value.phone,
+      "Address":  this.vendorForm.value.address,
+      "Id": this.id
+    }
+    this.dataService.updateVendor(payload).subscribe(
+      response => {
+        this.toastr.success(response.message, "Vendor")
+        this.vendorForm.reset();
+      },
+      error => {
+        this.toastr.error("Error in creating receiver", "Receiver")
+      }
+    );
+  }
 
 }

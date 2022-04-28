@@ -13,6 +13,7 @@ import { VendorUnReceivedItemComponent } from './components/vendor-inventory/ven
 import { VendorItemsComponent } from './components/vendor-items/vendor-items.component';
 import { VendorShipmentComponent } from './components/vendor-shipment/vendor-shipment.component';
 import { VerdorComponent } from './components/verdor/verdor.component';
+import { LedgerComponent } from './components/ledger/ledger.component';
 
 const routes: Routes = [
   {path: 'supplier-percel', component: SupplierParcelsComponent },
@@ -22,6 +23,7 @@ const routes: Routes = [
   {path: 'vendor-shipment', component: VendorShipmentComponent },
   {path: 'vendor-items', component: VendorItemsComponent },
   {path: 'vendor-inventory', component: VendorInventoryComponent },
+  {path: 'ledger', component: LedgerComponent },
   {path: 'users', component: UsersComponent },
   {path: '', component: UsersComponent }
 ];

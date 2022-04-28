@@ -1,0 +1,24 @@
+<div class="m-3 row">
+    <div class="col-2">
+        <ngx-select-dropdown style="width:200px" [config]="config" [options]="types" (change)="changeType($event)"></ngx-select-dropdown>
+    </div>
+    <div class="col-2">
+        <ngx-select-dropdown style="width:200px" [config]="userConfig" [options]="users" (change)="changeUser($event)" ></ngx-select-dropdown>
+    </div>
+</div>
+<div class="m-3 mat-elevation-z8">
+    <mat-table #table [dataSource]="dataSource" matSort class="mat-cell"  style="min-height: 400px;">
+      <ng-container matColumnDef="Type">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Type</mat-header-cell>
+        <mat-cell *matCellDef="let row" >{{row.Type}}</mat-cell>
+      </ng-container>
+  
+      <ng-container matColumnDef="Balance">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Balance</mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{row.Balance}}</mat-cell>
+      </ng-container>
+  
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+  </div>

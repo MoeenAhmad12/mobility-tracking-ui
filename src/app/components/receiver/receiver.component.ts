@@ -35,10 +35,11 @@ export class ReceiverComponent implements OnInit , AfterViewInit{
   ngAfterViewInit() {
     this.dataSource.sort = this.sort;
   }
-  addReceiver() {
+  addReceiver(row?:any) {
     const dialogRef=this.dialog.open(AddReceiverModalComponent,{
       height: '350px',
       width: '500px',
+      data:{row:row}
     });
     dialogRef.afterClosed().subscribe(result => {
       this.getReceivers();
@@ -49,6 +50,7 @@ export class ReceiverComponent implements OnInit , AfterViewInit{
       response => {
         this.receivers= response.data.rows.map(function(x:any) {
           return {    
+              "Id": x[0],
               "Name": x[1],
               "Phone": x[2]
           }

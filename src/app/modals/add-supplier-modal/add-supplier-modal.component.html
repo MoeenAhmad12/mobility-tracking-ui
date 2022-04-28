@@ -1,4 +1,5 @@
-<h2 mat-dialog-title>Create Supplier</h2>
+<h2 *ngIf="!isEditMode"mat-dialog-title>Create Supplier</h2>
+<h2 *ngIf="isEditMode"mat-dialog-title>Update Supplier</h2>
 <mat-dialog-content class="mat-typography"  style="height: 270px;">
     <div [formGroup]="supplierForm">
 
@@ -20,5 +21,6 @@
 </mat-dialog-content>
 <mat-dialog-actions align="end">
   <button mat-button mat-dialog-close>Cancel</button>
-  <button mat-raised-button color="accent" mat-dialog-close  (click)="addSupplier()">Create</button>
+  <button *ngIf="!isEditMode" mat-raised-button color="accent" mat-dialog-close  (click)="addSupplier()">Create</button>
+  <button *ngIf="isEditMode" mat-raised-button color="accent" mat-dialog-close  (click)="updateSupplier()">Update</button>
 </mat-dialog-actions>

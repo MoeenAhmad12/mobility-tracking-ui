@@ -56,6 +56,11 @@ import { VendorUnReceivedItemComponent } from './components/vendor-inventory/ven
 import { VendorReceivedItemComponent } from './components/vendor-inventory/vendor-received-item/vendor-received-item.component';
 import { VendorReceiveItemModalComponent } from './modals/vendor-receive-item-modal/vendor-receive-item-modal.component';
 import { AddInventoryItemModalComponent } from './modals/add-inventory-item-modal/add-inventory-item-modal.component';
+import { UpdateParcelItemModalComponent } from './modals/update-parcel-item-modal/update-parcel-item-modal.component';
+import { LedgerComponent } from './components/ledger/ledger.component';
+import { UserBalanceComponent } from './components/ledger/user-balance/user-balance.component';
+import { UserTransactionsComponent } from './components/ledger/user-transactions/user-transactions.component';
+import { PayUserComponent } from './modals/pay-user/pay-user.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -95,7 +100,12 @@ import { AddInventoryItemModalComponent } from './modals/add-inventory-item-moda
     VendorUnReceivedItemComponent,
     VendorReceivedItemComponent,
     VendorReceiveItemModalComponent,
-    AddInventoryItemModalComponent
+    AddInventoryItemModalComponent,
+    UpdateParcelItemModalComponent,
+    LedgerComponent,
+    UserBalanceComponent,
+    UserTransactionsComponent,
+    PayUserComponent
   ],
   imports: [
     BrowserModule,

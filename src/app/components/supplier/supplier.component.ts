@@ -35,10 +35,11 @@ export class SupplierComponent implements OnInit {
   ngAfterViewInit() {
     this.dataSource.sort = this.sort;
   }
-  addSupplier() {
+  addSupplier(row?:any) {
     const dialogRef=this.dialog.open(AddSupplierModalComponent,{
       height: '430px',
       width: '500px',
+      data:{row:row}
     });
     dialogRef.afterClosed().subscribe(result => {
       this.getSuppliers();
@@ -50,9 +51,10 @@ export class SupplierComponent implements OnInit {
       response => {
         this.suppliers= response.data.rows.map(function(x:any) {
           return {    
+              "Id": x[0],
               "Name": x[1],
-              "Address": x[2],
-              "Phone": x[3]
+              "Phone": x[2],
+              "Address": x[3]
           }
         })
         this.dataSource.data=this.suppliers;

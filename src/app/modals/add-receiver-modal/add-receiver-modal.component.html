@@ -1,4 +1,5 @@
-<h2 mat-dialog-title>Create Receiver</h2>
+<h2 *ngIf="isEditMode" mat-dialog-title>Update Receiver</h2>
+<h2 *ngIf="!isEditMode" mat-dialog-title>Create Receiver</h2>
 <mat-dialog-content class="mat-typography" style="height: 170px;">
 
     <div [formGroup]="receiverForm">
@@ -15,5 +16,6 @@
 </mat-dialog-content>
 <mat-dialog-actions align="end">
   <button mat-button mat-dialog-close>Cancel</button>
-  <button mat-raised-button color="accent" mat-dialog-close (click)="addReceiver()">Create</button>
+  <button mat-raised-button *ngIf="!isEditMode" color="accent" mat-dialog-close (click)="addReceiver()">Create</button>
+  <button mat-raised-button *ngIf="isEditMode" color="accent" mat-dialog-close (click)="updateReceiver()">Update</button>
 </mat-dialog-actions>

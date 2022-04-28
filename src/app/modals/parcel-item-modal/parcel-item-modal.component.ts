@@ -8,6 +8,7 @@ import { ToastrService } from 'ngx-toastr';
 import { ParcelItemModel } from 'src/app/models/parcel-item-model';
 import { DataService } from 'src/app/services/data.service';
 import { AddParcelItemModalComponent } from '../add-parcel-item-modal/add-parcel-item-modal.component';
+import { UpdateParcelItemModalComponent } from '../update-parcel-item-modal/update-parcel-item-modal.component';
 
 @Component({
   selector: 'app-parcel-item-modal',
@@ -47,7 +48,7 @@ export class ParcelItemModalComponent implements OnInit {
     this.getParcelItems();
   }
   addParcelItem(row?:any) {
-    const dialogRef=this.dialog.open(AddParcelItemModalComponent,{
+    const dialogRef=this.dialog.open(UpdateParcelItemModalComponent,{
       height: '330px',
       width: '400px',
       data:{id:this.parcelId,row:row}

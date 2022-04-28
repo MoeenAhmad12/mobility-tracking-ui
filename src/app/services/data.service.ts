@@ -17,7 +17,7 @@ export class DataService {
   }
   updateReceiver(payload: UserModel) : Observable<any>{
     const url = this.baseUrl + '/UpdateReceiver';
-    return this.http.put(url, payload).pipe(map((response: any) => response));
+    return this.http.post(url, payload).pipe(map((response: any) => response));
   }
 
   deleteReceiver(id: number) : Observable<any>{
@@ -41,7 +41,7 @@ export class DataService {
 
   updateVendor(payload: UserModel) : Observable<any>{
     const url = this.baseUrl + '/UpdateVendor';
-    return this.http.put(url, payload).pipe(map((response: any) => response));
+    return this.http.post(url, payload).pipe(map((response: any) => response));
   }
 
   getVendors() : Observable<any>{
@@ -61,7 +61,7 @@ export class DataService {
 
   updateSupplier(payload: UserModel) : Observable<any>{
     const url = this.baseUrl + '/UpdateSupplier';
-    return this.http.put(url, payload).pipe(map((response: any) => response));
+    return this.http.post(url, payload).pipe(map((response: any) => response));
   }
   getSuppliers() : Observable<any>{
     const url = this.baseUrl + '/GetSuppliers';
@@ -277,6 +277,38 @@ export class DataService {
     );
   }
 
+  receiverPay(payload: any) : Observable<any>{
+    const url = this.baseUrl + '/ReceiverPay';
+    return this.http.post(url, payload).pipe(map((response: any) => response));
+  }
+  vendorPay(payload: any) : Observable<any>{
+    const url = this.baseUrl + '/VendorPay';
+    return this.http.post(url, payload).pipe(map((response: any) => response));
+  }
+  supplierPay(payload: any) : Observable<any>{
+    const url = this.baseUrl + '/SupplierPay';
+    return this.http.post(url, payload).pipe(map((response: any) => response));
+  }
+
+  getUserTransactions(id:string) : Observable<any>{
+    var url = this.baseUrl + '/GetLedgerData';
+    if(id){
+      url= url+'?UserId='+id
+    }
+    return this.http.get(url).pipe(
+      map((response: any) => response)
+    );
+  }
+  getUserBalance(id:string) : Observable<any>{
+    
+    var url = this.baseUrl + '/GetUserBalance';
+    if(id){
+      url= url+'?UserId='+id
+    }
+    return this.http.get(url).pipe(
+      map((response: any) => response)
+    );
+  }
 
 
 
@@ -295,7 +327,7 @@ export class DataService {
 
   updateUser(payload: UserModel) {
     const url = this.baseUrl + '/user';
-    return this.http.put(url, payload).pipe(map((response: any) => response));
+    return this.http.post(url, payload).pipe(map((response: any) => response));
   }
 
   deleteUser(id: number) {

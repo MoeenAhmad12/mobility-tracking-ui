@@ -1,16 +1,16 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { RouterLinkWithHref } from '@angular/router';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { DataService } from 'src/app/services/data.service';
 
 @Component({
-  selector: 'app-add-parcel-item-modal',
-  templateUrl: './add-parcel-item-modal.component.html',
-  styleUrls: ['./add-parcel-item-modal.component.css']
+  selector: 'app-update-parcel-item-modal',
+  templateUrl: './update-parcel-item-modal.component.html',
+  styleUrls: ['./update-parcel-item-modal.component.css']
 })
-export class AddParcelItemModalComponent implements OnInit {
+export class UpdateParcelItemModalComponent implements OnInit {
+
   parcelItemForm= this.formBuilder.group({
     model: ['', Validators.required],
     price: ['', Validators.required]
@@ -22,7 +22,6 @@ export class AddParcelItemModalComponent implements OnInit {
     private formBuilder: FormBuilder,
     private dataService: DataService,
     private toastr: ToastrService,
-    private  dialogRef: MatDialogRef<AddParcelItemModalComponent>,
     @Inject(MAT_DIALOG_DATA) public data: {id:string,row: any}) { 
       if(data.row){
         this.parcelItemForm.patchValue({
@@ -36,17 +35,24 @@ export class AddParcelItemModalComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
-  itemChanged(val:any){
-    
-    this.dialogRef.close(val);
-  }
   
-  createParcelItem(){
-    const payload={
-      "Model":  this.parcelItemForm.value.model,
-      "Price":  this.parcelItemForm.value.price,
-    }
-    this.dialogRef.close(payload);
+updateParcelItem(){
+  const payload={
+    "Model":  this.parcelItemForm.value.model,
+    "Price":  this.parcelItemForm.value.price,
+    "Parcel_Id":  this.parcelId,
+    "Id": this.id
   }
+  this.dataService.updateParcelItem(payload).subscribe(
+    response => {
+      this.toastr.success(response.message, "Parcel Item")
+      this.isEditCheck = false;
+      this.parcelItemForm.reset()
+    },
+    error => {
+      this.toastr.error("Error in creating parcel item", "Parcel Item")
+    }
+  );
+}
+
 }

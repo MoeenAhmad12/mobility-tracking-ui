@@ -32,10 +32,11 @@ export class VerdorComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.getVendors();
   }
-  addVendor() {
+  addVendor(row?:any) {
     const dialogRef=this.dialog.open(AddVendorModalComponent,{
       height: '450px',
       width: '500px',
+      data:{row:row}
     });
     dialogRef.afterClosed().subscribe(result => {
       this.getVendors();
@@ -51,6 +52,7 @@ export class VerdorComponent implements OnInit, AfterViewInit {
       response => {
         this.vendors= response.data.rows.map(function(x:any) {
           return {    
+              "Id": x[0],
               "Name": x[1],
               "Phone": x[2],
               "Address": x[3]
