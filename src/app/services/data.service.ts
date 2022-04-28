@@ -175,8 +175,11 @@ export class DataService {
     return this.http.post(url, obj).pipe(map((response: any) => response));
   }
 
-  getVendorShipments() : Observable<any>{
+  getVendorShipments(id:string) : Observable<any>{
     var url = this.baseUrl + '/GetVendorShipment';
+    if(id){
+      url= url+'?ReceiverId='+id
+    }
     return this.http.get(url).pipe(
       map((response: any) => response)
     );
