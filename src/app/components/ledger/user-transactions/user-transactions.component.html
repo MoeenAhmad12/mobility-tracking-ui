@@ -15,6 +15,10 @@
 </div>
 <div class="m-3 mat-elevation-z8">
     <mat-table #table [dataSource]="dataSource" matSort class="mat-cell"  style="min-height: 400px;">
+      <ng-container matColumnDef="Name">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Name</mat-header-cell>
+        <mat-cell *matCellDef="let row" >{{row.Name}}</mat-cell>
+      </ng-container>
       <ng-container matColumnDef="Transaction_Type">
         <mat-header-cell *matHeaderCellDef mat-sort-header>Transaction_Type</mat-header-cell>
         <mat-cell *matCellDef="let row" >{{row.Transaction_Type}}</mat-cell>

@@ -47,7 +47,7 @@ export class UserBalanceComponent implements OnInit {
   }
 
   
-  displayedColumns: string[] = ['Type', 'Balance'];
+  displayedColumns: string[] = ['Name','Type', 'Balance'];
   dataSource = new MatTableDataSource();
 
   @ViewChild(MatSort) sort: any;
@@ -78,8 +78,9 @@ export class UserBalanceComponent implements OnInit {
         this.dataSource.data= response.data.rows.map(function(x:any) {
           return {    
               "User_Id": x[0],
-              "Type": x[1],
-              "Balance": x[2]
+              "Name": x[1],
+              "Type": x[2],
+              "Balance": x[3]
           }
         })
       },

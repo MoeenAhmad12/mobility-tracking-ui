@@ -39,7 +39,7 @@ export class UserTransactionsComponent implements OnInit {
     searchOnKey: 'Name' // key on which search should be performed this will be selective search. if undefined this will be extensive search on all keys
   }
   
-  displayedColumns: string[] = ['Transaction_Type', 'Amount','Balance', 'User_type'];
+  displayedColumns: string[] = ['Name','Transaction_Type', 'Amount','Balance', 'User_type'];
   dataSource = new MatTableDataSource();
 
   receivers: UserModel[] = [];
@@ -87,14 +87,13 @@ export class UserTransactionsComponent implements OnInit {
       response => {
         this.dataSource.data= response.data.rows.map(function(x:any) {
           return {    
-              "Id": x[0],
-              "User_Id": x[1],
-              "DateTime": x[2],
-              "Transaction_Type": x[3],
-              "Amount": x[4], 
-              "Balance": x[5], 
-              "Item_Id": x[6], 
-              "User_type": x[7] 
+              "Name": x[0],
+              "Transaction_Type": x[1],
+              "Amount": x[2],
+              "Balance": x[3],
+              "User_type": x[4], 
+              "Item_Id": x[5], 
+              "DateTime": x[6], 
           }
         })
       },
