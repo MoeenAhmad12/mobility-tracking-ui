@@ -14,11 +14,12 @@ import { VendorItemsComponent } from './components/vendor-items/vendor-items.com
 import { VendorShipmentComponent } from './components/vendor-shipment/vendor-shipment.component';
 import { VerdorComponent } from './components/verdor/verdor.component';
 import { LedgerComponent } from './components/ledger/ledger.component';
+import { PriceParcelsComponent } from './components/price-parcels/price-parcels.component';
 
 const routes: Routes = [
   {path: 'supplier-percel', component: SupplierParcelsComponent },
   {path: 'receiver-parcels', component: ReceiverParcelsComponent },
-  {path: 'receiver-pay-parcels', component: ReceiverPayParcelsComponent },
+  {path: 'price-parcels', component: PriceParcelsComponent },
   {path: 'receiver-inventory', component: ReceiverInventoryComponent },
   {path: 'vendor-shipment', component: VendorShipmentComponent },
   {path: 'vendor-items', component: VendorItemsComponent },

@@ -203,6 +203,26 @@ export class DataService {
       map((response: any) => response)
     );
   }
+
+  getUnPaidReceiverParcels(id:string) : Observable<any>{
+    var url = this.baseUrl + '/GetUnPaidReceiverParcels';
+    if(id){
+      url= url+'?ReceiverId='+id
+    }
+    return this.http.get(url).pipe(
+      map((response: any) => response)
+    );
+  }
+
+  getPaidReceiverParcels(id:string) : Observable<any>{
+    var url = this.baseUrl + '/GetPaidReceiverParcels';
+    if(id){
+      url= url+'?ReceiverId='+id
+    }
+    return this.http.get(url).pipe(
+      map((response: any) => response)
+    );
+  }
   
   getVendorUnReceivedItem(id:string) : Observable<any>{
     var url = this.baseUrl + '/GetVendorUnReceivedItem';
@@ -223,7 +243,10 @@ export class DataService {
       map((response: any) => response)
     );
   }
-  
+  updateIsEnteredAndParcelPrice(payload:any) : Observable<any>{
+    const url = this.baseUrl + '/UpdateIsEnteredAndParcelPrice';
+    return this.http.post(url, payload).pipe(map((response: any) => response));
+  }
   vendorReceiveShipment(id:string) : Observable<any>{
     const obj ={
       "receiver_shipment_id": id

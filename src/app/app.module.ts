@@ -61,6 +61,10 @@ import { LedgerComponent } from './components/ledger/ledger.component';
 import { UserBalanceComponent } from './components/ledger/user-balance/user-balance.component';
 import { UserTransactionsComponent } from './components/ledger/user-transactions/user-transactions.component';
 import { PayUserComponent } from './modals/pay-user/pay-user.component';
+import { PriceParcelsComponent } from './components/price-parcels/price-parcels.component';
+import { SetPriceParcelsComponent } from './components/price-parcels/set-price-parcels/set-price-parcels.component';
+import { UnSetPriceParcelsComponent } from './components/price-parcels/un-set-price-parcels/un-set-price-parcels.component';
+import { PayParcelModalComponent } from './modals/pay-parcel-modal/pay-parcel-modal.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -105,7 +109,11 @@ import { PayUserComponent } from './modals/pay-user/pay-user.component';
     LedgerComponent,
     UserBalanceComponent,
     UserTransactionsComponent,
-    PayUserComponent
+    PayUserComponent,
+    PriceParcelsComponent,
+    SetPriceParcelsComponent,
+    UnSetPriceParcelsComponent,
+    PayParcelModalComponent
   ],
   imports: [
     BrowserModule,
