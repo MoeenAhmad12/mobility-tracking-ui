@@ -22,7 +22,7 @@ export class AddShipmentModalComponent implements OnInit {
     trackingNumber: ['', Validators.required]
   });
   
-  displayedColumns = ['Model', 'Imei','Vendor_Price','Actions'];
+  displayedColumns = ['Model', 'Imei','Actions'];
   dataSource = new MatTableDataSource();
   config = {
     displayKey:"Name", //if objects array passed which key to be displayed defaults to description
@@ -48,7 +48,9 @@ export class AddShipmentModalComponent implements OnInit {
     this.getVendors()
   }
   deleteItem(row:any){
-    
+    var index = this.shipmentItems.findIndex(x=> x.Model == row.Model &&  x.Imei == row.Imei)
+    this.shipmentItems.splice(index,1)
+    this.dataSource.data = this.shipmentItems;
   }
   addShipment() {
     const dialogRef=this.dialog.open(AddInventoryItemModalComponent,{

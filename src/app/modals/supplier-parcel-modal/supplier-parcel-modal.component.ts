@@ -141,8 +141,6 @@ export class SupplierParcelModalComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       var index = this.parcelItems.findIndex(x=> x.Model == row.Model &&  x.Price == row.Price)
-      
-      console.log(index)
       this.parcelItems[index].Model = result.Model
       this.parcelItems[index].Price = result.Price
       this.dataSource.data= this.parcelItems;
