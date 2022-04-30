@@ -33,7 +33,8 @@ export class SupplierParcelModalComponent implements OnInit {
   
   suppliesParcelForm= this.formBuilder.group({
     trackingNumber: ['', Validators.required],
-    postCode: ['', Validators.required]
+    postCode: ['', Validators.required],
+    date:['']
   });
   config = {
     displayKey:"Name", //if objects array passed which key to be displayed defaults to description
@@ -59,7 +60,6 @@ export class SupplierParcelModalComponent implements OnInit {
     this.getSuppliers();
   }
   supplierChanged(val:any){
-    console.log(val)
     this.supplierId= val.value.Id;
   }
   receiverChanged(val:any){
@@ -100,7 +100,7 @@ export class SupplierParcelModalComponent implements OnInit {
   }
   
   createSupplierParcel(){
-    var today = new Date();
+    var today = new Date(this.suppliesParcelForm.value.date);
     var date = today.getDate()+'-'+(today.getMonth()+1)+'-'+today.getFullYear();
     const payload={
       "Tracking_Number":  this.suppliesParcelForm.value.trackingNumber,

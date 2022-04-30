@@ -65,6 +65,8 @@ import { PriceParcelsComponent } from './components/price-parcels/price-parcels.
 import { SetPriceParcelsComponent } from './components/price-parcels/set-price-parcels/set-price-parcels.component';
 import { UnSetPriceParcelsComponent } from './components/price-parcels/un-set-price-parcels/un-set-price-parcels.component';
 import { PayParcelModalComponent } from './modals/pay-parcel-modal/pay-parcel-modal.component';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatNativeDateModule} from '@angular/material/core';
 @NgModule({
   declarations: [
     AppComponent,
@@ -120,6 +122,7 @@ import { PayParcelModalComponent } from './modals/pay-parcel-modal/pay-parcel-mo
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
+    MatDatepickerModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
     SelectDropDownModule,
@@ -130,7 +133,9 @@ import { PayParcelModalComponent } from './modals/pay-parcel-modal/pay-parcel-mo
     MatSortModule,
     MatDialogModule,
     MatButtonModule,
-    MatTabsModule
+    MatTabsModule,
+    MatNativeDateModule,
+    
   ],
   providers: [],
   bootstrap: [AppComponent]
