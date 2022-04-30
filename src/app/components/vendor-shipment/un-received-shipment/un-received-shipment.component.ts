@@ -49,25 +49,20 @@ export class UnReceivedShipmentComponent implements OnInit {
     this.getUnReceivedShipments()
   }
   receiveShipment(row:any){
-    this.dialog.open(UnReceivedShipmentItemsComponent,{
-      height: '600px',
-      width: '1000px',
-      data: { id: row.Id },
-    });
-    // this.dataService.vendorReceiveShipment(row.Id).subscribe(
-    //   response => {
-    //     this.toastr.success(response.message, "Shipment")
-    //     this.getUnReceivedShipments();
-    //     this.shipmentReceived.emit();
-    //     this.dialog.open(UnReceivedShipmentItemsComponent,{
-    //       height: '600px',
-    //       width: '1000px',
-    //       data: { id: row.Id },
-    //     });
-    //   },
-    //   error => {
-    //   }
-    // );
+    this.dataService.vendorReceiveShipment(row.Id).subscribe(
+      response => {
+        this.toastr.success(response.message, "Shipment")
+        this.getUnReceivedShipments();
+        this.shipmentReceived.emit();
+        this.dialog.open(UnReceivedShipmentItemsComponent,{
+          height: '600px',
+          width: '1000px',
+          data: { id: row.Id },
+        });
+      },
+      error => {
+      }
+    );
   }
   getVendors(){
     this.dataService.getVendors().subscribe(

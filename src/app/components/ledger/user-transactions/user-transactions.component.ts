@@ -61,9 +61,8 @@ export class UserTransactionsComponent implements OnInit {
   }
   receiveParcel() {
     this.dialog.open(PayUserComponent,{
-      height: '300px',
-      width: '400px',
-      data: { type:this.userType,id: this.userId },
+      height: '500px',
+      width: '450px',
     });
   }
   changeUser(val:any){

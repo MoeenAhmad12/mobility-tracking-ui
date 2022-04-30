@@ -1,13 +1,18 @@
-<h2 mat-dialog-title>Install Angular</h2>
-<mat-dialog-content class="mat-typography" style="height: 150px;">
+<h2 mat-dialog-title>Pay User</h2>
+<mat-dialog-content class="mat-typography" style="height: 350px;">
     
     <div [formGroup]="payUserForm">
-        <label for="amount" class="form-label">Amount: </label>
+        
+        <label for="receiver"  class="form-label mt-3">Type: </label>
+        <ngx-select-dropdown style="width:200px" [config]="config" [options]="types" (change)="changeType($event)"></ngx-select-dropdown>
+        <label for="receiver" class="form-label mt-3">User: </label>
+        <ngx-select-dropdown style="width:200px" [config]="userConfig" [options]="users" (change)="changeUser($event)"></ngx-select-dropdown>
+        <label for="amount" class="form-label mt-3">Amount: </label>
         <input id="amount" type="number" formControlName="amount" class="form-control" >
-      </div>
+    </div>
       
 </mat-dialog-content>
 <mat-dialog-actions align="end">
   <button mat-button mat-dialog-close>Cancel</button>
-  <button mat-raised-button color="accent" mat-dialog-close (click)="payAmount()">Receive</button>
+  <button mat-raised-button color="accent" mat-dialog-close (click)="payAmount()">Pay</button>
 </mat-dialog-actions>

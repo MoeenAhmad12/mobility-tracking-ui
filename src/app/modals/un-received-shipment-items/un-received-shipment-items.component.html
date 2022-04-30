@@ -24,8 +24,11 @@
             </mat-header-cell>
       
             <mat-cell *matCellDef="let row; let i=index;">
-              <button mat-raised-button color="accent">
+              <button *ngIf="!row.Vendor_Received" mat-raised-button color="accent" (click)="openDialog(row.Item_Id)">
                 Receive
+              </button>
+              <button *ngIf="row.Vendor_Received" mat-raised-button color="accent" disabled="true">
+                Received
               </button>
             </mat-cell>
           </ng-container>
