@@ -113,7 +113,7 @@ import { PayParcelModalComponent } from './modals/pay-parcel-modal/pay-parcel-mo
     PriceParcelsComponent,
     SetPriceParcelsComponent,
     UnSetPriceParcelsComponent,
-    PayParcelModalComponent
+    PayParcelModalComponent,
   ],
   imports: [
     BrowserModule,

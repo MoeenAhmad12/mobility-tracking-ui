@@ -272,13 +272,7 @@ export class DataService {
       map((response: any) => response)
     );
   }
-  getReceiverShipmentItem(id:string) : Observable<any>{
-    const url = this.baseUrl + '/GetReceiverShipmentItem';
-    return this.http.get(url).pipe(
-      map((response: any) => response)
-    );
-  }
-
+  
   vendorReceiveItem(obj:any) : Observable<any>{
     const url = this.baseUrl + '/VendorReceiveItem';
     return this.http.post(url, obj).pipe(map((response: any) => response));
@@ -296,13 +290,22 @@ export class DataService {
     const url = this.baseUrl + '/AddReceiverShipment';
     return this.http.post(url, payload).pipe(map((response: any) => response));
   }
-  getReceiverInventory() : Observable<any>{
-    const url = this.baseUrl + '/SearchReceiverInventory';
+  getReceiverInventory(id:string) : Observable<any>{
+    var url = this.baseUrl + '/SearchReceiverInventory';
+    if(id){
+      url+='?ReceiverId='+id
+    }
     return this.http.get(url).pipe(
       map((response: any) => response)
     );
   }
-
+  getReceiverShipmentItem(id:string) : Observable<any>{
+    const url = this.baseUrl + '/GetReceiverShipmentItem?ShipmentId='+id;
+    
+    return this.http.get(url).pipe(
+      map((response: any) => response)
+    );
+  }
   receiverPay(payload: any) : Observable<any>{
     const url = this.baseUrl + '/ReceiverPay';
     return this.http.post(url, payload).pipe(map((response: any) => response));

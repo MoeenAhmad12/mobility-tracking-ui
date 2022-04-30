@@ -100,12 +100,14 @@ export class SupplierParcelModalComponent implements OnInit {
   }
   
   createSupplierParcel(){
+    var today = new Date();
+    var date = today.getDate()+'-'+(today.getMonth()+1)+'-'+today.getFullYear();
     const payload={
       "Tracking_Number":  this.suppliesParcelForm.value.trackingNumber,
       "Post_Code":  this.suppliesParcelForm.value.postCode,
       "Supplier_Id":  this.supplierId,
       "Receiver_Id":  this.receiverId,
-      "Date":"10-10-2010",
+      "Date": date,
       "Items": this.parcelItems
     }
     this.dataService.createSupplierParcel(payload).subscribe(
@@ -125,8 +127,10 @@ export class SupplierParcelModalComponent implements OnInit {
       data:{id:this.parcelId,row:row}
     });
     dialogRef.afterClosed().subscribe(result => {
-      this.parcelItems.push(result);
-      this.dataSource.data= this.parcelItems;
+      if(result){
+        this.parcelItems.push(result);
+        this.dataSource.data= this.parcelItems;
+      }
     });
   }
   updateParcelItem(row?:any) {

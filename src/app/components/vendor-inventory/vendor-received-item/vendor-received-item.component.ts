@@ -38,9 +38,11 @@ export class VendorReceivedItemComponent implements OnInit {
 
   ngOnInit(): void {
     this.getVendorReceivedItems()
+    this.getVendors()
   }
   vendorChanged(val:any){
     this.vendorId= val.value.Id
+    this.getVendorReceivedItems()
   }
   getVendors(){
     this.dataService.getVendors().subscribe(

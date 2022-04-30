@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { MatDialogRef } from '@angular/material/dialog';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { DataService } from 'src/app/services/data.service';
 
@@ -10,10 +10,15 @@ import { DataService } from 'src/app/services/data.service';
 })
 export class AddInventoryItemModalComponent implements OnInit {
   items: any;
+  item:any;
+  receiverId=''
   constructor(
     private dataService: DataService,
     private toastr: ToastrService,
-    private  dialogRef: MatDialogRef<AddInventoryItemModalComponent>) { }
+    private  dialogRef: MatDialogRef<AddInventoryItemModalComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: {id: string}) { 
+      this.receiverId = data.id;
+    }
   config = {
     displayKey:"Imei", //if objects array passed which key to be displayed defaults to description
     search:true, //true/false for the search functionlity defaults to false,
@@ -31,14 +36,13 @@ export class AddInventoryItemModalComponent implements OnInit {
   }
 
   itemChanged(val:any){
-    
-    this.dialogRef.close(val);
+    this.item =val
   }
   add(){
-
+    this.dialogRef.close(this.item);
   }
   getReceiverInventory(){
-    this.dataService.getReceiverInventory().subscribe(
+    this.dataService.getReceiverInventory( this.receiverId).subscribe(
       response => {
         this.items= response.data.rows.map(function(x:any) {
           return {    

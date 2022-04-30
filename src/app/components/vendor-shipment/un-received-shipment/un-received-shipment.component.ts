@@ -1,8 +1,10 @@
 import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ToastrService } from 'ngx-toastr';
+import { UnReceivedShipmentItemsComponent } from 'src/app/modals/un-received-shipment-items/un-received-shipment-items.component';
 import { UserModel } from 'src/app/models/user-model';
 import { DataService } from 'src/app/services/data.service';
 
@@ -34,7 +36,7 @@ export class UnReceivedShipmentComponent implements OnInit {
   @ViewChild(MatPaginator, {static: true}) paginator: any;
   @ViewChild(MatSort, {static: true}) sort: any;
   @ViewChild('filter',  {static: true}) filter: any;
-  constructor(
+  constructor(private dialog: MatDialog,
     private dataService: DataService,
     private toastr: ToastrService) { }
 
@@ -47,15 +49,25 @@ export class UnReceivedShipmentComponent implements OnInit {
     this.getUnReceivedShipments()
   }
   receiveShipment(row:any){
-    this.dataService.vendorReceiveShipment(row.Id).subscribe(
-      response => {
-        this.toastr.success(response.message, "Shipment")
-        this.getUnReceivedShipments();
-        this.shipmentReceived.emit()
-      },
-      error => {
-      }
-    );
+    this.dialog.open(UnReceivedShipmentItemsComponent,{
+      height: '600px',
+      width: '1000px',
+      data: { id: row.Id },
+    });
+    // this.dataService.vendorReceiveShipment(row.Id).subscribe(
+    //   response => {
+    //     this.toastr.success(response.message, "Shipment")
+    //     this.getUnReceivedShipments();
+    //     this.shipmentReceived.emit();
+    //     this.dialog.open(UnReceivedShipmentItemsComponent,{
+    //       height: '600px',
+    //       width: '1000px',
+    //       data: { id: row.Id },
+    //     });
+    //   },
+    //   error => {
+    //   }
+    // );
   }
   getVendors(){
     this.dataService.getVendors().subscribe(

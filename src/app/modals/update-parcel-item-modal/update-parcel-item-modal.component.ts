@@ -24,11 +24,16 @@ export class UpdateParcelItemModalComponent implements OnInit {
     private toastr: ToastrService,
     @Inject(MAT_DIALOG_DATA) public data: {id:string,row: any}) { 
       if(data.row){
+        this.isEditCheck = true
         this.parcelItemForm.patchValue({
           model:data.row.Model,
           price:data.row.Price
         })
         this.id = data.row.Id
+        this.parcelId = data.id
+      }
+      else{
+        this.isEditCheck = false
         this.parcelId = data.id
       }
     }
@@ -47,6 +52,22 @@ updateParcelItem(){
     response => {
       this.toastr.success(response.message, "Parcel Item")
       this.isEditCheck = false;
+      this.parcelItemForm.reset()
+    },
+    error => {
+      this.toastr.error("Error in creating parcel item", "Parcel Item")
+    }
+  );
+}
+createParcelItem(){
+  const payload={
+    "Model":  this.parcelItemForm.value.model,
+    "Price":  this.parcelItemForm.value.price,
+    "Parcel_Id":  this.parcelId
+  }
+  this.dataService.createParcelItem(payload).subscribe(
+    response => {
+      this.toastr.success(response.message, "Parcel Item")
       this.parcelItemForm.reset()
     },
     error => {

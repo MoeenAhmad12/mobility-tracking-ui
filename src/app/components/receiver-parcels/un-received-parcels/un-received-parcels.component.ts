@@ -47,7 +47,12 @@ export class UnReceivedParcelsComponent implements OnInit {
         this.toastr.success(response.message, "Parcel")
         console.log("called")
         this.parcelReceived.emit();
-        this.getUnReceivedParcels()
+        this.getUnReceivedParcels();
+        this.dialog.open(UnReceivedParcelItemsComponent,{
+          height: '600px',
+          width: '1000px',
+          data: { id: id },
+        });
       },
       error => {
         this.toastr.error("Error in paying Parcel", "Parcel")

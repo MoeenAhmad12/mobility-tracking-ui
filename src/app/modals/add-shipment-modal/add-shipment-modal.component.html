@@ -32,10 +32,6 @@
           <mat-header-cell *matHeaderCellDef mat-sort-header>Imei</mat-header-cell>
           <mat-cell *matCellDef="let row"> {{row.Imei}}</mat-cell>
         </ng-container>
-        <ng-container matColumnDef="Vendor_Price">
-          <mat-header-cell *matHeaderCellDef mat-sort-header>Vendor_Price</mat-header-cell>
-          <mat-cell *matCellDef="let row"> {{row.Vendor_Price}}</mat-cell>
-        </ng-container>
     
         
         <!-- actions -->
@@ -47,8 +43,8 @@
           </mat-header-cell>
     
           <mat-cell *matCellDef="let row; let i=index;">
-            <button mat-icon-button color="accent" >  
-              <mat-icon aria-label="Edit" >edit</mat-icon>
+            <button mat-icon-button color="accent" (click)="deleteItem(row)">  
+              <mat-icon aria-label="delete" >delete</mat-icon>
             </button>
           </mat-cell>
         </ng-container>

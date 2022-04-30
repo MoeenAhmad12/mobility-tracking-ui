@@ -1,4 +1,4 @@
-<h2 mat-dialog-title>Slect Item</h2>
+<h2 mat-dialog-title>Select Item</h2>
 <mat-dialog-content class="mat-typography" style="height: 260px;">
     <div class="mb-3">
         <label for="receiver" class="form-label">Imei: </label>
@@ -7,5 +7,5 @@
 </mat-dialog-content>
 <mat-dialog-actions align="end">
   <button mat-button mat-dialog-close>Cancel</button>
-  <button mat-raised-button color="accent" mat-dialog-close >Add</button>
+  <button mat-raised-button color="accent" mat-dialog-close (click)="add()">Add</button>
 </mat-dialog-actions>

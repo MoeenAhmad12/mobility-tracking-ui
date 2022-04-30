@@ -14,11 +14,11 @@ import { DataService } from 'src/app/services/data.service';
 })
 export class UnReceivedShipmentItemsComponent implements OnInit {
 
-  displayedColumns = ['id', 'title', 'state', 'url', 'created_at', 'updated_at', 'actions'];
+  displayedColumns = ['Imei', 'Vendor_Price', 'Actions'];
   exampleDatabase: any
   dataSource = new MatTableDataSource();
   index: number =0;
-  parcelId: string= '';
+  shipmentId: string= '';
 
 
   @ViewChild(MatPaginator, {static: true}) paginator: any;
@@ -28,25 +28,26 @@ export class UnReceivedShipmentItemsComponent implements OnInit {
     private dataService: DataService,
     private toastr: ToastrService,
     @Inject(MAT_DIALOG_DATA) public data: {id: string}) { 
-      this.parcelId = data.id
+      this.shipmentId = data.id
     }
   ngOnInit(): void {
-    this.getParcelItems()
+    this.getShipmentItems()
   }
   
-  getParcelItems(){ 
-    this.dataService.getParcelItems(this.parcelId).subscribe(
+  getShipmentItems(){ 
+    this.dataService.getReceiverShipmentItem(this.shipmentId).subscribe(
       response => {
         this.dataSource.data= response.data.rows.map(function(x:any) {
           return {    
-            "Model": x[0],
-            "Price": x[1],
-            "Id": x[2],
-            "Parcel_Id": x[3],
-            "Is_Received": x[4],
-            "Is_Paid": x[5],
-            "Created_At": x[6],
-            "Paid_At": x[7]
+            "Item_Id": x[0],
+            "Vendor_Price": x[1],
+            "Is_Sent": x[2],
+            "Imei": x[3],
+            "Vendor_Received": x[4],
+            "Vendor_Paid": x[5],
+            "Receiver_Id": x[6],
+            "Receiver_Shipment_Id": x[7], 
+            "Vendor_Paid_At": x[8],
           }
         })
       },

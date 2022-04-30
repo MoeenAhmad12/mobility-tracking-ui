@@ -47,14 +47,20 @@ export class AddShipmentModalComponent implements OnInit {
     this.getReceivers()
     this.getVendors()
   }
+  deleteItem(row:any){
+    
+  }
   addShipment() {
     const dialogRef=this.dialog.open(AddInventoryItemModalComponent,{
       height: '400px',
       width: '400px',
+      data:{id:this.receiverId}
     });
     dialogRef.afterClosed().subscribe(result => {
-      this.shipmentItems.push(result.value);
-      this.dataSource.data = this.shipmentItems;
+      if(result){
+        this.shipmentItems.push(result.value);
+        this.dataSource.data = this.shipmentItems;
+      }
     });
   }
   vendorChanged(val:any){
