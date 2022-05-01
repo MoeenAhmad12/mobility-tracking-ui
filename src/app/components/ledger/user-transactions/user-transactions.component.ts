@@ -14,6 +14,8 @@ import { DataService } from 'src/app/services/data.service';
 })
 export class UserTransactionsComponent implements OnInit {
   types: any []= [{type:"Vendor"},{type:'Supplier'},{type:'Receiver'}]
+  userBalances:any[]=[];
+  userBalance:any;
   config = {
     displayKey:"type", //if objects array passed which key to be displayed defaults to description
     search:true, //true/false for the search functionlity defaults to false,
@@ -58,6 +60,24 @@ export class UserTransactionsComponent implements OnInit {
     this.getVendors();
     this.getReceivers();
     this.getSuppliers();
+    this.getUserBalance();
+  }
+  getUserBalance(){
+    this.dataService.getUserBalance(this.userId).subscribe(
+      response => {
+        this.userBalances= response.data.rows.map(function(x:any) {
+          return {    
+              "User_Id": x[0],
+              "Name": x[1],
+              "Type": x[2],
+              "Balance": x[3]
+          }
+        })
+      },
+      error => {
+        this.toastr.error("Error in getting vendor", "Vendor")
+      }
+    );
   }
   receiveParcel() {
     this.dialog.open(PayUserComponent,{
@@ -67,7 +87,10 @@ export class UserTransactionsComponent implements OnInit {
   }
   changeUser(val:any){
     this.userId = val.value.Id;
-    this.getUserTransactions()
+    this.getUserTransactions();
+    var user= this.userBalances.find(x=> x.User_Id == this.userId)
+    this.userBalance = user.Balance;
+
   }
   changeType(val:any){
     this.userType = val.value.type;
