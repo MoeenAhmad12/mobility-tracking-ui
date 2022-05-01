@@ -10,10 +10,22 @@
             <mat-header-cell *matHeaderCellDef mat-sort-header>Model</mat-header-cell>
             <mat-cell *matCellDef="let row"> {{row.Model}}</mat-cell>
           </ng-container>
+          
           <ng-container matColumnDef="Imei">
             <mat-header-cell *matHeaderCellDef mat-sort-header>Imei</mat-header-cell>
             <mat-cell *matCellDef="let row"> {{row.Imei}}</mat-cell>
           </ng-container>
+          
+          <ng-container matColumnDef="Tracking_Number">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Tracking_Number</mat-header-cell>
+            <mat-cell *matCellDef="let row" >{{row.Tracking_Number}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="Post_Code">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Post_Code</mat-header-cell>
+            <mat-cell *matCellDef="let row" >{{row.Post_Code}}</mat-cell>
+          </ng-container>
+
           <ng-container matColumnDef="Vendor_Price">
             <mat-header-cell *matHeaderCellDef mat-sort-header>Vendor_Price</mat-header-cell>
             <mat-cell *matCellDef="let row" >{{row.Vendor_Price}}</mat-cell>

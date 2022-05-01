@@ -15,7 +15,7 @@ import { DataService } from 'src/app/services/data.service';
 })
 export class ReceiverInventoryComponent implements OnInit {
 
-  displayedColumns: string[] = ['Model','Imei','Vendor_Price'];
+  displayedColumns: string[] = ['Model','Imei','Tracking_Number','Post_Code','Vendor_Price'];
   dataSource = new MatTableDataSource();
   @ViewChild(MatSort) sort: any;
 
@@ -68,16 +68,15 @@ export class ReceiverInventoryComponent implements OnInit {
       response => {
         this.dataSource.data= response.data.rows.map(function(x:any) {
           return {    
-            "Item_Id": x[0],
-            "Model": x[1],
-            "Imei": x[2],
-            "Vendor_Price": x[3],
-            "Is_Sent": x[4],
-            "Vendor_Received": x[5],
-            "Vendor_Paid": x[6], 
-            "Receiver_Id": x[7], 
-            "Receiver_Shipment_Id": x[8], 
-            "Vendor_Paid_At": x[9]
+            "Model": x[0],
+            "Item_Id": x[1],
+            "Vendor_Price": x[2],
+            "Imei": x[3],
+            "Receiver_Id": x[4],
+            "Receiver_Shipment_Id": x[5],
+            "Vendor_Received": x[6], 
+            "Post_Code": x[7], 
+            "Tracking_Number": x[8], 
           }
         })
       },

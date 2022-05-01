@@ -47,19 +47,17 @@ export class AddInventoryItemModalComponent implements OnInit {
       response => {
         this.items= response.data.rows.map(function(x:any) {
           return {    
-            "Item_Id": x[0],
-            "Model": x[1],
-            "Imei": x[2],
-            "Vendor_Price": x[3],
-            "Is_Sent": x[4],
-            "Vendor_Received": x[5],
-            "Vendor_Paid": x[6], 
-            "Receiver_Id": x[7], 
-            "Receiver_Shipment_Id": x[8], 
-            "Vendor_Paid_At": x[9]
+            "Model": x[0],
+            "Item_Id": x[1],
+            "Vendor_Price": x[2],
+            "Imei": x[3],
+            "Receiver_Id": x[4],
+            "Receiver_Shipment_Id": x[5],
+            "Vendor_Received": x[6], 
+            "Post_Code": x[7], 
+            "Tracking_Number": x[8], 
           }
         })
-        this.items = this.items.filter((x: { Is_Sent: number; })=> x.Is_Sent == 0)
       },
       error => {
         this.toastr.error("Error in getting supplier parcel", "Supplier Parcel")

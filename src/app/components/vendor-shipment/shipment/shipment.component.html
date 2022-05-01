@@ -12,6 +12,9 @@
       <ng-container matColumnDef="Tracking_Number">
         <mat-header-cell *matHeaderCellDef mat-sort-header>Tracking_Number</mat-header-cell>
         <mat-cell *matCellDef="let row" >{{row.Tracking_Number}}</mat-cell>
+      </ng-container><ng-container matColumnDef="Post_Code">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Post_Code</mat-header-cell>
+        <mat-cell *matCellDef="let row" >{{row.Post_Code}}</mat-cell>
       </ng-container>
   
       <ng-container matColumnDef="Created_At">

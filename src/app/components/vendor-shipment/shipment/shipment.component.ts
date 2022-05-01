@@ -16,7 +16,7 @@ import { DataService } from 'src/app/services/data.service';
 export class ShipmentComponent implements OnInit {
 
   receivers: UserModel[] = [];
-  displayedColumns = ['Tracking_Number', 'Created_At', 'Actions'];
+  displayedColumns = ['Tracking_Number','Post_Code', 'Created_At', 'Actions'];
   exampleDatabase: any
   dataSource = new MatTableDataSource();
   receiverId:string = ''
@@ -91,6 +91,7 @@ export class ShipmentComponent implements OnInit {
             "Is_Received": x[4],
             "Created_At": x[5],
             "Tracking_Number": x[6],
+            "Post_Code": x[7],
           }
         })
       },
