@@ -32,7 +32,8 @@ export class AddInventoryItemModalComponent implements OnInit {
     searchOnKey: 'Imei' // key on which search should be performed this will be selective search. if undefined this will be extensive search on all keys
   }
   ngOnInit(): void {
-    this.getReceiverInventory()
+    if(this.receiverId)
+      this.getReceiverInventory()
   }
 
   itemChanged(val:any){
@@ -58,6 +59,7 @@ export class AddInventoryItemModalComponent implements OnInit {
             "Vendor_Paid_At": x[9]
           }
         })
+        this.items = this.items.filter((x: { Is_Sent: number; })=> x.Is_Sent == 0)
       },
       error => {
         this.toastr.error("Error in getting supplier parcel", "Supplier Parcel")

@@ -21,7 +21,7 @@
       
       <ng-container matColumnDef="Received_At">
         <mat-header-cell *matHeaderCellDef mat-sort-header>Received_At</mat-header-cell>
-        <mat-cell *matCellDef="let row"> {{row.Received_At}}</mat-cell>
+        <mat-cell *matCellDef="let row"> {{row.Received_At | date:'mediumDate'}}</mat-cell>
       </ng-container>
   
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
