@@ -45,6 +45,8 @@ export class PayUserComponent implements OnInit {
   users: UserModel[] = [];
   userId:string=''
   userType:string=''
+  typeCheck=false;
+  userCheck = false;
   constructor(
     private formBuilder: FormBuilder,
     private dataService: DataService,
@@ -55,11 +57,25 @@ export class PayUserComponent implements OnInit {
     this.getReceivers();
     this.getSuppliers();
   }
+
   changeUser(val:any){
     this.userId = val.value.Id;
+    if(!this.userId || this.userId == ''){
+      this.userCheck = false;
+    }
+    else {
+      this.userCheck = true;
+    }
   }
+
   changeType(val:any){
-    this.userType = val.value.type;
+    this.userType=val.value.type
+    if(!this.userType || this.userType == ''){
+      this.typeCheck = false;
+    }
+    else{
+      this.typeCheck = true;
+    }
     if(val.value.type=="Vendor"){
       this.users = this.vendors
     }
@@ -70,6 +86,7 @@ export class PayUserComponent implements OnInit {
       this.users = this.receivers
     }
   }
+
   getVendors(){
     this.dataService.getVendors().subscribe(
       response => {

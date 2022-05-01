@@ -33,7 +33,7 @@
           </div>
       </div>
       <div class="my-2 mat-elevation-z8">
-        <mat-table #table [dataSource]="dataSource" matSort class="mat-cell" style="height: 340px;">
+        <mat-table #table [dataSource]="dataSource" matSort class="mat-cell" style="height: 280px;">
           ng update @angular/cli @angular/core
           <!--- Note that these columns can be defined in any order.
                 The actual rendered columns are set as a property on the row definition" -->
@@ -74,5 +74,5 @@
     </mat-dialog-content>
     <mat-dialog-actions align="end">
       <button mat-button mat-dialog-close>Cancel</button>
-      <button type="button" mat-raised-button color="accent" mat-dialog-close (click)="createSupplierParcel()">Create</button>
+      <button type="button" mat-raised-button color="accent" [disabled]="suppliesParcelForm.invalid || !supplierCheck || !receiverCheck" mat-dialog-close (click)="createSupplierParcel()">Create</button>
     </mat-dialog-actions>

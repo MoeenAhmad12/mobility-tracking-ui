@@ -25,6 +25,8 @@ export class SupplierParcelModalComponent implements OnInit {
   dataSource = new MatTableDataSource();
   parcelId: string= '';
   parcelItems:any[]=[];
+  supplierCheck = false;
+  receiverCheck = false;
 
 
   @ViewChild(MatPaginator, {static: true}) paginator: any;
@@ -34,7 +36,7 @@ export class SupplierParcelModalComponent implements OnInit {
   suppliesParcelForm= this.formBuilder.group({
     trackingNumber: ['', Validators.required],
     postCode: ['', Validators.required],
-    date:['']
+    date:['', Validators.required]
   });
   config = {
     displayKey:"Name", //if objects array passed which key to be displayed defaults to description
@@ -61,9 +63,21 @@ export class SupplierParcelModalComponent implements OnInit {
   }
   supplierChanged(val:any){
     this.supplierId= val.value.Id;
+    if(!this.supplierId || this.supplierId == ''){
+      this.supplierCheck = false;
+    }
+    else {
+      this.supplierCheck = true;
+    }
   }
   receiverChanged(val:any){
       this.receiverId= val.value.Id
+      if(!this.receiverId || this.receiverId == ''){
+        this.receiverCheck = false;
+      }
+      else {
+        this.receiverCheck = true;
+      }
   }
   
   getReceivers(){

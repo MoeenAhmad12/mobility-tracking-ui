@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -33,6 +33,8 @@ export class ShipmentComponent implements OnInit {
     searchPlaceholder:'Search', // label thats displayed in search input,
     searchOnKey: 'Name' // key on which search should be performed this will be selective search. if undefined this will be extensive search on all keys
   }
+  
+  @Output() shipmentCreated: EventEmitter<any> = new EventEmitter();
   @ViewChild(MatPaginator, {static: true}) paginator: any;
   @ViewChild(MatSort, {static: true}) sort: any;
   @ViewChild('filter',  {static: true}) filter: any;
@@ -71,6 +73,8 @@ export class ShipmentComponent implements OnInit {
       width: '700px',
     });
     dialogRef.afterClosed().subscribe(result => {
+      this.shipmentCreated.emit();
+      this.getVendorShipments();
     });
   }
 

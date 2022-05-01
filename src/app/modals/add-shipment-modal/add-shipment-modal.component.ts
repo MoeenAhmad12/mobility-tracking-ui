@@ -18,6 +18,9 @@ export class AddShipmentModalComponent implements OnInit {
   shipmentItems:any[]=[];
   vendorId:string='';
   receiverId:string='';
+  
+  vendorCheck = false;
+  receiverCheck = false;
   shipmentForm= this.formBuilder.group({
     trackingNumber: ['', Validators.required]
   });
@@ -67,9 +70,21 @@ export class AddShipmentModalComponent implements OnInit {
   }
   vendorChanged(val:any){
     this.vendorId= val.value.Id;
+    if(!this.vendorId || this.vendorId == ''){
+      this.vendorCheck = false;
+    }
+    else {
+      this.vendorCheck = true;
+    }
   }
   receiverChanged(val:any){
-      this.receiverId= val.value.Id
+    this.receiverId= val.value.Id;
+    if(!this.receiverId || this.receiverId == ''){
+      this.receiverCheck = false;
+    }
+    else {
+      this.receiverCheck = true;
+    }
   }
   
   getReceivers(){

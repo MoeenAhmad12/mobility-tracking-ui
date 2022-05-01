@@ -13,7 +13,7 @@ export class AddVendorModalComponent implements OnInit {
   vendorForm= this.formBuilder.group({
     name: ['', Validators.required],
     phone: ['', Validators.required],
-    address: ['']
+    address: ['', Validators.required]
   });
   isEditMode = false;
   id:string = '';

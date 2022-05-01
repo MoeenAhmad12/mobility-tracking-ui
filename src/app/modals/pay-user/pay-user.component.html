@@ -14,5 +14,5 @@
 </mat-dialog-content>
 <mat-dialog-actions align="end">
   <button mat-button mat-dialog-close>Cancel</button>
-  <button mat-raised-button color="accent" mat-dialog-close (click)="payAmount()">Pay</button>
+  <button mat-raised-button color="accent" [disabled]="payUserForm.invalid || !typeCheck || !userCheck"  mat-dialog-close (click)="payAmount()">Pay</button>
 </mat-dialog-actions>

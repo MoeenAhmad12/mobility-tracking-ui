@@ -66,7 +66,7 @@ export class ReceiverInventoryComponent implements OnInit {
   getReceiverInventory(){
     this.dataService.getReceiverInventory(this.receiverId).subscribe(
       response => {
-        const items= response.data.rows.map(function(x:any) {
+        this.dataSource.data= response.data.rows.map(function(x:any) {
           return {    
             "Item_Id": x[0],
             "Model": x[1],
@@ -80,8 +80,6 @@ export class ReceiverInventoryComponent implements OnInit {
             "Vendor_Paid_At": x[9]
           }
         })
-        this.dataSource.data = items.filter((x: { Is_Sent: number; }) => x.Is_Sent == 0)
-      
       },
       error => {
         this.toastr.error("Error in getting supplier parcel", "Supplier Parcel")
