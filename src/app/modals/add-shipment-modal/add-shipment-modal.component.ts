@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { ToastrService } from 'ngx-toastr';
 import { UserModel } from 'src/app/models/user-model';
@@ -44,7 +44,8 @@ export class AddShipmentModalComponent implements OnInit {
     private formBuilder: FormBuilder,
     private dataService: DataService,
     private toastr: ToastrService,
-    private dialog: MatDialog,) { }
+    private dialog: MatDialog,
+    public dialogRef: MatDialogRef<AddShipmentModalComponent>) { }
 
   ngOnInit(): void {
     this.getReceivers()
@@ -63,8 +64,16 @@ export class AddShipmentModalComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       if(result){
-        this.shipmentItems.push(result.value);
-        this.dataSource.data = this.shipmentItems;
+        
+        var index = this.shipmentItems.findIndex(x=> x.Model == result.value.Model &&  x.Imei == result.value.Imei)
+        console.log(index)
+        if(index>=0){
+          this.toastr.error("This item already exist", "Item")
+        }
+        else{
+          this.shipmentItems.push(result.value);
+          this.dataSource.data = this.shipmentItems;
+        }
       }
     });
   }
@@ -131,7 +140,8 @@ export class AddShipmentModalComponent implements OnInit {
     this.dataService.createShipment(payload).subscribe(
       response => {
         this.toastr.success(response.message, "Shipment")
-        this.shipmentForm.reset()
+        this.shipmentForm.reset();
+        this.dialogRef.close();
       },
       error => {
         this.toastr.error("Error in creating shipment", "Shipment")

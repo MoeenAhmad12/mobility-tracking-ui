@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { UserModel } from 'src/app/models/user-model';
 import { DataService } from 'src/app/services/data.service';
@@ -50,7 +50,8 @@ export class PayUserComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private dataService: DataService,
-    private toastr: ToastrService) { 
+    private toastr: ToastrService,
+    public dialogRef: MatDialogRef<PayUserComponent>,) { 
     }
   ngOnInit(): void {
     this.getVendors();
@@ -146,6 +147,7 @@ export class PayUserComponent implements OnInit {
       this.dataService.vendorPay(payload).subscribe(
       response => {
         this.toastr.success(response.message, "Pay")
+        this.dialogRef.close();
       },
       error => {
         this.toastr.error("Error in paying ", "Pay")
@@ -156,6 +158,7 @@ export class PayUserComponent implements OnInit {
       this.dataService.supplierPay(payload).subscribe(
       response => {
         this.toastr.success(response.message, "Pay")
+        this.dialogRef.close();
       },
       error => {
         this.toastr.error("Error in paying ", "Pay")
@@ -166,6 +169,7 @@ export class PayUserComponent implements OnInit {
       this.dataService.receiverPay(payload).subscribe(
         response => {
           this.toastr.success(response.message, "Pay")
+          this.dialogRef.close();
         },
         error => {
           this.toastr.error("Error in paying ", "Pay")

@@ -15,7 +15,7 @@
 </mat-dialog-content>
 <mat-dialog-actions align="end">
   <button mat-button mat-dialog-close>Cancel</button>
-  <button *ngIf="isEditCheck" mat-raised-button color="accent" [disabled]="parcelItemForm.invalid" mat-dialog-close (click)="updateParcelItem()">Update</button>
-  <button *ngIf="!isEditCheck" mat-raised-button color="accent" [disabled]="parcelItemForm.invalid" mat-dialog-close (click)="createParcelItem()">Create</button>
+  <button *ngIf="isEditCheck" mat-raised-button color="accent" [disabled]="parcelItemForm.invalid" (click)="updateParcelItem()">Update</button>
+  <button *ngIf="!isEditCheck" mat-raised-button color="accent" [disabled]="parcelItemForm.invalid" (click)="createParcelItem()">Create</button>
 </mat-dialog-actions>
 

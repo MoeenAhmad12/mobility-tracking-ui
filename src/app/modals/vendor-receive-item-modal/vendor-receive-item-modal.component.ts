@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { DataService } from 'src/app/services/data.service';
 
@@ -19,6 +19,7 @@ export class VendorReceiveItemModalComponent implements OnInit {
     private formBuilder: FormBuilder,
     private dataService: DataService,
     private toastr: ToastrService,
+    public dialogRef: MatDialogRef<VendorReceiveItemModalComponent>,
     @Inject(MAT_DIALOG_DATA) public data: {id: string}) { 
       this.Id = data.id}
   ngOnInit(): void {
@@ -33,6 +34,7 @@ export class VendorReceiveItemModalComponent implements OnInit {
     this.dataService.vendorReceiveItem(payload).subscribe(
       response => {
         this.toastr.success(response.message, "Parcel")
+        this.dialogRef.close();
       },
       error => {
         this.toastr.error("Error in paying Parcel", "Parcel")

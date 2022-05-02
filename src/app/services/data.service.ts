@@ -293,7 +293,7 @@ export class DataService {
   getReceiverInventory(id:string) : Observable<any>{
     var url = this.baseUrl + '/SearchReceiverInventory';
     if(id){
-      url+='?ReceiverId='+id +'&Unsent=true'
+      url+='?ReceiverId='+id +'&Unsent=1'
     }
     return this.http.get(url).pipe(
       map((response: any) => response)

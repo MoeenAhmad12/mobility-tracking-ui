@@ -5,6 +5,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ToastrService } from 'ngx-toastr';
 import { AddShipmentModalComponent } from 'src/app/modals/add-shipment-modal/add-shipment-modal.component';
+import { UnReceivedShipmentItemsComponent } from 'src/app/modals/un-received-shipment-items/un-received-shipment-items.component';
 import { UserModel } from 'src/app/models/user-model';
 import { DataService } from 'src/app/services/data.service';
 
@@ -34,6 +35,7 @@ export class ShipmentComponent implements OnInit {
     searchOnKey: 'Name' // key on which search should be performed this will be selective search. if undefined this will be extensive search on all keys
   }
   
+  @Output() shipmentReceived: EventEmitter<any> = new EventEmitter();
   @Output() shipmentCreated: EventEmitter<any> = new EventEmitter();
   @ViewChild(MatPaginator, {static: true}) paginator: any;
   @ViewChild(MatSort, {static: true}) sort: any;
@@ -46,6 +48,22 @@ export class ShipmentComponent implements OnInit {
   ngOnInit(): void {
     this.getVendorShipments()
     this.getReceivers()
+  }
+  receiveShipment(row:any){
+    this.dataService.vendorReceiveShipment(row.Id).subscribe(
+      response => {
+        this.toastr.success(response.message, "Shipment")
+        this.getVendorShipments();
+        this.shipmentReceived.emit();
+        this.dialog.open(UnReceivedShipmentItemsComponent,{
+          height: '600px',
+          width: '1000px',
+          data: { id: row.Id },
+        });
+      },
+      error => {
+      }
+    );
   }
   receiverChanged(val:any){
     this.receiverId= val.value.Id
@@ -65,6 +83,13 @@ export class ShipmentComponent implements OnInit {
       error => {
       }
     );
+  }
+  viewShipmentItems(id:string){
+    this.dialog.open(UnReceivedShipmentItemsComponent,{
+      height: '600px',
+      width: '1000px',
+      data: { id: id },
+    });
   }
 
   addShipment() {
@@ -88,7 +113,7 @@ export class ShipmentComponent implements OnInit {
             "Vendor_Id": x[1],
             "Receiver_Id": x[2],
             "Received_At": x[3],
-            "Is_Received": x[4],
+            "Is_Received": x[4] == 0? false: true,
             "Created_At": x[5],
             "Tracking_Number": x[6],
             "Post_Code": x[7],

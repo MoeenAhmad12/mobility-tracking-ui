@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { DataService } from 'src/app/services/data.service';
 
@@ -22,6 +22,7 @@ export class UpdateParcelItemModalComponent implements OnInit {
     private formBuilder: FormBuilder,
     private dataService: DataService,
     private toastr: ToastrService,
+    public dialogRef: MatDialogRef<UpdateParcelItemModalComponent>,
     @Inject(MAT_DIALOG_DATA) public data: {id:string,row: any}) { 
       if(data.row){
         this.isEditCheck = true
@@ -53,6 +54,7 @@ updateParcelItem(){
       this.toastr.success(response.message, "Parcel Item")
       this.isEditCheck = false;
       this.parcelItemForm.reset()
+      this.dialogRef.close();
     },
     error => {
       this.toastr.error("Error in creating parcel item", "Parcel Item")
@@ -68,7 +70,8 @@ createParcelItem(){
   this.dataService.createParcelItem(payload).subscribe(
     response => {
       this.toastr.success(response.message, "Parcel Item")
-      this.parcelItemForm.reset()
+      this.parcelItemForm.reset();
+      this.dialogRef.close();
     },
     error => {
       this.toastr.error("Error in creating parcel item", "Parcel Item")

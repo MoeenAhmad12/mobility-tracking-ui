@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { DataService } from 'src/app/services/data.service';
 
@@ -21,6 +21,7 @@ export class AddSupplierModalComponent implements OnInit {
     private formBuilder: FormBuilder,
     private dataService: DataService,
     private toastr: ToastrService,
+    public dialogRef: MatDialogRef<AddSupplierModalComponent>,
     @Inject(MAT_DIALOG_DATA) public data: {row: any}) {
       if(data.row){
         this.isEditMode = true;
@@ -48,7 +49,8 @@ export class AddSupplierModalComponent implements OnInit {
     this.dataService.createSupplier(payload).subscribe(
       response => {
         this.toastr.success(response.message, "Supplier")
-        this.supplierForm.reset()
+        this.supplierForm.reset();
+        this.dialogRef.close();
       },
       error => {
         this.toastr.error("Error in creating receiver", "Receiver")
@@ -66,6 +68,7 @@ export class AddSupplierModalComponent implements OnInit {
       response => {
         this.toastr.success(response.message, "Receiver")
         this.supplierForm.reset();
+        this.dialogRef.close();
       },
       error => {
         this.toastr.error("Error in creating receiver", "Receiver")

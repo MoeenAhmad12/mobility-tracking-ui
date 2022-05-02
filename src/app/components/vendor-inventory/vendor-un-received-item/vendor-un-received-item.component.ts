@@ -82,13 +82,10 @@ export class VendorUnReceivedItemComponent implements OnInit {
         this.dataSource.data= response.data.rows.map(function(x:any) {
           return {   
             "Model": x[0], 
-            "Imei": x[1], 
-            "Item_Id": x[2], 
-            "Vendor_Price": x[3], 
-            "Is_Sent": x[4], 
-            "Vendor_Paid": x[6], 
-            "Receiver_Id": x[7], 
-            "Receiver_Shipment_Id": x[8],
+            "Parcel_Item_Id": x[1], 
+            "Vendor_Price": x[2], 
+            "Imei": x[3], 
+            "Receiver_Shipment_Id": x[4], 
           }
         })
       },

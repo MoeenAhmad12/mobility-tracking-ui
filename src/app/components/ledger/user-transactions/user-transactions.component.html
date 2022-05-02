@@ -5,8 +5,8 @@
     <div class="col-2">
         <ngx-select-dropdown style="width:200px" [config]="userConfig" [options]="users" (change)="changeUser($event)"></ngx-select-dropdown>
     </div>
-    <div class="col-7 pt-2">
-      User Balance : {{userBalance}}
+    <div class="col-7 pt-2" style="font-size: 17px;font-weight: 500;">
+      User Balance : <span [style.color]="userBalance>=0? 'green': 'red'" > {{userBalance}}</span>
     </div>
     
     <div class="col-1">

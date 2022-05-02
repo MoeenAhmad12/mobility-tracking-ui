@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { DataService } from 'src/app/services/data.service';
 
@@ -20,6 +20,7 @@ export class AddReceiverModalComponent implements OnInit {
     private formBuilder: FormBuilder,
     private dataService: DataService,
     private toastr: ToastrService,
+    public dialogRef: MatDialogRef<AddReceiverModalComponent>,
     @Inject(MAT_DIALOG_DATA) public data: {row: any}) { 
       if(data.row){
         this.isEditMode = true;
@@ -46,6 +47,7 @@ export class AddReceiverModalComponent implements OnInit {
       response => {
         this.toastr.success(response.message, "Receiver")
         this.receiverForm.reset();
+        this.dialogRef.close();
       },
       error => {
         this.toastr.error("Error in creating receiver", "Receiver")
@@ -61,6 +63,7 @@ export class AddReceiverModalComponent implements OnInit {
       response => {
         this.toastr.success(response.message, "Receiver")
         this.receiverForm.reset();
+        this.dialogRef.close();
       },
       error => {
         this.toastr.error("Error in creating receiver", "Receiver")

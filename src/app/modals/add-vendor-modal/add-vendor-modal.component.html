@@ -21,6 +21,6 @@
 </mat-dialog-content>
 <mat-dialog-actions align="end">
   <button mat-button mat-dialog-close>Cancel</button>
-  <button *ngIf="!isEditMode" mat-raised-button color="accent" [disabled]="vendorForm.invalid" mat-dialog-close (click)="addVendor()">Create</button>
-  <button *ngIf="isEditMode" mat-raised-button color="accent" [disabled]="vendorForm.invalid" mat-dialog-close (click)="updateVendor()">Update</button>
+  <button *ngIf="!isEditMode" mat-raised-button color="accent" [disabled]="vendorForm.invalid" (click)="addVendor()">Create</button>
+  <button *ngIf="isEditMode" mat-raised-button color="accent" [disabled]="vendorForm.invalid" (click)="updateVendor()">Update</button>
 </mat-dialog-actions>

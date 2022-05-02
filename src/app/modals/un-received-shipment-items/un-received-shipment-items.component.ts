@@ -15,7 +15,7 @@ import { VendorReceiveItemModalComponent } from '../vendor-receive-item-modal/ve
 })
 export class UnReceivedShipmentItemsComponent implements OnInit {
 
-  displayedColumns = ['Imei', 'Vendor_Price', 'Actions'];
+  displayedColumns = ['Model','Tracking_Number','Imei',  'Actions'];
   exampleDatabase: any
   dataSource = new MatTableDataSource();
   index: number =0;
@@ -51,14 +51,11 @@ export class UnReceivedShipmentItemsComponent implements OnInit {
         this.dataSource.data= response.data.rows.map(function(x:any) {
           return {    
             "Item_Id": x[0],
-            "Vendor_Price": x[1],
-            "Is_Sent": x[2],
-            "Imei": x[3],
-            "Vendor_Received": x[4],
-            "Vendor_Paid": x[5],
-            "Receiver_Id": x[6],
-            "Receiver_Shipment_Id": x[7], 
-            "Vendor_Paid_At": x[8],
+            "Model": x[1],
+            "Imei": x[2],
+            "Vendor_Received": x[3],
+            "Receiver_Shipment_Id": x[4],
+            "Tracking_Number": x[5],
           }
         })
       },

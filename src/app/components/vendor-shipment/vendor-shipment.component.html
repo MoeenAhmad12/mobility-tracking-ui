@@ -1,7 +1,7 @@
 
 <mat-tab-group>
     <mat-tab label="All Shipments"> 
-        <app-shipment (shipmentCreated)="shipmentCreated()"></app-shipment>
+        <app-shipment (shipmentCreated)="shipmentCreated()" (shipmentReceived)="shipmentReceived()"></app-shipment>
     </mat-tab>
     <mat-tab label="Received Shipments"> 
         <app-received-shipment></app-received-shipment>

@@ -1,8 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ToastrService } from 'ngx-toastr';
+import { UnReceivedShipmentItemsComponent } from 'src/app/modals/un-received-shipment-items/un-received-shipment-items.component';
 import { UserModel } from 'src/app/models/user-model';
 import { DataService } from 'src/app/services/data.service';
 
@@ -14,7 +16,7 @@ import { DataService } from 'src/app/services/data.service';
 export class ReceivedShipmentComponent implements OnInit {
 
   vendors: UserModel[] = [];
-  displayedColumns = ['Tracking_Number', 'Post_Code','Received_At'];
+  displayedColumns = ['Tracking_Number', 'Post_Code','Received_At','Actions'];
   dataSource =  new MatTableDataSource();
   vendorId:string='';
   config = {
@@ -34,6 +36,7 @@ export class ReceivedShipmentComponent implements OnInit {
   @ViewChild(MatSort, {static: true}) sort: any;
   @ViewChild('filter',  {static: true}) filter: any;
   constructor(
+    private dialog: MatDialog,
     private dataService: DataService,
     private toastr: ToastrService) { }
 
@@ -46,6 +49,13 @@ export class ReceivedShipmentComponent implements OnInit {
     this.getReceivedShipments()
   }
   
+  viewShipmentItems(id:string){
+    this.dialog.open(UnReceivedShipmentItemsComponent,{
+      height: '600px',
+      width: '1000px',
+      data: { id: id },
+    });
+  }
   getVendors(){
     this.dataService.getVendors().subscribe(
       response => {
