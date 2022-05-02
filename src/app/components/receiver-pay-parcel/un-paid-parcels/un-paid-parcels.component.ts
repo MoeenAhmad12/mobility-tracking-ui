@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -12,7 +12,7 @@ import { DataService } from 'src/app/services/data.service';
   templateUrl: './un-paid-parcels.component.html',
   styleUrls: ['./un-paid-parcels.component.css']
 })
-export class UnPaidParcelsComponent implements OnInit {
+export class UnPaidParcelsComponent implements OnInit, AfterViewInit {
 
   
   displayedColumns = ['Tracking_Number', 'Post_Code', 'Date', 'Received_At', 'Actions'];
@@ -39,6 +39,10 @@ export class UnPaidParcelsComponent implements OnInit {
   }
   ngOnInit(): void {
     this.getReceiverUnPaidParcels();
+  }
+  
+  ngAfterViewInit() {
+    this.dataSource.sort = this.sort;
   }
   
   payParcel(id:string){

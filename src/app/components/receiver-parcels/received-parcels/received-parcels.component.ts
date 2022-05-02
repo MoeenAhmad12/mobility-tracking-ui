@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -12,7 +12,7 @@ import { DataService } from 'src/app/services/data.service';
   templateUrl: './received-parcels.component.html',
   styleUrls: ['./received-parcels.component.css']
 })
-export class ReceivedParcelsComponent implements OnInit {
+export class ReceivedParcelsComponent implements OnInit,AfterViewInit {
 
   displayedColumns: string[] = ['Tracking_Number','Post_Code','Parcel_Date','Supplier_Name', 'Receiver_Name','Actions'];
   dataSource = new MatTableDataSource();
@@ -28,6 +28,9 @@ export class ReceivedParcelsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getReceivedParcels();
+  }
+  ngAfterViewInit() {
+    this.dataSource.sort = this.sort;
   }
   viewParcelItems(id:string) {
     this.dialog.open(UnReceivedParcelItemsComponent,{

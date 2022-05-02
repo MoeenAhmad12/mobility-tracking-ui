@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -11,7 +11,7 @@ import { DataService } from 'src/app/services/data.service';
   templateUrl: './set-price-parcels.component.html',
   styleUrls: ['./set-price-parcels.component.css']
 })
-export class SetPriceParcelsComponent implements OnInit {
+export class SetPriceParcelsComponent implements OnInit,AfterViewInit {
 
   receivers: UserModel[] = [];
   displayedColumns = ['Tracking_Number', 'Post_Code', 'Parcel_Price'];
@@ -40,6 +40,11 @@ export class SetPriceParcelsComponent implements OnInit {
   ngOnInit(): void {
     this.getReceivers()
   }
+  
+  ngAfterViewInit() {
+    this.dataSource.sort = this.sort;
+  }
+
   receiverChanged(val:any){
     this.vendorId= val.value.Id
     this.getPaidReceiverParcels()

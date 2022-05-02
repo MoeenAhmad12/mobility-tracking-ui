@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -13,7 +13,7 @@ import { VendorReceiveItemModalComponent } from '../vendor-receive-item-modal/ve
   templateUrl: './un-received-shipment-items.component.html',
   styleUrls: ['./un-received-shipment-items.component.css']
 })
-export class UnReceivedShipmentItemsComponent implements OnInit {
+export class UnReceivedShipmentItemsComponent implements OnInit,AfterViewInit {
 
   displayedColumns = ['Model','Tracking_Number','Imei',  'Actions'];
   exampleDatabase: any
@@ -34,6 +34,9 @@ export class UnReceivedShipmentItemsComponent implements OnInit {
     }
   ngOnInit(): void {
     this.getShipmentItems()
+  }
+  ngAfterViewInit() {
+    this.dataSource.sort = this.sort;
   }
   openDialog(id:string) {
     const dialogRef=this.dialog.open(VendorReceiveItemModalComponent,{

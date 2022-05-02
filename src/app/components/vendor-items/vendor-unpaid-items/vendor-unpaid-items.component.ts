@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -11,7 +11,7 @@ import { DataService } from 'src/app/services/data.service';
   templateUrl: './vendor-unpaid-items.component.html',
   styleUrls: ['./vendor-unpaid-items.component.css']
 })
-export class VendorUnpaidItemsComponent implements OnInit {
+export class VendorUnpaidItemsComponent implements OnInit, AfterViewInit {
   
   @Output() itemPaid: EventEmitter<any> = new EventEmitter();
   vendors: UserModel[] = [];
@@ -41,6 +41,9 @@ export class VendorUnpaidItemsComponent implements OnInit {
   ngOnInit(): void {
     this.getVendors()
     this.getVendorUnPaidItem()
+  }
+  ngAfterViewInit() {
+    this.dataSource.sort = this.sort;
   }
   vendorChanged(val:any){
     this.vendorId= val.value.Id

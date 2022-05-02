@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -13,7 +13,7 @@ import { DataService } from 'src/app/services/data.service';
   templateUrl: './receiver-inventory.component.html',
   styleUrls: ['./receiver-inventory.component.css']
 })
-export class ReceiverInventoryComponent implements OnInit {
+export class ReceiverInventoryComponent implements OnInit, AfterViewInit {
 
   displayedColumns: string[] = ['Model','Imei','Tracking_Number','Post_Code','Vendor_Price'];
   dataSource = new MatTableDataSource();
@@ -42,6 +42,10 @@ export class ReceiverInventoryComponent implements OnInit {
   ngOnInit(): void {
     this.getReceiverInventory();
     this.getReceivers()
+  }
+
+  ngAfterViewInit() {
+    this.dataSource.sort = this.sort;
   }
   receiverChanged(val:any){
     this.receiverId= val.value.Id

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -11,7 +11,7 @@ import { DataService } from 'src/app/services/data.service';
   templateUrl: './un-received-items.component.html',
   styleUrls: ['./un-received-items.component.css']
 })
-export class UnReceivedItemsComponent implements OnInit {
+export class UnReceivedItemsComponent implements OnInit ,AfterViewInit{
   suppliers: UserModel[] = [];
   displayedColumns = ['Model', 'Item_Price', 'Tracking_Number', 'Post_Code','Receiver_Name','Supplier_Name'];
   dataSource =  new MatTableDataSource();
@@ -39,6 +39,9 @@ export class UnReceivedItemsComponent implements OnInit {
     private toastr: ToastrService) { }
   ngOnInit(): void {
     this.getSupplier();
+  }
+  ngAfterViewInit() {
+    this.dataSource.sort = this.sort;
   }
   receiverChanged(val:any){
     this.supplierId= val.value.Id

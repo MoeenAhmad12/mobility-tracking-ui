@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -12,7 +12,7 @@ import { DataService } from 'src/app/services/data.service';
   templateUrl: './user-transactions.component.html',
   styleUrls: ['./user-transactions.component.css']
 })
-export class UserTransactionsComponent implements OnInit {
+export class UserTransactionsComponent implements OnInit,AfterViewInit {
   types: any []= [{type:"Vendor"},{type:'Supplier'},{type:'Receiver'}]
   userBalances:any[]=[];
   userBalance:any;
@@ -61,6 +61,9 @@ export class UserTransactionsComponent implements OnInit {
     this.getReceivers();
     this.getSuppliers();
     this.getUserBalance();
+  }
+  ngAfterViewInit() {
+    this.dataSource.sort = this.sort;
   }
   getUserBalance(){
     this.dataService.getUserBalance(this.userId).subscribe(

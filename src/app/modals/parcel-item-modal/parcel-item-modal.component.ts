@@ -1,4 +1,4 @@
-import { Component, Inject, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, Inject, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
@@ -15,7 +15,7 @@ import { UpdateParcelItemModalComponent } from '../update-parcel-item-modal/upda
   templateUrl: './parcel-item-modal.component.html',
   styleUrls: ['./parcel-item-modal.component.css']
 })
-export class ParcelItemModalComponent implements OnInit {
+export class ParcelItemModalComponent implements OnInit,AfterViewInit {
   
   
   displayedColumns = ['Model', 'Price','Actions'];
@@ -46,6 +46,9 @@ export class ParcelItemModalComponent implements OnInit {
     }
   ngOnInit(): void {
     this.getParcelItems();
+  }
+  ngAfterViewInit() {
+    this.dataSource.sort = this.sort;
   }
   addParcelItem(row?:any) {
     const dialogRef=this.dialog.open(UpdateParcelItemModalComponent,{

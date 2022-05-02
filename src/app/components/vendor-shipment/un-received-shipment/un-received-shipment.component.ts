@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -13,7 +13,7 @@ import { DataService } from 'src/app/services/data.service';
   templateUrl: './un-received-shipment.component.html',
   styleUrls: ['./un-received-shipment.component.css']
 })
-export class UnReceivedShipmentComponent implements OnInit {
+export class UnReceivedShipmentComponent implements OnInit, AfterViewInit {
 
   @Output() shipmentReceived: EventEmitter<any> = new EventEmitter();
   vendors: UserModel[] = [];
@@ -43,6 +43,9 @@ export class UnReceivedShipmentComponent implements OnInit {
   ngOnInit(): void {
     this.getUnReceivedShipments()
     this.getVendors()
+  }
+  ngAfterViewInit() {
+    this.dataSource.sort = this.sort;
   }
   vendorChanged(val:any){
     this.vendorId= val.value.Id

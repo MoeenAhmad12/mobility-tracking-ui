@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -11,7 +11,7 @@ import { DataService } from 'src/app/services/data.service';
   templateUrl: './vendor-paid-items.component.html',
   styleUrls: ['./vendor-paid-items.component.css']
 })
-export class VendorPaidItemsComponent implements OnInit {
+export class VendorPaidItemsComponent implements OnInit, AfterViewInit {
   vendors: UserModel[] = [];
   displayedColumns = ['Model', 'Vendor_Price', 'Imei', 'Vendor_Paid_At'];
   dataSource =  new MatTableDataSource();
@@ -39,6 +39,9 @@ export class VendorPaidItemsComponent implements OnInit {
   ngOnInit(): void {
     this.getVendors()
     this.getVendorPaidItem()
+  }
+  ngAfterViewInit() {
+    this.dataSource.sort = this.sort;
   }
   vendorChanged(val:any){
     this.vendorId= val.value.Id

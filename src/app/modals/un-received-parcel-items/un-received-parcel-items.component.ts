@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -12,7 +12,7 @@ import { ReceiveParcelComponent } from '../receive-parcel/receive-parcel.compone
   templateUrl: './un-received-parcel-items.component.html',
   styleUrls: ['./un-received-parcel-items.component.css']
 })
-export class UnReceivedParcelItemsComponent implements OnInit {
+export class UnReceivedParcelItemsComponent implements OnInit,AfterViewInit {
 
   displayedColumns = ['Model', 'Price', 'Received_At','Actions'];
   exampleDatabase: any
@@ -36,6 +36,9 @@ export class UnReceivedParcelItemsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getParcelItems()
+  }
+  ngAfterViewInit() {
+    this.dataSource.sort = this.sort;
   }
 
   receiveParcelItems(id:string) {

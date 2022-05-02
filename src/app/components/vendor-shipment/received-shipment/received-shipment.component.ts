@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -13,7 +13,7 @@ import { DataService } from 'src/app/services/data.service';
   templateUrl: './received-shipment.component.html',
   styleUrls: ['./received-shipment.component.css']
 })
-export class ReceivedShipmentComponent implements OnInit {
+export class ReceivedShipmentComponent implements OnInit,AfterViewInit {
 
   vendors: UserModel[] = [];
   displayedColumns = ['Tracking_Number', 'Post_Code','Received_At','Actions'];
@@ -43,6 +43,9 @@ export class ReceivedShipmentComponent implements OnInit {
   ngOnInit(): void {
     this.getReceivedShipments();
     this.getVendors();
+  }
+  ngAfterViewInit() {
+    this.dataSource.sort = this.sort;
   }
   vendorChanged(val:any){
     this.vendorId= val.value.Id

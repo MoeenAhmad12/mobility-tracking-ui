@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ToastrService } from 'ngx-toastr';
@@ -10,7 +10,7 @@ import { DataService } from 'src/app/services/data.service';
   templateUrl: './user-balance.component.html',
   styleUrls: ['./user-balance.component.css']
 })
-export class UserBalanceComponent implements OnInit {
+export class UserBalanceComponent implements OnInit,AfterViewInit {
 
   constructor(
     private dataService: DataService,
@@ -56,6 +56,9 @@ export class UserBalanceComponent implements OnInit {
     this.getReceivers();
     this.getSuppliers();
     this.getUserBalance();
+  }
+  ngAfterViewInit() {
+    this.dataSource.sort = this.sort;
   }
   changeType(val:any){
     if(val.value.type=="Vendor"){

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import {MatDialog} from '@angular/material/dialog';
@@ -12,7 +12,7 @@ import { ReceiveParcelComponent } from 'src/app/modals/receive-parcel/receive-pa
   templateUrl: './un-received-parcels.component.html',
   styleUrls: ['./un-received-parcels.component.css']
 })
-export class UnReceivedParcelsComponent implements OnInit {
+export class UnReceivedParcelsComponent implements OnInit, AfterViewInit {
   
   displayedColumns: string[] = ['Tracking_Number','Post_Code','Parcel_Date','Supplier_Name', 'Receiver_Name','Actions'];
   dataSource = new MatTableDataSource();
@@ -28,6 +28,9 @@ export class UnReceivedParcelsComponent implements OnInit {
     private toastr: ToastrService,) {}
   ngOnInit(): void {
     this.getUnReceivedParcels()
+  }
+  ngAfterViewInit() {
+    this.dataSource.sort = this.sort;
   }
 
   receiveParcel(id:string) {

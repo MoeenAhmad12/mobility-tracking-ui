@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -13,7 +13,7 @@ import { DataService } from 'src/app/services/data.service';
   templateUrl: './un-set-price-parcels.component.html',
   styleUrls: ['./un-set-price-parcels.component.css']
 })
-export class UnSetPriceParcelsComponent implements OnInit {
+export class UnSetPriceParcelsComponent implements OnInit, AfterViewInit {
   
   @Output() priceParcel: EventEmitter<any> = new EventEmitter();
   receivers: UserModel[] = [];
@@ -43,6 +43,9 @@ export class UnSetPriceParcelsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getReceivers()
+  }
+  ngAfterViewInit() {
+    this.dataSource.sort = this.sort;
   }
   receiverChanged(val:any){
     this.vendorId= val.value.Id

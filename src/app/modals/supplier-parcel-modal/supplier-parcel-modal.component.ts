@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
@@ -15,7 +15,7 @@ import { AddParcelItemModalComponent } from '../add-parcel-item-modal/add-parcel
   templateUrl: './supplier-parcel-modal.component.html',
   styleUrls: ['./supplier-parcel-modal.component.css']
 })
-export class SupplierParcelModalComponent implements OnInit {
+export class SupplierParcelModalComponent implements OnInit, AfterViewInit {
   suppliers: UserModel[] = [];
   receivers: UserModel[] = [];
   supplierId:string='';
@@ -60,6 +60,9 @@ export class SupplierParcelModalComponent implements OnInit {
   ngOnInit(): void {
     this.getReceivers();
     this.getSuppliers();
+  }
+  ngAfterViewInit() {
+    this.dataSource.sort = this.sort;
   }
   supplierChanged(val:any){
     this.supplierId= val.value.Id;

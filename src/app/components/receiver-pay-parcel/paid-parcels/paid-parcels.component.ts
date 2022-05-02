@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -12,7 +12,7 @@ import { DataService } from 'src/app/services/data.service';
   templateUrl: './paid-parcels.component.html',
   styleUrls: ['./paid-parcels.component.css']
 })
-export class PaidParcelsComponent implements OnInit {
+export class PaidParcelsComponent implements OnInit, AfterViewInit {
 
   displayedColumns = ['Tracking_Number', 'Post_Code', 'Date', 'Received_At','Paid_At', 'Actions'];
   exampleDatabase: any
@@ -31,6 +31,10 @@ export class PaidParcelsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getReceiverPaidParcels()
+  }
+
+  ngAfterViewInit() {
+    this.dataSource.sort = this.sort;
   }
   openDialog(id:string) {
     const dialogRef=this.dialog.open(UnPaidParcelItemsComponent,{

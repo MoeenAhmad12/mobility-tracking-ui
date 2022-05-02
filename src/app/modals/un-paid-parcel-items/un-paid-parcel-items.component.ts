@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -11,7 +11,7 @@ import { DataService } from 'src/app/services/data.service';
   templateUrl: './un-paid-parcel-items.component.html',
   styleUrls: ['./un-paid-parcel-items.component.css']
 })
-export class UnPaidParcelItemsComponent implements OnInit {
+export class UnPaidParcelItemsComponent implements OnInit ,AfterViewInit{
 
   displayedColumns = ['Model', 'Price','Received_At', 'Paid_At','Actions'];
   exampleDatabase: any
@@ -33,6 +33,10 @@ export class UnPaidParcelItemsComponent implements OnInit {
   ngOnInit(): void {
     this.getParcelItems()
   }
+  ngAfterViewInit() {
+    this.dataSource.sort = this.sort;
+  }
+
   payItem(id:string){
     this.dataService.markParcelItemPaid(id).subscribe(
       response => {

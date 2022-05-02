@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -11,7 +11,7 @@ import { DataService } from 'src/app/services/data.service';
   templateUrl: './vendor-received-item.component.html',
   styleUrls: ['./vendor-received-item.component.css']
 })
-export class VendorReceivedItemComponent implements OnInit {
+export class VendorReceivedItemComponent implements OnInit, AfterViewInit {
   vendors: UserModel[] = [];
   displayedColumns = ['Model', 'Vendor_Price', 'Imei'];
   dataSource =  new MatTableDataSource();
@@ -58,6 +58,9 @@ export class VendorReceivedItemComponent implements OnInit {
       error => {
       }
     );
+  }
+  ngAfterViewInit() {
+    this.dataSource.sort = this.sort;
   }
   getVendorReceivedItems(){
     this.dataService.getVendorReceivedItems(this.vendorId).subscribe(
