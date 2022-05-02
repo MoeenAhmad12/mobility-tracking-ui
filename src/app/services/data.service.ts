@@ -291,9 +291,9 @@ export class DataService {
     return this.http.post(url, payload).pipe(map((response: any) => response));
   }
   getReceiverInventory(id:string) : Observable<any>{
-    var url = this.baseUrl + '/SearchReceiverInventory';
+    var url = this.baseUrl + '/SearchReceiverInventory?Unsent=1';
     if(id){
-      url+='?ReceiverId='+id +'&Unsent=1'
+      url+='&ReceiverId='+id;
     }
     return this.http.get(url).pipe(
       map((response: any) => response)

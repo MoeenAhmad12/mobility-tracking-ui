@@ -83,9 +83,12 @@ export class UserTransactionsComponent implements OnInit,AfterViewInit {
     );
   }
   receiveParcel() {
-    this.dialog.open(PayUserComponent,{
+    var dialogRef = this.dialog.open(PayUserComponent,{
       height: '500px',
       width: '450px',
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.getUserTransactions();
     });
   }
   changeUser(val:any){
