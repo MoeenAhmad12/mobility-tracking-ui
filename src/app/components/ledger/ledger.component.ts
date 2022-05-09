@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { UserBalanceComponent } from './user-balance/user-balance.component';
 
 @Component({
   selector: 'app-ledger',
@@ -7,9 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LedgerComponent implements OnInit {
 
+  @ViewChild(UserBalanceComponent, {static : true}) child : any;
   constructor() { }
 
   ngOnInit(): void {
   }
 
+  userTransaction(){
+    this.child.getUserBalance()
+  }
 }

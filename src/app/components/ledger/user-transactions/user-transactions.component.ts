@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -13,6 +13,8 @@ import { DataService } from 'src/app/services/data.service';
   styleUrls: ['./user-transactions.component.css']
 })
 export class UserTransactionsComponent implements OnInit,AfterViewInit {
+  
+  @Output() userTransaction: EventEmitter<any> = new EventEmitter();
   types: any []= [{type:"Vendor"},{type:'Supplier'},{type:'Receiver'}]
   userBalances:any[]=[];
   userBalance:any;
@@ -88,6 +90,7 @@ export class UserTransactionsComponent implements OnInit,AfterViewInit {
       width: '450px',
     });
     dialogRef.afterClosed().subscribe(result => {
+      this.userTransaction.emit();
       this.getUserTransactions();
     });
   }

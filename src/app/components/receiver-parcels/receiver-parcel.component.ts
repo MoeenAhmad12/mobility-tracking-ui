@@ -14,7 +14,6 @@ export class ReceiverParcelsComponent implements OnInit {
   ngOnInit(): void {
   }
   parcelReceived(val:any){
-    console.log("Called")
     this.child.getReceivedParcels()
   }
 
