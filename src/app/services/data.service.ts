@@ -256,7 +256,7 @@ export class DataService {
   }
   UpdateIsEnteredAndParcelPrice(obj:any) : Observable<any>{
 
-    const url = this.baseUrl + '/UpdateIsEnteredAndParcelPrice';
+    const url = this.baseUrl + '/UpdateIsEnteredAndParcelListItemsPrice';
     return this.http.post(url, obj).pipe(map((response: any) => response));
   }
   getVendorReceivedShipment(id:string) : Observable<any>{
