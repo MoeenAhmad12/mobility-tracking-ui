@@ -1,3 +1,4 @@
+import { SelectionModel } from '@angular/cdk/collections';
 import { AfterViewInit, Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
@@ -17,8 +18,9 @@ export class UnSetPriceParcelsComponent implements OnInit, AfterViewInit {
   
   @Output() priceParcel: EventEmitter<any> = new EventEmitter();
   receivers: UserModel[] = [];
-  displayedColumns = ['Tracking_Number', 'Post_Code', 'Actions'];
+  displayedColumns = ['select','Tracking_Number', 'Post_Code', 'Actions'];
   dataSource =  new MatTableDataSource();
+  selection = new SelectionModel<any>(true, []);
   vendorId:string='';
   config = {
     displayKey:"Name", //if objects array passed which key to be displayed defaults to description
@@ -44,6 +46,62 @@ export class UnSetPriceParcelsComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.getReceivers()
   }
+  receiveSelected(){
+    const dialogRef=this.dialog.open(PayParcelModalComponent,{
+      height: '300px',
+      width: '400px',
+      data: { mode: true},
+    });
+    
+    dialogRef.afterClosed().subscribe(result => {
+      if(result){
+        var selected:any[]=[];
+        this.selection.selected.forEach(element=>{
+            selected.push(element.Id)
+        });
+        var payload = {
+          "Parcel_Price": result,
+          "Parcel_Id":   selected   
+        }
+            
+        this.dataService.UpdateIsEnteredAndParcelPrice(payload).subscribe(
+          response => {
+            this.toastr.success(response.message, "Parcel")
+            this.priceParcel.emit();
+            this.getUnPaidReceiverParcels();
+          },
+          error => {
+          }
+        );
+      }
+      this.priceParcel.emit();
+      this.getUnPaidReceiverParcels();
+    });
+    console.log( this.selection)
+  }
+  isAllSelected() {
+     const numSelected = this.selection.selected.length;
+     const numRows = this.dataSource.data.length;
+     return numSelected === numRows;
+  }
+ 
+   /** Selects all rows if they are not all selected; otherwise clear selection. */
+  masterToggle() {
+     if (this.isAllSelected()) {
+       this.selection.clear();
+       return;
+     }
+ 
+     this.selection.select(...this.dataSource.data);
+  }
+ 
+  checkboxLabel(row?: any): string {
+     if (!row) {
+       return `${this.isAllSelected() ? 'deselect' : 'select'} all`;
+     }
+     return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.position + 1}`;
+  }
+ 
   ngAfterViewInit() {
     this.dataSource.sort = this.sort;
   }
@@ -63,6 +121,12 @@ export class UnSetPriceParcelsComponent implements OnInit, AfterViewInit {
       this.getUnPaidReceiverParcels();
     });
   }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
   getReceivers(){
     this.dataService.getReceivers().subscribe(
       response => {

@@ -52,6 +52,10 @@ export class ReceivedShipmentComponent implements OnInit,AfterViewInit {
     this.getReceivedShipments()
   }
   
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
   viewShipmentItems(id:string){
     this.dialog.open(UnReceivedShipmentItemsComponent,{
       height: '600px',

@@ -1,3 +1,4 @@
+import { SelectionModel } from '@angular/cdk/collections';
 import { AfterViewInit, Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
@@ -17,8 +18,9 @@ export class UnReceivedShipmentComponent implements OnInit, AfterViewInit {
 
   @Output() shipmentReceived: EventEmitter<any> = new EventEmitter();
   vendors: UserModel[] = [];
-  displayedColumns = ['Tracking_Number', 'Post_Code','Actions'];
+  displayedColumns = ['select','Tracking_Number', 'Post_Code','Actions'];
   dataSource =  new MatTableDataSource();
+  selection = new SelectionModel<any>(true, []);
   vendorId:string='';
   config = {
     displayKey:"Name", //if objects array passed which key to be displayed defaults to description
@@ -50,6 +52,52 @@ export class UnReceivedShipmentComponent implements OnInit, AfterViewInit {
   vendorChanged(val:any){
     this.vendorId= val.value.Id
     this.getUnReceivedShipments()
+  }
+  receiveSelected(){
+   var selected:any[]=[];
+   this.selection.selected.forEach(element=>{
+      selected.push(element.Id)
+   })
+    var payload = {
+      "receiver_shipment_id":selected
+    }
+
+    this.dataService.vendorReceiveShipmentList(payload).subscribe(
+      response => {
+        this.toastr.success(response.message, "Shipment")
+        this.getUnReceivedShipments();
+      },
+      error => {
+      }
+    );
+
+  }
+   isAllSelected() {
+     const numSelected = this.selection.selected.length;
+     const numRows = this.dataSource.data.length;
+     return numSelected === numRows;
+   }
+ 
+   /** Selects all rows if they are not all selected; otherwise clear selection. */
+   masterToggle() {
+     if (this.isAllSelected()) {
+       this.selection.clear();
+       return;
+     }
+ 
+     this.selection.select(...this.dataSource.data);
+   }
+ 
+   checkboxLabel(row?: any): string {
+     if (!row) {
+       return `${this.isAllSelected() ? 'deselect' : 'select'} all`;
+     }
+     return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.position + 1}`;
+   }
+ 
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
   receiveShipment(row:any){
     this.dataService.vendorReceiveShipment(row.Id).subscribe(

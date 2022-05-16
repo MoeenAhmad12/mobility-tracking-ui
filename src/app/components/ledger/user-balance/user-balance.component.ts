@@ -75,6 +75,11 @@ export class UserBalanceComponent implements OnInit,AfterViewInit {
     this.userId = val.value.Id;
     this.getUserBalance()
   }
+  
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
   getUserBalance(){
     this.dataService.getUserBalance(this.userId).subscribe(
       response => {

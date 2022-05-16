@@ -3,6 +3,11 @@
   <button class="btn btn-success" style="width: 130px;" data-bs-toggle="modal" data-bs-target="#supplierModal">Add Supplier</button>
 </div> -->
 <div class="m-3 mat-elevation-z8">
+  <div class="form">
+    <mat-form-field floatPlaceholder="never" color="accent">
+      <input matInput autocomplete="off" (keyup)="applyFilter($event)" placeholder="Filter">
+    </mat-form-field>
+  </div>
   <mat-table #table [dataSource]="dataSource" matSort class="mat-cell">
     <ng-container matColumnDef="Name">
       <mat-header-cell *matHeaderCellDef mat-sort-header>Name</mat-header-cell>

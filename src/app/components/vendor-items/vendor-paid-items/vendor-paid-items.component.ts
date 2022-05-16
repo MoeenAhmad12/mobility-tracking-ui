@@ -48,6 +48,10 @@ export class VendorPaidItemsComponent implements OnInit, AfterViewInit {
     this.getVendorPaidItem()
   }
   
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
   getVendors(){
     this.dataService.getVendors().subscribe(
       response => {

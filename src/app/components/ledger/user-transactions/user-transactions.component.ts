@@ -94,6 +94,10 @@ export class UserTransactionsComponent implements OnInit,AfterViewInit {
       this.getUserTransactions();
     });
   }
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
   changeUser(val:any){
     this.userId = val.value.Id;
     this.getUserTransactions();

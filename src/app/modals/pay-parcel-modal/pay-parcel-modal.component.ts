@@ -13,31 +13,46 @@ export class PayParcelModalComponent implements OnInit {
   parcelForm= this.formBuilder.group({
     price: ['', Validators.required]
   });
+  payMode = false;
   parcelId:string=''
   constructor(
     private formBuilder: FormBuilder,
     private dataService: DataService,
     private toastr: ToastrService,
     public dialogRef: MatDialogRef<PayParcelModalComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: {id: string}) { 
-      this.parcelId = data.id}
+    @Inject(MAT_DIALOG_DATA) public data: {id?: string;mode?:boolean}) { 
+      if(data.mode){
+        this.payMode =true;
+      }
+      else{
+        this.payMode =false;
+      }
+      if(data.id){
+        this.parcelId = data.id
+      }
+    }
   ngOnInit(): void {
   }
   
   payParcel(){
-    const payload={
-      "Parcel_Id": this.parcelId,
-      "Parcel_Price":this.parcelForm.value.price
+    if(this.payMode){
+      this.dialogRef.close(this.parcelForm.value.price);
     }
-    this.dataService.updateIsEnteredAndParcelPrice(payload).subscribe(
-      response => {
-        this.toastr.success(response.message, "Parcel")
-        this.dialogRef.close();
-      },
-      error => {
-        this.toastr.error("Error in paying Parcel", "Parcel")
+    else{
+      const payload={
+        "Parcel_Id": this.parcelId,
+        "Parcel_Price":this.parcelForm.value.price
       }
-    );
+      this.dataService.updateIsEnteredAndParcelPrice(payload).subscribe(
+        response => {
+          this.toastr.success(response.message, "Parcel")
+          this.dialogRef.close();
+        },
+        error => {
+          this.toastr.error("Error in paying Parcel", "Parcel")
+        }
+      );
+    }
   }
 
 }

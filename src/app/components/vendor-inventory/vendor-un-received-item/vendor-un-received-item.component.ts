@@ -48,6 +48,10 @@ export class VendorUnReceivedItemComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {
     this.dataSource.sort = this.sort;
   }
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
   openDialog(id:string) {
     const dialogRef=this.dialog.open(VendorReceiveItemModalComponent,{
       height: '300px',

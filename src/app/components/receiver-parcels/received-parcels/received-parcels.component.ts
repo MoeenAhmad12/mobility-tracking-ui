@@ -39,6 +39,10 @@ export class ReceivedParcelsComponent implements OnInit,AfterViewInit {
       data: { id: id },
     });
   }
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
   getReceivedParcels(){
     this.dataService.getReceivedParcels().subscribe(
       response => {

@@ -1,4 +1,4 @@
-<div class="m-3 row">
+<div class="my-3 mx-2 row">
     <div class="col-2">
         <ngx-select-dropdown style="width:200px" [config]="config" [options]="types" (change)="changeType($event)"></ngx-select-dropdown>
     </div>
@@ -15,6 +15,11 @@
     </div>
 </div>
 <div class="m-3 mat-elevation-z8">
+  <div class="form">
+    <mat-form-field floatPlaceholder="never" color="accent">
+      <input matInput autocomplete="off" (keyup)="applyFilter($event)" placeholder="Filter">
+    </mat-form-field>
+  </div>
     <mat-table #table [dataSource]="dataSource" matSort class="mat-cell"  style="min-height: 400px;">
       <ng-container matColumnDef="Name">
         <mat-header-cell *matHeaderCellDef mat-sort-header>Name</mat-header-cell>

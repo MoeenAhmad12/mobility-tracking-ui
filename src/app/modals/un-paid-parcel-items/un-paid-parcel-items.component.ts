@@ -37,6 +37,10 @@ export class UnPaidParcelItemsComponent implements OnInit ,AfterViewInit{
     this.dataSource.sort = this.sort;
   }
 
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
   payItem(id:string){
     this.dataService.markParcelItemPaid(id).subscribe(
       response => {

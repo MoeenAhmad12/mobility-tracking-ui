@@ -63,17 +63,20 @@ export class AddShipmentModalComponent implements OnInit {
       data:{id:this.receiverId}
     });
     dialogRef.afterClosed().subscribe(result => {
-      if(result){
-        
-        var index = this.shipmentItems.findIndex(x=> x.Model == result.value.Model &&  x.Imei == result.value.Imei)
+      if(result.value){
+        debugger
+        result.value.forEach((element: { Model: any; Imei: any; }) => {
+          var index = this.shipmentItems.findIndex(x=> x.Model == element.Model &&  x.Imei == element.Imei)
         console.log(index)
         if(index>=0){
           this.toastr.error("This item already exist", "Item")
         }
         else{
-          this.shipmentItems.push(result.value);
+          this.shipmentItems.push(element);
           this.dataSource.data = this.shipmentItems;
         }
+        });
+        
       }
     });
   }

@@ -16,6 +16,7 @@ import { SelectDropDownModule } from 'ngx-select-dropdown';
 import { SupplierParcelModalComponent } from './modals/supplier-parcel-modal/supplier-parcel-modal.component';
 import { ParcelItemModalComponent } from './modals/parcel-item-modal/parcel-item-modal.component'
 
+import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatTableModule} from '@angular/material/table';
 import {MatSortModule} from '@angular/material/sort';
 import { MatIconModule } from '@angular/material/icon';
@@ -123,6 +124,7 @@ import {MatNativeDateModule} from '@angular/material/core';
     ReactiveFormsModule,
     HttpClientModule,
     MatDatepickerModule,
+    MatCheckboxModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
     SelectDropDownModule,

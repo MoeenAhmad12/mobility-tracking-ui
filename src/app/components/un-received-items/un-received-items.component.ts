@@ -1,3 +1,4 @@
+import { SelectionModel } from '@angular/cdk/collections';
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -15,6 +16,7 @@ export class UnReceivedItemsComponent implements OnInit ,AfterViewInit{
   suppliers: UserModel[] = [];
   displayedColumns = ['Model', 'Item_Price', 'Tracking_Number', 'Post_Code','Receiver_Name','Supplier_Name'];
   dataSource =  new MatTableDataSource();
+  selection = new SelectionModel<any>(true, []);
   supplierId:string='';
 
 
@@ -43,11 +45,15 @@ export class UnReceivedItemsComponent implements OnInit ,AfterViewInit{
   ngAfterViewInit() {
     this.dataSource.sort = this.sort;
   }
+  
   receiverChanged(val:any){
     this.supplierId= val.value.Id
     this.getSupplierUnReceivedItems()
   }
-  
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
   getSupplier(){
     this.dataService.getSuppliers().subscribe(
       response => {

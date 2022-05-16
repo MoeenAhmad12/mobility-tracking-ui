@@ -2,7 +2,7 @@
 <mat-dialog-content class="mat-typography" style="height: 260px;">
     <div class="mb-3">
         <label for="receiver" class="form-label">Imei: </label>
-        <ngx-select-dropdown [config]="config" [options]="items" (change)="itemChanged($event)"></ngx-select-dropdown>
+        <ngx-select-dropdown [config]="config" [options]="items" [multiple]="true" (change)="itemChanged($event)"></ngx-select-dropdown>
     </div>
 </mat-dialog-content>
 <mat-dialog-actions align="end">

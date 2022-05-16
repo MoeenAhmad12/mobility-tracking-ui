@@ -44,6 +44,10 @@ export class VendorReceivedItemComponent implements OnInit, AfterViewInit {
     this.vendorId= val.value.Id
     this.getVendorReceivedItems()
   }
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
   getVendors(){
     this.dataService.getVendors().subscribe(
       response => {

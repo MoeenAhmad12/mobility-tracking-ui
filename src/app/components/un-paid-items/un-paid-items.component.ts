@@ -49,6 +49,10 @@ export class UnPaidItemsComponent implements OnInit , AfterViewInit{
     this.supplierId= val.value.Id
     this.getSupplierUnPaidItems()
   }
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
   getSupplier(){
     this.dataService.getSuppliers().subscribe(
       response => {

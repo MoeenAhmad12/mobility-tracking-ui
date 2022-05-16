@@ -40,7 +40,7 @@ export class SupplierParcelsComponent implements OnInit, AfterViewInit {
     price: ['', Validators.required]
   });
   displayedColumns: string[] = ['Tracking_Number','Post_Code','Parcel_Date','Supplier_Name', 'Receiver_Name','Actions'];
-  dataSource = new MatTableDataSource(this.supplierParcels);
+  dataSource = new MatTableDataSource();
   @ViewChild(MatSort) sort: any;
 
 

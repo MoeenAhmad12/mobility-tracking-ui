@@ -52,6 +52,10 @@ export class ShipmentComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {
     this.dataSource.sort = this.sort;
   }
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
   receiveShipment(row:any){
     this.dataService.vendorReceiveShipment(row.Id).subscribe(
       response => {

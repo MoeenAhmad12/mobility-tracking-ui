@@ -41,6 +41,10 @@ export class UnReceivedParcelItemsComponent implements OnInit,AfterViewInit {
     this.dataSource.sort = this.sort;
   }
 
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
   receiveParcelItems(id:string) {
     const dialogRef=this.dialog.open(ReceiveParcelComponent,{
       height: '300px',
