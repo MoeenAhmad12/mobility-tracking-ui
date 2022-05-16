@@ -47,6 +47,11 @@ export class UnSetPriceParcelsComponent implements OnInit, AfterViewInit {
     this.getReceivers()
   }
   receiveSelected(){
+    if(this.selection.selected.length<=0){
+      this.toastr.error("No Parcel is selected", "Parcel")
+      return;
+    }
+    
     const dialogRef=this.dialog.open(PayParcelModalComponent,{
       height: '300px',
       width: '400px',
@@ -63,21 +68,21 @@ export class UnSetPriceParcelsComponent implements OnInit, AfterViewInit {
           "Parcel_Price": result,
           "Parcel_Id":   selected   
         }
-            
-        this.dataService.UpdateIsEnteredAndParcelPrice(payload).subscribe(
-          response => {
-            this.toastr.success(response.message, "Parcel")
-            this.priceParcel.emit();
-            this.getUnPaidReceiverParcels();
-          },
-          error => {
-          }
-        );
+          this.dataService.UpdateIsEnteredAndParcelPrice(payload).subscribe(
+            response => {
+              this.toastr.success(response.message, "Parcel")
+              this.selection = new SelectionModel<any>(true, []);
+              this.priceParcel.emit();
+              this.getUnPaidReceiverParcels();
+            },
+            error => {
+            }
+          );
+        
       }
       this.priceParcel.emit();
       this.getUnPaidReceiverParcels();
     });
-    console.log( this.selection)
   }
   isAllSelected() {
      const numSelected = this.selection.selected.length;

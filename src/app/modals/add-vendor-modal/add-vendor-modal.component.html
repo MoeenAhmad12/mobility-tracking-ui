@@ -11,6 +11,9 @@
         <div class="mb-3">
           <label for="phone" class="form-label">Phone: </label>
           <input id="phone" type="text" formControlName="phone" class="form-control" >
+          <div class="text-danger" *ngIf="validPhone">
+            Phone number can't start with 0
+          </div>
         </div>
         <div class="mb-3">
           <label for="address" class="form-label">Address: </label>
@@ -21,6 +24,6 @@
 </mat-dialog-content>
 <mat-dialog-actions align="end">
   <button mat-button mat-dialog-close>Cancel</button>
-  <button *ngIf="!isEditMode" mat-raised-button color="accent" [disabled]="vendorForm.invalid" (click)="addVendor()">Create</button>
-  <button *ngIf="isEditMode" mat-raised-button color="accent" [disabled]="vendorForm.invalid" (click)="updateVendor()">Update</button>
+  <button *ngIf="!isEditMode" mat-raised-button color="accent" [disabled]="vendorForm.invalid || validPhone" (click)="addVendor()">Create</button>
+  <button *ngIf="isEditMode" mat-raised-button color="accent" [disabled]="vendorForm.invalid || validPhone" (click)="updateVendor()">Update</button>
 </mat-dialog-actions>

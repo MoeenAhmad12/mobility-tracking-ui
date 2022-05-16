@@ -14,6 +14,7 @@ export class AddReceiverModalComponent implements OnInit {
     name: ['', Validators.required],
     phone: ['', Validators.required],
   });
+  validPhone= false;
   id:string='';
   isEditMode = false;
   constructor(
@@ -36,6 +37,17 @@ export class AddReceiverModalComponent implements OnInit {
     }
 
   ngOnInit(): void {
+    this.onChanges()
+  }
+  onChanges() {
+    this.receiverForm.valueChanges.subscribe(form => {
+      if(form.phone.startsWith("0")){
+        this.validPhone = true
+      }
+      else{
+        this.validPhone = false
+      }
+    });
   }
   updateReceiver(){
     const payload={

@@ -15,6 +15,7 @@ export class AddSupplierModalComponent implements OnInit {
     phone: ['', Validators.required],
     address: ['', Validators.required]
   });
+  validPhone= false;
   isEditMode =false;
   id:string = '';
   constructor(
@@ -37,9 +38,19 @@ export class AddSupplierModalComponent implements OnInit {
       }
      }
 
-  ngOnInit(): void {
-  }
-
+    ngOnInit(): void {
+      this.onChanges()
+    }
+    onChanges() {
+      this.supplierForm.valueChanges.subscribe(form => {
+        if(form.phone.startsWith("0")){
+          this.validPhone = true
+        }
+        else{
+          this.validPhone = false
+        }
+      });
+    }
   addSupplier(){
     const payload={
       "Name":  this.supplierForm.value.name,

@@ -17,6 +17,7 @@ export class AddVendorModalComponent implements OnInit {
   });
   isEditMode = false;
   id:string = '';
+  validPhone= false;
   constructor(
     private formBuilder: FormBuilder,
     private dataService: DataService,
@@ -37,8 +38,19 @@ export class AddVendorModalComponent implements OnInit {
       }
      }
 
-  ngOnInit(): void {
-  }
+     ngOnInit(): void {
+      this.onChanges()
+    }
+    onChanges() {
+      this.vendorForm.valueChanges.subscribe(form => {
+        if(form.phone.startsWith("0")){
+          this.validPhone = true
+        }
+        else{
+          this.validPhone = false
+        }
+      });
+    }
   
   addVendor(){
     const payload={

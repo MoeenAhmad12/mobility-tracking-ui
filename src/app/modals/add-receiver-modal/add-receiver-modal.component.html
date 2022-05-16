@@ -1,6 +1,6 @@
 <h2 *ngIf="isEditMode" mat-dialog-title>Update Receiver</h2>
 <h2 *ngIf="!isEditMode" mat-dialog-title>Create Receiver</h2>
-<mat-dialog-content class="mat-typography" style="height: 170px;">
+<mat-dialog-content class="mat-typography" style="height: 190px;">
 
     <div [formGroup]="receiverForm">
 
@@ -10,12 +10,15 @@
         </div>
         <div class="mb-3">
           <label for="phone" class="form-label">Phone: </label>
-          <input id="phone" type="number" formControlName="phone" class="form-control" >
+          <input id="phone" type="text" formControlName="phone" class="form-control" >
+          <div class="text-danger" *ngIf="validPhone">
+            Phone number can't start with 0
+          </div>
         </div>
       </div>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
   <button mat-button mat-dialog-close>Cancel</button>
-  <button mat-raised-button *ngIf="!isEditMode" [disabled]="receiverForm.invalid" color="accent" (click)="addReceiver()">Create</button>
-  <button mat-raised-button *ngIf="isEditMode" [disabled]="receiverForm.invalid" color="accent" (click)="updateReceiver()">Update</button>
+  <button mat-raised-button *ngIf="!isEditMode" [disabled]="receiverForm.invalid || validPhone" color="accent" (click)="addReceiver()">Create</button>
+  <button mat-raised-button *ngIf="isEditMode" [disabled]="receiverForm.invalid || validPhone" color="accent" (click)="updateReceiver()">Update</button>
 </mat-dialog-actions>

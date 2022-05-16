@@ -35,6 +35,7 @@ export class ReceiverComponent implements OnInit , AfterViewInit{
   ngAfterViewInit() {
     this.dataSource.sort = this.sort;
   }
+  
   addReceiver(row?:any) {
     const dialogRef=this.dialog.open(AddReceiverModalComponent,{
       height: '350px',
@@ -63,7 +64,6 @@ export class ReceiverComponent implements OnInit , AfterViewInit{
   }
 
   applyFilter(event: Event) {
-    console.log(event)
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }

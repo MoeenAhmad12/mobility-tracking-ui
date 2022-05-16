@@ -54,6 +54,11 @@ export class UnReceivedShipmentComponent implements OnInit, AfterViewInit {
     this.getUnReceivedShipments()
   }
   receiveSelected(){
+    if(this.selection.selected.length<=0){
+      this.toastr.error("No Shipment is selected", "Shipment")
+      return;
+    }
+    
    var selected:any[]=[];
    this.selection.selected.forEach(element=>{
       selected.push(element.Id)
@@ -64,8 +69,10 @@ export class UnReceivedShipmentComponent implements OnInit, AfterViewInit {
 
     this.dataService.vendorReceiveShipmentList(payload).subscribe(
       response => {
-        this.toastr.success(response.message, "Shipment")
+        this.toastr.success(response.message, "Shipment");
+        this.selection = new SelectionModel<any>(true, []);
         this.getUnReceivedShipments();
+        this.shipmentReceived.emit();
       },
       error => {
       }
