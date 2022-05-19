@@ -262,7 +262,7 @@ export class DataService {
   getVendorReceivedShipment(id:string) : Observable<any>{
     var url = this.baseUrl + '/GetVendorShipment?Received=true';
     if(id){
-      url+='&vendorid='+id
+      url+='&VendorId='+id
     }
     return this.http.get(url).pipe(
       map((response: any) => response)
@@ -271,7 +271,7 @@ export class DataService {
   getVendorUnReceivedShipment(id:string) : Observable<any>{
     var url = this.baseUrl + '/GetVendorShipment?Received=false';
     if(id){
-      url+='&vendorid='+id
+      url+='&VendorId='+id
     }
     return this.http.get(url).pipe(
       map((response: any) => response)
