@@ -9,7 +9,7 @@ import { map, Observable } from 'rxjs';
 export class DataService {
 
   constructor(private http: HttpClient) { }
-  private baseUrl: string ='http://localhost:8000';
+  private baseUrl: string ='http://128.199.191.155:8000';
 
   createReceiver(payload: UserModel) : Observable<any>{
     const url = this.baseUrl + '/AddReceiver';
